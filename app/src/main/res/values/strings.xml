@@ -11,9 +11,10 @@
     <string name="or">OR</string>
     <string name="continue_on_facebook">Continue on Facebook</string>
     <string name="first_name">First Name</string>
-    <string name="last_name" >Last Name</string>
+    <string name="last_name">Last Name</string>
     <string name="mobile">Mobile</string>
     <string name="cr_er_un_nouveau_compte">Create a new account</string>
-    <string name="sign_up" >Sign up</string>
+    <string name="sign_up">Sign up</string>
     <string name="power_home">PowerHome</string>
+    <string name="LearnApp" >LearnApp</string>
 </resources>
