@@ -1,7 +1,6 @@
 package iut.dam.powerhome;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -10,7 +9,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
 public class HabitatActivity extends AppCompatActivity {
+
+    private ArrayList<Habitat> habitats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +26,18 @@ public class HabitatActivity extends AppCompatActivity {
             return insets;
         });
 
-        ListView planetsSP = findViewById(R.id.lv_habitants);
-        String[] items = {"Gaëtan Leclair", "Cédric Boudet", "Gaylord Thibodeaux", "Adam Jacquinot", "Abel Fresnel"};
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(this,
-                        android.R.layout.simple_list_item_1,
-                        items);
-        planetsSP.setAdapter(adapter);
+        ListView habitantsLV = findViewById(R.id.lv_habitants);
+        habitats = new ArrayList<>();
+
+
+        HabitatAdapter adapter = new HabitatAdapter(this, R.layout.list_item, habitats);
+        habitantsLV.setAdapter(adapter);
+    }
+
+    public void addHabitat(){
+        habitats.add(new Habitat(1, "Gaëtan Leclair", 1, 0));
+        habitats.add(new Habitat(2, "Cédric Boudet", 1, 0));
+        habitats.add(new Habitat(3, "Adam Jacquinot", 1, 0));
+        habitats.add(new Habitat(4, "Abel Fresnel", 1, 0));
     }
 }

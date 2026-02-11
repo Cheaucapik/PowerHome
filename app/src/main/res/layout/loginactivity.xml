@@ -60,7 +60,7 @@
             android:src="@drawable/baseline_mail_outline_24" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/gray"
@@ -68,7 +68,8 @@
             android:minHeight="48dp"
             android:hint="@string/e_mail"
             android:textColor="@color/grey"
-            android:fontFamily="@font/droid"/>
+            android:fontFamily="@font/droid"
+            tools:ignore="TextFields" />
 
     </LinearLayout>
 
@@ -87,7 +88,7 @@
             android:src="@drawable/lock_open_svgrepo_com" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/gray"
@@ -95,7 +96,8 @@
             android:minHeight="48dp"
             android:hint="@string/password"
             android:textColor="@color/grey"
-            android:fontFamily="@font/droid"/>
+            android:fontFamily="@font/droid"
+            tools:ignore="TextFields" />
 
     </LinearLayout>
 

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             String email = bundle.getString("email");
             String password = bundle.getString("mdp");
 
-            TextView text = findViewById(R.id.tv_text);
+            TextView text = findViewById(R.id.tv_idPassword);
             String msg = "Hello '" + email + "' your password is : '" + password + "'";
             text.setText(msg);
         }

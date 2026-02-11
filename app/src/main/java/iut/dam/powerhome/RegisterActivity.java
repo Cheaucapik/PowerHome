@@ -22,12 +22,12 @@ public class RegisterActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Spinner planetsSP = findViewById(R.id.sp_planets);
+        Spinner prefixeSP = findViewById(R.id.sp_prefixe);
         String[] items = {"+1", "+33", "+34"};
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(this,
                         android.R.layout.simple_list_item_1,
                         items);
-        planetsSP.setAdapter(adapter);
+        prefixeSP.setAdapter(adapter);
     }
 }
