@@ -16,5 +16,7 @@
     <string name="cr_er_un_nouveau_compte">Create a new account</string>
     <string name="sign_up">Sign up</string>
     <string name="power_home">PowerHome</string>
-    <string name="LearnApp" >LearnApp</string>
+    <string name="Accommodations" >Accommodations</string>
+    <string name="appliance">appliance</string>
+    <string name="floor">floor</string>
 </resources>

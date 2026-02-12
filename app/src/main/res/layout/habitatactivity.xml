@@ -12,7 +12,7 @@
         android:background="@color/green"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:text="@string/LearnApp"
+        android:text="@string/Accommodations"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:gravity="center|start"
@@ -24,6 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/lv_habitants"
-        android:padding="20dp"/>
+        android:padding="20dp"
+        android:dividerHeight="10dp"
+        android:divider="@android:color/transparent"/>
 
 </LinearLayout>

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="20dp"
-    android:background="@color/white">
+    android:background="@drawable/border_bottom"
+
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -68,7 +71,8 @@
             android:textColor="@color/black"
             android:textAllCaps="true"
             android:padding="3dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:id="@+id/floor_tv"/>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"

@@ -33,11 +33,13 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
         TextView nomTv = convertView.findViewById(R.id.nom_habitant_tv);
         TextView etageTv = convertView.findViewById(R.id.etage_tv);
         TextView nbEqTv = convertView.findViewById(R.id.nb_equipements_tv);
+        TextView floorTv = convertView.findViewById(R.id.floor_tv);
 
         nomTv.setText(habitat.getResidentName());
         etageTv.setText(String.valueOf(habitat.getFloor()));
+        floorTv.setText(getContext().getString(R.string.floor));
 
-        String equipementText = habitat.getAppliances().size() + " équipement" + (habitat.getAppliances().size() > 1 ? "s" : "");
+        String equipementText = habitat.getAppliances().size() + " " + getContext().getString(R.string.appliance) + (habitat.getAppliances().size() > 1 ? "s" : "");
         nbEqTv.setText(equipementText);
 
         LinearLayout layout = convertView.findViewById(R.id.container_icons_LL);

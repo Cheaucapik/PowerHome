@@ -1,7 +1,10 @@
 package iut.dam.powerhome;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +35,15 @@ public class HabitatActivity extends AppCompatActivity {
 
         HabitatAdapter adapter = new HabitatAdapter(this, R.layout.item_habitat, habitats);
         habitantsLV.setAdapter(adapter);
+
+        habitantsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Habitat h = habitats.get(position);
+                Toast.makeText(HabitatActivity.this, h.getResidentName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     public void addHabitat() {
