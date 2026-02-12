@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/habitat_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HabitatActivity">
+    tools:context=".HabitatActivity"
+    android:background="@color/off_white">
 
     <TextView
         android:background="@color/green"
@@ -20,8 +21,9 @@
         tools:ignore="RtlSymmetry" />
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lv_habitants"/>
+        android:id="@+id/lv_habitants"
+        android:padding="20dp"/>
 
 </LinearLayout>

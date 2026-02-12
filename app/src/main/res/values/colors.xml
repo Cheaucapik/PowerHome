@@ -8,4 +8,7 @@
     <color name="grey">#c3c3c3</color>
     <color name="gray">#969696</color>
     <color name="green">#0a990b</color>
+    <color name="grey_border">#808080</color>
+    <color name="light_grey_border">#999999</color>
+    <color name="off_white">#fafafa</color>
 </resources>
