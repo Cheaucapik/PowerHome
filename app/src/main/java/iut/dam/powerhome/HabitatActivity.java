@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +39,8 @@ public class HabitatActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Habitat h = habitats.get(position);
-                Toast.makeText(HabitatActivity.this, h.getResidentName(), Toast.LENGTH_SHORT).show();
+                CustomDialog customDialog = new CustomDialog(HabitatActivity.this, h);
+                customDialog.show();
             }
         });
 
@@ -49,29 +49,29 @@ public class HabitatActivity extends AppCompatActivity {
     public void addHabitat() {
 
         ArrayList<Appliance> gaetanApp = new ArrayList<>(Arrays.asList(
-                new Appliance(1, "Machine à laver", "Ref", 2000, R.drawable.washing_machine),
-                new Appliance(2, "Aspirateur", "Ref", 2000, R.drawable.vacuum),
-                new Appliance(3, "Climatiseur", "Ref", 2000, R.drawable.air_conditioning),
-                new Appliance(4, "Repasseur vapeur", "Ref", 2000, R.drawable.steam_iron)));
-        habitats.add(new Habitat(1, "Gaëtan Leclair", 1, 0, gaetanApp));
+                new Appliance(1, "Machine à laver", "RML1", 3000, R.drawable.washing_machine),
+                new Appliance(2, "Aspirateur", "RA1", 400, R.drawable.vacuum),
+                new Appliance(3, "Climatiseur", "RC1", 2500, R.drawable.air_conditioning),
+                new Appliance(4, "Repasseur vapeur", "RRV1", 1000, R.drawable.steam_iron)));
+        habitats.add(new Habitat(1, "Gaëtan Leclair", 1, 42, gaetanApp));
 
         ArrayList<Appliance> cedricApp = new ArrayList<>(Arrays.asList(
-                new Appliance(5, "Machine à laver", "Ref", 2000, R.drawable.washing_machine)));
-        habitats.add(new Habitat(2, "Cédric Boudet", 1, 0, cedricApp));
+                new Appliance(5, "Machine à laver", "RMV2", 3000, R.drawable.washing_machine)));
+        habitats.add(new Habitat(2, "Cédric Boudet", 1, 54, cedricApp));
 
         ArrayList<Appliance> gaylordApp = new ArrayList<>(Arrays.asList(
-                new Appliance(6, "Repasseur vapeur", "Ref", 2000, R.drawable.steam_iron),
-                new Appliance(7, "Aspirateur", "Ref", 2000, R.drawable.vacuum)));
-        habitats.add(new Habitat(3, "Gaylord Thibodeaux", 2, 0, gaylordApp));
+                new Appliance(6, "Repasseur vapeur", "RRV2", 1000, R.drawable.steam_iron),
+                new Appliance(7, "Aspirateur", "RA2", 400, R.drawable.vacuum)));
+        habitats.add(new Habitat(3, "Gaylord Thibodeaux", 2, 41, gaylordApp));
 
         ArrayList<Appliance> adamApp = new ArrayList<>(Arrays.asList(
-                new Appliance(8, "Machine à laver", "Ref", 2000, R.drawable.washing_machine),
-                new Appliance(9, "Repasseur vapeur", "Ref", 2000, R.drawable.steam_iron),
-                new Appliance(10, "Aspirateur", "Ref", 2000, R.drawable.vacuum)));
-        habitats.add(new Habitat(3, "Adam Jacquinot", 1, 0, adamApp));
+                new Appliance(8, "Machine à laver", "RMV3", 3000, R.drawable.washing_machine),
+                new Appliance(9, "Repasseur vapeur", "RRV3", 1000, R.drawable.steam_iron),
+                new Appliance(10, "Aspirateur", "RA3", 400, R.drawable.vacuum)));
+        habitats.add(new Habitat(3, "Adam Jacquinot", 1, 34, adamApp));
 
         ArrayList<Appliance> abelApp = new ArrayList<>(Arrays.asList(
-                new Appliance(11, "Aspirateur", "Ref", 2000, R.drawable.vacuum)));
-        habitats.add(new Habitat(4, "Abel Fresnel", 1, 0, abelApp));
+                new Appliance(11, "Aspirateur", "RA4", 400, R.drawable.vacuum)));
+        habitats.add(new Habitat(4, "Abel Fresnel", 1, 49, abelApp));
     }
 }
