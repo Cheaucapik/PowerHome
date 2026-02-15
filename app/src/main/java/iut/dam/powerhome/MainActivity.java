@@ -1,35 +1,66 @@
 package iut.dam.powerhome;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.WindowCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.navigation.NavigationView;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private DrawerLayout drawerDL;
+    private ActionBarDrawerToggle toggle;
+    private FragmentManager fm;
+    private NavigationView navNV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            String email = bundle.getString("email");
-            String password = bundle.getString("mdp");
 
-            TextView text = findViewById(R.id.tv_idPassword);
-            String msg = "Hello '" + email + "' your password is : '" + password + "'";
-            text.setText(msg);
+        drawerDL = findViewById(R.id.drawer);
+        navNV = findViewById(R.id.nav_view);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        fm = getSupportFragmentManager();
+
+        setSupportActionBar(toolbar);
+
+        toggle = new ActionBarDrawerToggle(this, drawerDL, toolbar, R.string.open, R.string.close);
+        drawerDL.addDrawerListener(toggle);
+        toggle.syncState();
+
+
+        navNV.setNavigationItemSelectedListener(this);
+        if (savedInstanceState == null) {
+            navNV.getMenu().performIdentifierAction(R.id.nav_first, 0);
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        return toggle.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item){
+        if (item.getItemId() == R.id.nav_first){
+            fm.beginTransaction().replace(R.id.contentFL,
+                    new HabitatsFragment()).commit();
+            setTitle(R.string.Accommodations);
+        } else if (item.getItemId() == R.id.nav_second) {
+            fm.beginTransaction().replace(R.id.contentFL,
+                    new HabitatsFragment()).commit();
+        }
+        drawerDL.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }

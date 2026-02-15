@@ -19,4 +19,8 @@
     <string name="Accommodations" >Accommodations</string>
     <string name="appliance">appliance</string>
     <string name="floor">floor</string>
+    <string name="Gallery">Gallery</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="android_studio">Android Studio</string>
 </resources>

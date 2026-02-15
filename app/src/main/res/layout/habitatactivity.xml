@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/habitat_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HabitatActivity"
-    android:background="@color/off_white">
-
-    <TextView
-        android:background="@color/green"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="@string/Accommodations"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:gravity="center|start"
-        android:paddingStart="20dp"
-        android:textSize="23sp"
-        tools:ignore="RtlSymmetry" />
+    android:background="@color/off_white"
+    android:fitsSystemWindows="true">
 
     <ListView
         android:layout_width="match_parent"
@@ -28,4 +16,4 @@
         android:dividerHeight="10dp"
         android:divider="@android:color/transparent"/>
 
-</LinearLayout>
+</FrameLayout>

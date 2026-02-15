@@ -34,10 +34,12 @@ public class LoginActivity extends AppCompatActivity {
         String password = editPassword.getText().toString();
 
         if(password.equals("EFGH") && email.equals("abcd")){
-            Intent intent = new Intent(this, MainActivity.class);
+//            Intent intent = new Intent(this, WelcomeActivity.class);
 
-            intent.putExtra("email", email);
-            intent.putExtra("mdp", password);
+//            intent.putExtra("email", email);
+//            intent.putExtra("mdp", password);
+
+            Intent intent = new Intent(this, MainActivity.class);
 
             startActivity(intent);
         }

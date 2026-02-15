@@ -19,4 +19,8 @@
     <string name="Accommodations" >Hábitats</string>
     <string name="appliance">equipo</string>
     <string name="floor">piso</string>
+    <string name="Gallery">Galería</string>
+    <string name="open">Abrir</string>
+    <string name="close">Cerrar</string>
+    <string name="android_studio">Android Studio</string>
 </resources>

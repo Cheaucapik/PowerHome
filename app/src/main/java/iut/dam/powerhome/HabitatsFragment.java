@@ -1,49 +1,43 @@
 package iut.dam.powerhome;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class HabitatActivity extends AppCompatActivity {
-
+public class HabitatsFragment extends Fragment {
     private ArrayList<Habitat> habitats;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.habitatactivity);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.habitat_activity), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.habitatactivity, container, false);
 
-        ListView habitantsLV = findViewById(R.id.lv_habitants);
+        ListView habitantsLV = rootView.findViewById(R.id.lv_habitants);
         habitats = new ArrayList<>();
         addHabitat();
 
-        HabitatAdapter adapter = new HabitatAdapter(this, R.layout.item_habitat, habitats);
+        HabitatAdapter adapter = new HabitatAdapter(getContext(), R.layout.item_habitat, habitats);
         habitantsLV.setAdapter(adapter);
 
         habitantsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Habitat h = habitats.get(position);
-                CustomDialog customDialog = new CustomDialog(HabitatActivity.this, h);
+                CustomDialog customDialog = new CustomDialog(getContext(), h);
                 customDialog.show();
             }
         });
 
+        return rootView;
     }
 
     public void addHabitat() {
