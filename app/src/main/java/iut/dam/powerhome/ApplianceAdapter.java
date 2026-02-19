@@ -1,6 +1,7 @@
 package iut.dam.powerhome;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -39,7 +41,22 @@ public class ApplianceAdapter extends ArrayAdapter<Appliance> {
         ref.setText(item.getReference());
         watts.setText(item.getWattage() + "W");
 
+        colorWattage(watts, item);
+
         return convertView;
+    }
+
+    private void colorWattage(TextView tv, Appliance item){
+        tv.setTextColor(Color.WHITE);
+        if(item.getWattage() < 1000){
+            tv.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.green));
+        }
+        else if(item.getWattage() < 2500){
+            tv.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.orange));
+        }
+        else{
+            tv.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.red));
+        }
     }
 
 }

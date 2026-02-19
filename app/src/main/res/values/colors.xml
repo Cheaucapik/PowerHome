@@ -12,4 +12,5 @@
     <color name="light_grey_border">#999999</color>
     <color name="off_white">#fafafa</color>
     <color name="light_green">#7dcb80</color>
+    <color name="red">#D10000</color>
 </resources>
