@@ -19,7 +19,7 @@ public class HabitatsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.habitatactivity, container, false);
+        View rootView = inflater.inflate(R.layout.habitats_fragment, container, false);
 
         ListView habitantsLV = rootView.findViewById(R.id.lv_habitants);
         habitats = new ArrayList<>();

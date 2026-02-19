@@ -7,15 +7,15 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class ImportFragment extends Fragment {
+public class MonHabitatFragment extends Fragment {
 
-    public ImportFragment(){
+    public MonHabitatFragment(){
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.import_fragment, container, false);
+        View layout = inflater.inflate(R.layout.monhabitat_fragment, container, false);
         return layout;
     }
 }

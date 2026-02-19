@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (savedInstanceState == null) {
             navNV.getMenu().performIdentifierAction(R.id.nav_first, 0);
         }
+
+        navNV.setItemIconTintList(null);
     }
 
     @Override
@@ -58,8 +60,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setTitle(R.string.Accommodations);
         } else if (item.getItemId() == R.id.nav_second) {
             fm.beginTransaction().replace(R.id.contentFL,
-                    new HabitatsFragment()).commit();
+                    new MonHabitatFragment()).commit();
         }
+        else if (item.getItemId() == R.id.nav_third) {
+            fm.beginTransaction().replace(R.id.contentFL,
+                    new MonHabitatFragment()).commit();
+        }
+
         drawerDL.closeDrawer(GravityCompat.START);
         return true;
     }

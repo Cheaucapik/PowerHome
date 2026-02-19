@@ -23,4 +23,6 @@
     <string name="open">Ouvrir</string>
     <string name="close">Fermer</string>
     <string name="android_studio">Android Studio</string>
+    <string name="myAccomodation">Mon habitat</string>
+    <string name="request">Mes requêtes</string>
 </resources>
