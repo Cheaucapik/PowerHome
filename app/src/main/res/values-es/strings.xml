@@ -24,5 +24,7 @@
     <string name="close">Cerrar</string>
     <string name="android_studio">Android Studio</string>
     <string name="myAccomodation">Mi hábitat</string>
-    <string name="request">My requests</string>
+    <string name="request">Mis peticiones</string>
+    <string name="Settings" >Parámetros</string>
+    <string name="LogOut">Finalizar la sesión</string>
 </resources>

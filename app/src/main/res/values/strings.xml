@@ -25,4 +25,6 @@
     <string name="android_studio">Android Studio</string>
     <string name="myAccomodation">My accommodation</string>
     <string name="request">My requests</string>
+    <string name="Settings" >Settings</string>
+    <string name="LogOut">Log out</string>
 </resources>

@@ -25,4 +25,6 @@
     <string name="android_studio">Android Studio</string>
     <string name="myAccomodation">Mon habitat</string>
     <string name="request">Mes requêtes</string>
+    <string name="Settings" >Paramètres</string>
+    <string name="LogOut">Se déconnecter</string>
 </resources>

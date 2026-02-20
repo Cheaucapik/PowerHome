@@ -10,10 +10,14 @@
         android:title="@string/myAccomodation" />
     <item
         android:id="@+id/nav_third"
-        android:icon="@drawable/home"
+        android:icon="@drawable/request"
         android:title="@string/request" />
     <item
         android:id="@+id/nav_forth"
-        android:icon="@drawable/home"
-        android:title="@string/myAccomodation" />
+        android:icon="@drawable/setting"
+        android:title="@string/Settings" />
+    <item
+        android:id="@+id/nav_fifth"
+        android:icon="@drawable/logout"
+        android:title="@string/LogOut" />
 </menu>

@@ -1,6 +1,6 @@
 package iut.dam.powerhome;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -61,10 +61,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (item.getItemId() == R.id.nav_second) {
             fm.beginTransaction().replace(R.id.contentFL,
                     new MonHabitatFragment()).commit();
+            setTitle(R.string.myAccomodation);
         }
         else if (item.getItemId() == R.id.nav_third) {
             fm.beginTransaction().replace(R.id.contentFL,
-                    new MonHabitatFragment()).commit();
+                    new RequetesFragment()).commit();
+            setTitle(R.string.request);
+        }
+        else if (item.getItemId() == R.id.nav_forth) {
+            fm.beginTransaction().replace(R.id.contentFL,
+                    new ParamFragment()).commit();
+            setTitle(R.string.Settings);
+        }
+        else if (item.getItemId() == R.id.nav_fifth) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+            startActivity(intent);
+            finish();
         }
 
         drawerDL.closeDrawer(GravityCompat.START);

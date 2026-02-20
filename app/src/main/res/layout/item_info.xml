@@ -35,14 +35,14 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/appliance_wattage_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/red"
+        android:padding="5dp"
         android:text="800W"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:padding="5dp"
-        android:background="@color/red"
-        android:layout_gravity="center"
-        android:id="@+id/appliance_wattage_tv"/>
+        android:textStyle="bold" />
 
 </LinearLayout>
