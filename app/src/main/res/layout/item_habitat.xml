@@ -2,13 +2,13 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="20dp"
-    android:background="@drawable/border_bottom"
-
-    android:foreground="?attr/selectableItemBackground">
+    android:background="@drawable/card"
+    >
 
     <LinearLayout
         android:layout_width="0dp"
@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:text="Gaëtan Leclair"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -36,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="4 équipements"
                 android:textColor="@color/light_grey_border"
-                android:textStyle="bold" />
+                android:textStyle="italic|bold" />
 
             <LinearLayout
                 android:id="@+id/container_icons_LL"
@@ -47,54 +48,35 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardElevation="0dp"
-        app:strokeColor="@color/grey_border"
-        app:strokeWidth="2dp"
-        app:cardCornerRadius="2dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:paddingEnd="4dp"
-        android:paddingStart="4dp"
-        >
+        android:orientation="horizontal"
+        android:background="@drawable/edittext_rounded"
+        android:backgroundTint="@color/dark_green"
+        android:padding="5dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Etage"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textAllCaps="true"
-            android:padding="3dp"
             android:textStyle="bold"
-            android:id="@+id/floor_tv"/>
+            android:paddingStart="5dp"
+            android:id="@+id/floor_tv"
+            tools:ignore="RtlSymmetry" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardElevation="0dp"
-            app:strokeColor="@color/light_grey_border"
-            app:strokeWidth="2dp"
-            app:cardCornerRadius="2dp"
-            android:layout_gravity="center">
             <TextView
-                android:layout_width="25dp"
+                android:id="@+id/etage_tv"
+                android:layout_width="24dp"
                 android:layout_height="25dp"
+                android:gravity="center"
                 android:text="1"
                 android:textColor="@color/white"
-                android:background="@color/green"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:id="@+id/etage_tv"/>
-        </com.google.android.material.card.MaterialCardView>
+                android:textStyle="bold" />
 
-    </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>
 
 </LinearLayout>
