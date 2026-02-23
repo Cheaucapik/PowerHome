@@ -30,4 +30,6 @@
     <string name="LogOut">Finalizar la sesión</string>
     <string name="welcome_back">Bienvenido de nuevo</string>
     <string name="already_acc" >¿Ya tienes una cuenta?</string>
+    <string name="edit_your_profile">Editar tu perfil</string>
+    <string name="save">Para salvaguardar</string>
 </resources>

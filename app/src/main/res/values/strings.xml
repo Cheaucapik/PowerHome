@@ -30,4 +30,6 @@
     <string name="LogOut">Log out</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="already_acc">Already have an account ?</string>
+    <string name="edit_your_profile">Edit your profile</string>
+    <string name="save">Save</string>
 </resources>

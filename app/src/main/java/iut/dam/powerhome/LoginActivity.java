@@ -26,6 +26,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void signup(View v){
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
     public void login(View v){
         EditText editEmail = findViewById(R.id.et_email);
         EditText editPassword = findViewById(R.id.et_password);
@@ -34,10 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         String password = editPassword.getText().toString();
 
         if(password.equals("EFGH") && email.equals("abcd")){
-//            Intent intent = new Intent(this, WelcomeActivity.class);
-
-//            intent.putExtra("email", email);
-//            intent.putExtra("mdp", password);
 
             Intent intent = new Intent(this, MainActivity.class);
 
