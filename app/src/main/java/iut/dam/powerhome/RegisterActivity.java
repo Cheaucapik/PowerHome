@@ -1,6 +1,8 @@
 package iut.dam.powerhome;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -29,5 +31,15 @@ public class RegisterActivity extends AppCompatActivity {
                         android.R.layout.simple_list_item_1,
                         items);
         prefixeSP.setAdapter(adapter);
+    }
+
+    public void signin(View v){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void signup(View v){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

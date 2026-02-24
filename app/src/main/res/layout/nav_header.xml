@@ -4,21 +4,20 @@
     android:layout_height="wrap_content"
     android:background="@drawable/header_background"
     android:orientation="vertical"
-    android:paddingTop="50dp"
-    android:paddingLeft="20dp"
-    android:paddingBottom="20dp">
+    android:padding="20dp">
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/android"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/pp"
         android:layout_marginBottom="20dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/android_studio"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="wrap_content"

@@ -1,13 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp">
 
     <TextView
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:text="Bienvenue dans les paramètres"/>
+        android:layout_height="wrap_content"
+        android:text="@string/edit_your_profile"
+        android:textColor="@color/dark_green"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/edittext_rounded"
+        android:backgroundTint="@color/editText">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/account"/>
+
+        <EditText
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:hint="@string/first_name"
+            android:padding="20dp"
+            android:background="@null"
+            android:textColorHint="@color/white"
+            tools:ignore="TextFields"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/edittext_rounded"
+        android:backgroundTint="@color/editText">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/account"/>
+
+        <EditText
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:hint="@string/last_name"
+            android:padding="20dp"
+            android:background="@null"
+            android:textColorHint="@color/white"
+            tools:ignore="TextFields"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/edittext_rounded"
+        android:backgroundTint="@color/editText">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/baseline_mail_outline_24"/>
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:hint="@string/e_mail"
+            android:padding="20dp"
+            android:background="@null"
+            android:textColorHint="@color/white"
+            tools:ignore="TextFields"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/edittext_rounded"
+        android:backgroundTint="@color/editText">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/lock_open_svgrepo_com"/>
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:hint="@string/password"
+            android:padding="20dp"
+            android:background="@null"
+            android:textColorHint="@color/white"
+            tools:ignore="TextFields"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="25dp"
+        android:gravity="bottom"
+        android:baselineAligned="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/edittext_rounded"
+            android:backgroundTint="@color/editText">
+
+            <ImageView
+                android:layout_width="29dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/phone" />
+
+            <Spinner
+                android:id="@+id/sp_prefixe"
+                android:spinnerMode="dropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="0dp"
+
+                />
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:textColorHint="@color/white"
+            android:backgroundTint="@color/editText"
+            android:hint="@string/mobile"
+            android:digits="0123456789"
+            android:padding="20dp"
+            android:minHeight="48dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/edittext_rounded"
+            android:textColor="@color/black"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/dark_green"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        app:cornerRadius="30dp"
+        android:padding="20dp"
+
+        app:icon="@drawable/save"
+        app:iconGravity="textStart"
+        app:iconPadding="10dp" />
 
 </LinearLayout>

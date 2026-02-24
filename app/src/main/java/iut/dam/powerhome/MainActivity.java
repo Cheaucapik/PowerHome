@@ -1,15 +1,18 @@
 package iut.dam.powerhome;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.WindowCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
@@ -43,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (savedInstanceState == null) {
             navNV.getMenu().performIdentifierAction(R.id.nav_first, 0);
         }
-
-        navNV.setItemIconTintList(null);
     }
 
     @Override
@@ -54,26 +55,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item){
-        if (item.getItemId() == R.id.nav_first){
+        int id = item.getItemId();
+        item.setChecked(true);
+
+        if (id == R.id.nav_first){
             fm.beginTransaction().replace(R.id.contentFL,
                     new HabitatsFragment()).commit();
             setTitle(R.string.Accommodations);
-        } else if (item.getItemId() == R.id.nav_second) {
+        } else if (id == R.id.nav_second) {
             fm.beginTransaction().replace(R.id.contentFL,
                     new MonHabitatFragment()).commit();
             setTitle(R.string.myAccomodation);
         }
-        else if (item.getItemId() == R.id.nav_third) {
+        else if (id == R.id.nav_third) {
             fm.beginTransaction().replace(R.id.contentFL,
                     new RequetesFragment()).commit();
             setTitle(R.string.request);
         }
-        else if (item.getItemId() == R.id.nav_forth) {
+        else if (id == R.id.nav_forth) {
             fm.beginTransaction().replace(R.id.contentFL,
                     new ParamFragment()).commit();
             setTitle(R.string.Settings);
         }
-        else if (item.getItemId() == R.id.nav_fifth) {
+        else if (id == R.id.nav_fifth) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
 
             startActivity(intent);

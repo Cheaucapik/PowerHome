@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -49,10 +50,11 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
         for(Appliance a : appliance){
             ImageView image = new ImageView(getContext());
             image.setImageResource(a.getD());
+            image.setImageTintList(ContextCompat.getColorStateList(getContext(), R.color.gray));
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+                    60,
+                    60
             );
 
             params.setMargins(10, 0, 0, 0);

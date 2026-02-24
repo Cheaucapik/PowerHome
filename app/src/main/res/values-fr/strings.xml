@@ -6,8 +6,9 @@
     <string name="sign_in">Connectez-vous</string>
     <string name="password_forgot">Mot de passe oublié ?</string>
     <string name="password">Mot De Passe</string>
-    <string name="new_jumia">Nouveau sur Jumia ?</string>
-    <string name="create_account">Créer un compte</string>
+    <string name="sign_in_u"><u>Se connecter</u></string>
+    <string name="new_powerhome">Nouveau sur PowerHome ?</string>
+    <string name="create_account"><u>Créer un compte</u></string>
     <string name="or">OU</string>
     <string name="continue_on_facebook">Continuer avec Facebook</string>
     <string name="first_name" >Prénom</string>
@@ -27,4 +28,8 @@
     <string name="request">Mes requêtes</string>
     <string name="Settings" >Paramètres</string>
     <string name="LogOut">Se déconnecter</string>
+    <string name="welcome_back">Bon retour</string>
+    <string name="already_acc" >Déjà un compte ?</string>
+    <string name="edit_your_profile">Modifier votre profil</string>
+    <string name="save">Sauvegarder</string>
 </resources>

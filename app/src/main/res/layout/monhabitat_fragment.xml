@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/import_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/off_white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,46 +16,112 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:text="Bienvenue dans Mon Habitat"
-        android:textColor="@color/black"
+        android:textColor="@color/dark_green"
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="8dp"
-        app:strokeWidth="0dp">
-
         <LinearLayout
+            android:background="@drawable/card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/img" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Mon profil"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"/>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/pp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/edittext_rounded"
+                    android:backgroundTint="@color/dark_green"
+                    android:padding="5dp"
                     android:layout_gravity="end"
-                    android:alpha="0.6"
-                    android:text="Mon Profil"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="italic" />
+                    android:layout_marginBottom="5dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Etage"
+                        android:textColor="@color/white"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"
+                        android:paddingStart="5dp"
+                        android:id="@+id/floor_tv"
+                        android:textSize="10sp"
+                        tools:ignore="RtlSymmetry,SmallSp" />
+
+                    <TextView
+                        android:id="@+id/etage_tv"
+                        android:layout_width="14dp"
+                        android:layout_height="15dp"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textSize="10sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        tools:ignore="SmallSp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="end"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Solde : "
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_solde"
+                        android:text="-3"
+                        android:textStyle="bold"
+                        android:textColor="@color/red"
+                        android:layout_marginRight="5dp"
+                        tools:ignore="RtlHardcoded" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/coin"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -64,71 +133,26 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <com.google.android.material.card.MaterialCardView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginTop="8dp"
-                    app:cardCornerRadius="4dp"
-                    app:cardElevation="0dp"
-                    app:strokeColor="@color/grey_border"
-                    app:strokeWidth="1dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="2dp">
-
-                        <TextView
-                            android:id="@+id/floor_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="6dp"
-                            android:paddingEnd="6dp"
-                            android:text="Etage"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/green"
-                            app:cardCornerRadius="2dp"
-                            app:cardElevation="0dp">
-
-                            <TextView
-                                android:id="@+id/etage_tv"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:gravity="center"
-                                android:text="1"
-                                android:textColor="@color/white"
-                                android:textStyle="bold" />
-                        </com.google.android.material.card.MaterialCardView>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                    android:alpha="0.6"
+                    android:text="1 appareil"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
 
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="8dp"
-        app:strokeWidth="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:background="@drawable/card"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -204,22 +228,15 @@
             </LinearLayout>
 
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="8dp"
-        app:strokeWidth="0dp">
 
         <LinearLayout
+            android:background="@drawable/card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -260,7 +277,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="RML2"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gray"
+                    android:textStyle="italic"
                     android:textSize="15dp"/>
 
                 </LinearLayout>
@@ -270,8 +288,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@color/red"
-                    android:padding="5dp"
+                    android:background="@drawable/edittext_rounded"
+                    android:backgroundTint="@color/red"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:text="3000 W"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -280,6 +302,5 @@
             </LinearLayout>
 
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

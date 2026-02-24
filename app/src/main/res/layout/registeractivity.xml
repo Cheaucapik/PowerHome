@@ -5,136 +5,147 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:id="@+id/register">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/dark_grey"
-        android:gravity="center_vertical">
-
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="12dp"
-            android:src="@drawable/baseline_arrow_back_24"
-            app:tint="@color/white" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="@string/create_account"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:gravity="center|start"
-            android:paddingStart="20dp"
-            android:textSize="23sp"
-            tools:ignore="RtlSymmetry" />
-    </LinearLayout>
+    android:id="@+id/register"
+    android:background="@drawable/header_background">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cr_er_un_nouveau_compte"
-        android:textColor="@color/gray"
-        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="30sp"
         android:layout_marginTop="35dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_margin="15dp"
-        android:paddingBottom="25dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/edittext_rounded"
+        android:backgroundTint="@color/editText">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/account"
+            android:layout_gravity="center_vertical"
             android:layout_marginEnd="5dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_marginStart="15dp"
+            android:src="@drawable/account"/>
 
         <EditText
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:textColor="@color/grey"
             android:minHeight="48dp"
             android:hint="@string/first_name"
-            android:backgroundTint="@color/gray"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "/>
-
+            android:padding="20dp"
+            android:background="@null"
+            android:textColorHint="@color/white"
+            tools:ignore="TextFields"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
-    <EditText
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:textColor="@color/grey"
-        android:hint="@string/last_name"
-        android:backgroundTint="@color/gray"
-        android:layout_marginBottom="25dp"
-        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_margin="15dp"
-        android:paddingBottom="25dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/edittext_rounded"
+        android:backgroundTint="@color/editText">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_mail_outline_24"
+            android:layout_gravity="center_vertical"
             android:layout_marginEnd="5dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_marginStart="15dp"
+            android:src="@drawable/account"/>
 
         <EditText
-            android:id="@+id/plain_text_input"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:textColor="@color/grey"
             android:minHeight="48dp"
-            android:hint="@string/e_mail"
-            android:backgroundTint="@color/gray"/>
-
+            android:hint="@string/last_name"
+            android:padding="20dp"
+            android:background="@null"
+            android:textColorHint="@color/white"
+            tools:ignore="TextFields"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_margin="15dp"
-        android:paddingBottom="25dp">>
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/edittext_rounded"
+        android:backgroundTint="@color/editText">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/lock_open_svgrepo_com"
+            android:layout_gravity="center_vertical"
             android:layout_marginEnd="5dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_marginStart="15dp"
+            android:src="@drawable/baseline_mail_outline_24"/>
 
         <EditText
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:minHeight="48dp"
-            android:textColor="@color/grey"
+            android:hint="@string/e_mail"
+            android:padding="20dp"
+            android:background="@null"
+            android:textColorHint="@color/white"
+            tools:ignore="TextFields"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/edittext_rounded"
+        android:backgroundTint="@color/editText">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/lock_open_svgrepo_com"/>
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:minHeight="48dp"
             android:hint="@string/password"
-            android:backgroundTint="@color/gray"/>
+            android:padding="20dp"
+            android:background="@null"
+            android:textColorHint="@color/white"
+            tools:ignore="TextFields"
+            android:textColor="@color/black"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -142,6 +153,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingBottom="25dp"
+        android:layout_margin="15dp"
         android:gravity="bottom"
         android:baselineAligned="true">
 
@@ -150,50 +162,80 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginStart="15dp"
-            android:gravity="center_vertical">
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/edittext_rounded"
+            android:backgroundTint="@color/editText">
 
             <ImageView
-                android:layout_width="30dp"
+                android:layout_width="29dp"
                 android:layout_height="30dp"
-                android:src="@drawable/phone"
-                android:layout_marginEnd="5dp" />
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/phone" />
 
             <Spinner
                 android:id="@+id/sp_prefixe"
-                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:spinnerMode="dropdown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/gray"
-                android:paddingBottom="0dp"/>
+                android:paddingBottom="0dp"
+
+                />
         </LinearLayout>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
-            android:backgroundTint="@color/gray"
+            android:textColorHint="@color/white"
+            android:backgroundTint="@color/editText"
             android:hint="@string/mobile"
-            android:inputType="phone"
+            android:digits="0123456789"
+            android:padding="20dp"
             android:minHeight="48dp"
-            android:textColor="@color/grey"
-            android:paddingBottom="12dp"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="20dp"
+            android:background="@drawable/edittext_rounded"
+            android:textColor="@color/black"
+            />
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/orange"
-        android:onClick="login"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/dark_grey"
+        android:onClick="signup"
         android:padding="20dp"
         android:text="@string/sign_up"
-        android:textAllCaps="true"
-        app:cornerRadius="0dp" />
+        android:textAllCaps="false"
+        app:cornerRadius="30dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/already_acc"
+        android:textColor="@color/white"
+        app:cornerRadius="0dp"
+        android:textSize="16sp"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in_u"
+        android:onClick="signin"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:cornerRadius="0dp"
+        android:textSize="16sp"
+        android:background="@android:color/transparent"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
