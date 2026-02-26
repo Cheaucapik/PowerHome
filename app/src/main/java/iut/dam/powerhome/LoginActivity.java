@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
@@ -16,6 +17,8 @@ import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 public class LoginActivity extends AppCompatActivity {
     private boolean isReady = false;
@@ -62,17 +65,33 @@ public class LoginActivity extends AppCompatActivity {
         EditText editEmail = findViewById(R.id.et_email);
         EditText editPassword = findViewById(R.id.et_password);
 
-        String email = editEmail.getText().toString();
-        String password = editPassword.getText().toString();
+        String email = editEmail.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
 
-        if(password.equals("EFGH") && email.equals("abcd")){
+        String url = "http://10.0.2.2/powerhome_server/login.php?email=" + email + "&password=" + password;
 
-            Intent intent = new Intent(this, MainActivity.class);
+        Ion.with(this)
+                .load(url)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        if (e != null) {
+                            Log.e("Erreur", "Problème réseau");
+                            return;
+                        }
 
-            startActivity(intent);
-        }
-        else{
-            Toast.makeText(this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();
-        }
+                        Log.d("DEBUG_SERVER", "Réponse du PHP : " + result);
+
+                        if (result != null && result.contains("token")) {
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                        else{
+                            Toast.makeText(LoginActivity.this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();
+                            Log.d("PB_ID", "Serveur : " + result);
+                        }
+                    }
+                });
     }
 }

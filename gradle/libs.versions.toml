@@ -10,6 +10,8 @@ activity = "1.8.0"
 constraintlayout = "2.1.4"
 navigationFragment = "1.0.0"
 navigationUi = "1.0.0"
+ion = "3.1.0"
+gson = "2.13.2"
 
 [libraries]
 core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
@@ -22,6 +24,8 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 navigation-fragment = { group = "android.arch.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "android.arch.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+ion = { group = "com.koushikdutta.ion", name = "ion", version.ref = "ion" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

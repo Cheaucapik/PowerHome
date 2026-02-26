@@ -49,6 +49,7 @@
             android:background="@null"
             android:textColorHint="@color/white"
             tools:ignore="TextFields"
+            android:id="@+id/firstname_et"
             android:textColor="@color/black"/>
     </LinearLayout>
 
@@ -78,6 +79,7 @@
             android:minHeight="48dp"
             android:hint="@string/last_name"
             android:padding="20dp"
+            android:id="@+id/lastname_et"
             android:background="@null"
             android:textColorHint="@color/white"
             tools:ignore="TextFields"
@@ -102,7 +104,7 @@
             android:src="@drawable/baseline_mail_outline_24"/>
 
         <EditText
-            android:id="@+id/et_email"
+            android:id="@+id/email_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -134,7 +136,7 @@
             android:src="@drawable/lock_open_svgrepo_com"/>
 
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/password_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -184,6 +186,7 @@
         </LinearLayout>
 
         <EditText
+            android:id="@+id/tel_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
