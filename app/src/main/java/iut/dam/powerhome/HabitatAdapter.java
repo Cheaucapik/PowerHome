@@ -45,6 +45,8 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
 
         LinearLayout layout = convertView.findViewById(R.id.container_icons_LL);
 
+        layout.removeAllViews();
+
         ArrayList<Appliance> appliance = (ArrayList<Appliance>) habitat.getAppliances();
 
         for(Appliance a : appliance){

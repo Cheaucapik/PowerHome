@@ -32,4 +32,6 @@
     <string name="already_acc" >Déjà un compte ?</string>
     <string name="edit_your_profile">Modifier votre profil</string>
     <string name="save">Sauvegarder</string>
+    <string name="Floor">Etage</string>
+    <string name="Area">Surface</string>
 </resources>

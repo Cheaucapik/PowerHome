@@ -32,6 +32,19 @@ public class Appliance {
     }
 
     public int getD() {
-        return d;
+        if (this.name == null) return R.drawable.default_icon;
+
+        switch (this.name) {
+            case "Machine à laver":
+                return R.drawable.washing_machine;
+            case "Aspirateur":
+                return R.drawable.vacuum;
+            case "Climatiseur":
+                return R.drawable.air_conditioning;
+            case "Repasseur vapeur":
+                return R.drawable.steam_iron;
+            default:
+                return R.drawable.default_icon;
+        }
     }
 }
