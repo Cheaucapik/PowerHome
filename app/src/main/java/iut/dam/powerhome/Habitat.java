@@ -12,6 +12,8 @@ public class Habitat {
     User resident;
     int floor;
     double area;
+
+    String username;
     List<Appliance> appliances;
     public Habitat(int id, User resident, int floor, double area, ArrayList<Appliance> appliances){
         this.id = id;
@@ -19,6 +21,7 @@ public class Habitat {
         this.floor = floor;
         this.area = area;
         this.appliances = appliances;
+        this.username = username;
     }
 
     public int getId() {

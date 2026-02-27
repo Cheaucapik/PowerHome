@@ -33,5 +33,6 @@
     <string name="edit_your_profile">Edit your profile</string>
     <string name="save">Save</string>
     <string name="Floor">Floor</string>
-    <string name="Area">Area</string>
+    <string name="Area">Area</string>9
+    <string name="nickname">Nickname</string>
 </resources>
