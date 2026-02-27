@@ -35,4 +35,5 @@
     <string name="Floor">Etage</string>
     <string name="Area">Surface</string>
     <string name="nickname">Pseudo</string>
+    <string name="welcome_in_my_accommodation">Bienvenue dans Mon Habitat</string>
 </resources>

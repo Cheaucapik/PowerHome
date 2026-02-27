@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Bienvenue dans Mon Habitat"
+        android:text="@string/welcome_in_my_accommodation"
         android:textColor="@color/dark_green"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -38,7 +38,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mon profil"
+                    android:text="@string/my_profile"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:textColor="@color/black"/>
@@ -123,6 +123,8 @@
 
                 </LinearLayout>
 
+
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -131,7 +133,8 @@
                     android:text="Cedric Boudet"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:id="@+id/name_tv"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,7 +143,8 @@
                     android:alpha="0.6"
                     android:text="1 appareil"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:id="@+id/nb_appareil_tv"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -196,7 +200,8 @@
                     android:layout_height="wrap_content"
                     android:text="54.0 m²"
                     android:textStyle="bold"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:id="@+id/surface_tv"/>
             </LinearLayout>
 
             <LinearLayout
@@ -224,7 +229,8 @@
                     android:layout_height="wrap_content"
                     android:text="3000 W"
                     android:textStyle="bold"
-                    android:textColor="#E30000" />
+                    android:textColor="#E30000"
+                    android:id="@+id/conso_tv"/>
             </LinearLayout>
 
         </LinearLayout>
