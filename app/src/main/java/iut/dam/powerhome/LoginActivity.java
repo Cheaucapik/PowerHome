@@ -73,14 +73,14 @@ public class LoginActivity extends AppCompatActivity {
         String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
-        // Validation email
+        // Email non validee si pattern pas respecté
         if (!isValidEmail(email)) {
             editEmail.setError("Email invalide (ex: email@domaine.com)");
             editEmail.requestFocus();
             return;
         }
 
-        // Validation password
+        // Same pour pattern de mdp
         if (!isValidPassword(password)) {
             editPassword.setError("Mot de passe: 1 minuscule, 1 majuscule, 1 spécial, min 8");
             editPassword.requestFocus();
@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
+//Rappel egalement des regles de syntaxes pour le login si le user vient a oublie quels sont les id lui concernant
     private boolean isValidEmail(String email) {
         return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
         String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$";
         return password != null && password.matches(regex);
     }
-
+//la degaine du msg derreur quoi
     private String encodeURIComponent(String s) {
         try {
             return URLEncoder.encode(s, "UTF-8").replace("+", "%20");

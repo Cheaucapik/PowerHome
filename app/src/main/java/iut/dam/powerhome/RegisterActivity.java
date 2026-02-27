@@ -66,7 +66,8 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        // Validation password
+        // ça c'est pour valider le password UNIQUEMENT si il respecte les contraintes
+        //Donc msg erreur si non respecté
         if (!isValidPassword(password)) {
             EditText passwordEt = findViewById(R.id.password_et);
             passwordEt.setError("Mot de passe: 1 minuscule, 1 majuscule, 1 spécial, min 8");
@@ -111,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
+    //Method isValidEmail pour check si le pattern de lemail est bon
     private boolean isValidEmail(String email) {
         return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
@@ -119,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
         String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$";
         return password != null && password.matches(regex);
     }
-
+//Grace a la librairie importé, on peut directement throw une exception si sa fonctionne pas
     private String encodeURIComponent(String s) {
         try {
             return URLEncoder.encode(s, "UTF-8").replace("+", "%20");
