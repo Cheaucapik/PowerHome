@@ -34,7 +34,11 @@
     <string name="save">Save</string>
     <string name="Floor">Floor</string>
     <string name="Area">Area</string>9
-    <string name="nickname">Nickname</string>
     <string name="welcome_in_my_accommodation">Welcome in my Accomodation</string>
     <string name="my_profile">My profile</string>
+    <string name="Username" >Username</string>
+    <string name="Identifier" >Identifier</string>
+    <string name="solde">"Balance : "</string>
+    <string name="surface_totale">Total area :</string>
+    <string name="consommation">Total consumption :</string>
 </resources>

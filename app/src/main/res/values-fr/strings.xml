@@ -34,6 +34,11 @@
     <string name="save">Sauvegarder</string>
     <string name="Floor">Etage</string>
     <string name="Area">Surface</string>
-    <string name="nickname">Pseudo</string>
     <string name="welcome_in_my_accommodation">Bienvenue dans Mon Habitat</string>
+    <string name="my_profile">Mon profile</string>
+    <string name="Username" >Pseudo</string>
+    <string name="Identifier" >Identifiant</string>
+    <string name="solde">"Solde : "</string>
+    <string name="surface_totale">Surface totale :</string>
+    <string name="consommation">Consommation totale :</string>
 </resources>

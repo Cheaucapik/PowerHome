@@ -7,10 +7,10 @@ public class User {
     public String lastname;
     public String email;
     public String tel;
+    public Habitat habitat;
+    public String username;
 
-    public static User getFromJson(String json){
-        Gson gson = new Gson();
-        User obj = gson.fromJson(json, User.class);
-        return obj;
+    public static User getFromJson(String json) {
+        return new Gson().fromJson(json, User.class);
     }
 }

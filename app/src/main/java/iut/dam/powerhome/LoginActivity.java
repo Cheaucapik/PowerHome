@@ -1,5 +1,7 @@
 package iut.dam.powerhome;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -67,20 +69,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View v) {
-        EditText editEmail = findViewById(R.id.et_email);
+        EditText editId = findViewById(R.id.et_id);
         EditText editPassword = findViewById(R.id.et_password);
 
-        String email = editEmail.getText().toString().trim();
+        String id = editId.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
-        // Email non validee si pattern pas respecté
-        if (!isValidEmail(email)) {
-            editEmail.setError("Email invalide (ex: email@domaine.com)");
-            editEmail.requestFocus();
-            return;
-        }
-        String url = "http://10.0.2.2/powerhome_server/login.php?email="
-                + encodeURIComponent(email)
+        String url = "http://10.0.2.2/powerhome_server/login.php?id="
+                + encodeURIComponent(id)
                 + "&password="
                 + encodeURIComponent(password);
 
@@ -99,37 +95,21 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (result != null && result.contains("token")) {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
+                            SharedPreferences sp = LoginActivity.this.getSharedPreferences("UserSession", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
-                            try {
-                                JSONObject json = new JSONObject(result);
-                                String token = json.getString("token");
-                                String firstname = json.getString("firstname");
-                                String lastname = json.getString("lastname");
-                                String email = json.getString("email");
+                            editor.putString("user_json", result);
+                            editor.apply();
 
-                                editor.putString("token", token);
-                                editor.putString("firstname", firstname);
-                                editor.putString("lastname", lastname);
-                                editor.putString("email", email);
-                                editor.apply();
+                            startActivity(intent);
+                        }
 
-                                startActivity(intent);
-                            } catch (JSONException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                        } else {
+                        else {
                             Toast.makeText(LoginActivity.this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();
                             Log.d("PB_ID", "Serveur : " + result);
                         }
                     }
                 });
     }
-//Rappel egalement des regles de syntaxes pour le login si le user vient a oublie quels sont les id lui concernant
-    private boolean isValidEmail(String email) {
-        return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-//la degaine du msg derreur quoi
     private String encodeURIComponent(String s) {
         try {
             return URLEncoder.encode(s, "UTF-8").replace("+", "%20");

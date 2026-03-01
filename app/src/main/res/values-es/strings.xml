@@ -34,5 +34,11 @@
     <string name="save">Para salvaguardar</string>
     <string name="Floor">Piso</string>
     <string name="Area">Área</string>
-    <string name="nickname">Seudónimo</string>
+    <string name="my_profile">Mi perfil</string>
+    <string name="Username" >Apodo</string>
+    <string name="welcome_in_my_accommodation">Bienvenido a mi alojamiento</string>
+    <string name="Identifier" >Identificador</string>
+    <string name="solde">"Saldo : "</string>
+    <string name="surface_totale">Área total :</string>
+    <string name="consommation">Consumo total :</string>
 </resources>

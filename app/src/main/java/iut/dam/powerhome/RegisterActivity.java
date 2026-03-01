@@ -77,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         String lastname = ((EditText) findViewById(R.id.lastname_et)).getText().toString().trim();
         String firstname = ((EditText) findViewById(R.id.firstname_et)).getText().toString().trim();
+        String username = ((EditText) findViewById(R.id.username_et)).getText().toString().trim();
 
         Spinner prefixe_sp = findViewById(R.id.sp_prefixe);
         String tel_brut = ((EditText) findViewById(R.id.tel_et)).getText().toString().trim();
@@ -87,6 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                 + "&firstname=" + encodeURIComponent(firstname)
                 + "&lastname=" + encodeURIComponent(lastname)
                 + "&tel=" + encodeURIComponent(tel)
+                + "&username=" + encodeURIComponent(username)
                 + "&floor=" + encodeURIComponent(floor)
                 + "&area=" + encodeURIComponent(area);
 

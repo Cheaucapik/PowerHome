@@ -45,15 +45,15 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="15dp"
-            android:src="@drawable/baseline_mail_outline_24"/>
+            android:src="@drawable/account"/>
 
         <EditText
-            android:id="@+id/et_email"
+            android:id="@+id/et_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:minHeight="48dp"
-            android:hint="@string/e_mail"
+            android:hint="@string/Identifier"
             android:padding="20dp"
             android:background="@null"
             android:textColorHint="@color/white"

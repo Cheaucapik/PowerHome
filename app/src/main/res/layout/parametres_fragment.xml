@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:minHeight="48dp"
-            android:hint="@string/nickname"
+            android:hint="@string/Username"
             android:padding="20dp"
             android:background="@null"
             android:textColorHint="@color/white"
