@@ -37,4 +37,5 @@
     <string name="nickname">Nickname</string>
     <string name="welcome_in_my_accommodation">Welcome in my Accomodation</string>
     <string name="my_profile">My profile</string>
+    <string name="my_devices">My devices</string>
 </resources>
