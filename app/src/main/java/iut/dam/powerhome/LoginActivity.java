@@ -68,6 +68,11 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void forgot(View v){
+        Intent intent = new Intent(this, ForgotPasswordActivity.class);
+        startActivity(intent);
+    }
+
     public void login(View v) {
         EditText editId = findViewById(R.id.et_id);
         EditText editPassword = findViewById(R.id.et_password);
@@ -101,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.apply();
 
                             startActivity(intent);
+                            finish();
                         }
 
                         else {

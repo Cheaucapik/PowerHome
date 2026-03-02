@@ -41,4 +41,14 @@
     <string name="solde">"Balance : "</string>
     <string name="surface_totale">Total area :</string>
     <string name="consommation">Total consumption :</string>
+    <string name="enter_your_email_to_recover_your_password">Enter your email to recover your password</string>
+    <string name="recover_password">Recover password</string>
+    <string name="please_enter_your_new_password">Please enter your new password</string>
+    <string name="we_ve_sent_you_the_code_to_your_mail">We\'ve sent you the code to your mail</string>
+    <string name="done">Done</string>
+    <string name="reset_password">Reset password</string>
+    <string name="check_your_mailbox">Check your mailbox</string>
+    <string name="enter_the_code">Enter the code</string>
+    <string name="verify">Verify</string>
+    <string name="send_again">Send again</string>
 </resources>

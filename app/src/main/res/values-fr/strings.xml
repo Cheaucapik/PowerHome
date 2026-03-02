@@ -41,4 +41,14 @@
     <string name="solde">"Solde : "</string>
     <string name="surface_totale">Surface totale :</string>
     <string name="consommation">Consommation totale :</string>
+    <string name="enter_your_email_to_recover_your_password">Veuillez entrer votre email pour récupérer votre mot de passe</string>
+    <string name="recover_password">Récuperer le mot de passe</string>
+    <string name="please_enter_your_new_password">Veuillez entrer votre nouveau mot de passe</string>
+    <string name="we_ve_sent_you_the_code_to_your_mail">Nous vous avons envoyé un code par mail</string>
+    <string name="done">Valider</string>
+    <string name="reset_password">Réinitialiser le mot de passe</string>
+    <string name="check_your_mailbox">Vérifier votre boîte mail</string>
+    <string name="enter_the_code">Entrer le code</string>
+    <string name="verify">Vérifier</string>
+    <string name="send_again">Renvoyer</string>
 </resources>

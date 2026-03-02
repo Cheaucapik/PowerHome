@@ -23,5 +23,9 @@
             android:exported="false"
             android:theme="@style/Theme.PowerHome"/>
 
+        <activity android:name=".ForgotPasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PowerHome" />
+
     </application>
 </manifest>
