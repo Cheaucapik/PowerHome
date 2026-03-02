@@ -18,6 +18,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -108,7 +111,15 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "Compte créé !", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
-                            Toast.makeText(RegisterActivity.this, "Erreur : " + result, Toast.LENGTH_LONG).show();
+                            try {
+                                JSONObject jo = new JSONObject(result);
+                                String error = jo.getString("error");
+                                Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_SHORT).show();
+                                Log.d("PB_ID", "Serveur : " + error);
+                            }
+                            catch (JSONException ex) {
+                                Log.e("JSON_PARSE", "Erreur lors de la lecture du JSON : " + result);
+                            }
                         }
                     }
                 });

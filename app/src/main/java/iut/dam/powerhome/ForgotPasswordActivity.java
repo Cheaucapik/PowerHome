@@ -3,6 +3,7 @@ package iut.dam.powerhome;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -34,14 +35,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     public static void code(){
-        fm.beginTransaction().replace(R.id.contentFL, new ForgotPasswordCodeFragment()).commit();
+        fm.beginTransaction().addToBackStack(null).replace(R.id.contentFL, new ForgotPasswordCodeFragment()).commit();
     }
 
-    public static void send(){
-        fm.beginTransaction().replace(R.id.contentFL, new ForgotPasswordFragment()).commit();
+    public static void verify(){
+        fm.beginTransaction().addToBackStack(null).replace(R.id.contentFL, new ForgotPasswordFragment()).commit();
     }
 
-    public static void done(){
-
+    public void done(){
+        Toast.makeText(this, "Mot de passe réinitialisé", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

@@ -110,8 +110,15 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         else {
-                            Toast.makeText(LoginActivity.this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();
-                            Log.d("PB_ID", "Serveur : " + result);
+                            try {
+                                JSONObject jo = new JSONObject(result);
+                                String error = jo.getString("error");
+                                Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
+                                Log.d("PB_ID", "Serveur : " + error);
+                            }
+                            catch (JSONException ex) {
+                                Log.e("JSON_PARSE", "Erreur lors de la lecture du JSON : " + result);
+                            }
                         }
                     }
                 });

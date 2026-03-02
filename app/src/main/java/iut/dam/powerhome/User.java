@@ -9,6 +9,7 @@ public class User {
     public String tel;
     public Habitat habitat;
     public String username;
+    public int id;
 
     public static User getFromJson(String json) {
         return new Gson().fromJson(json, User.class);
