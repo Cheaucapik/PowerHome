@@ -1,53 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/header_background">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/please_enter_your_information"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:layout_margin="20dp"
-        android:gravity="center" />
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:background="@drawable/edittext_rounded"
-        android:backgroundTint="@color/editText">
+        android:padding="20dp"
+        android:background="@color/dark_green">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="15dp"
-            android:src="@drawable/stairs" />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/baseline_arrow_back_24"/>
 
-        <EditText
-            android:digits="1234567890"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:hint="@string/Floor"
-            android:padding="20dp"
-            android:background="@null"
-            android:textColorHint="@color/white"
-            tools:ignore="TextFields"
-            android:id="@+id/floor_et"
-            android:textColor="@color/black" />
-
+            android:id="@+id/area_tv"
+            android:text="@string/Add_an_appliance"
+            android:gravity="end"
+            android:textSize="25sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
@@ -65,7 +45,41 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="15dp"
-            android:src="@drawable/home"
+            android:src="@drawable/prise" />
+
+        <EditText
+            android:digits="1234567890"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:hint="@string/Appliance"
+            android:padding="20dp"
+            android:background="@null"
+            android:textColorHint="@color/white"
+            tools:ignore="TextFields"
+            android:id="@+id/floor_et"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/edittext_rounded"
+        android:backgroundTint="@color/editText"
+        >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/bolt"
             app:tint="@color/white" />
 
         <EditText
@@ -85,6 +99,7 @@
     </LinearLayout>
 
     <Button
+        android:layout_marginTop="20dp"
         android:id="@+id/btn_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,10 +107,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/dark_grey"
+        android:backgroundTint="@color/dark_green"
+        android:textColor="@color/white"
         android:padding="20dp"
-        android:text="@string/sign_up"
+        android:text="@string/add_an_appliance"
         android:textAllCaps="false"
         app:cornerRadius="30dp"
         android:textSize="20sp"/>

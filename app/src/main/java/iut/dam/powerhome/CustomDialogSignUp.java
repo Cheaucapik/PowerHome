@@ -26,7 +26,7 @@ public class CustomDialogSignUp extends Dialog {
             String area = areaEt.getText().toString().trim();
 
             if (floor.isEmpty() || area.isEmpty()) {
-                Toast.makeText(getContext(), "Remplissez les infos habitat", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Veuillez remplir les infos habitat", Toast.LENGTH_SHORT).show();
             } else {
                 myActivity.sendDataToServer(floor, area);
                 dismiss();

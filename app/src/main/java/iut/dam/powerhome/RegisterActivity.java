@@ -86,14 +86,14 @@ public class RegisterActivity extends AppCompatActivity {
         String tel_brut = ((EditText) findViewById(R.id.tel_et)).getText().toString().trim();
         String tel = prefixe_sp.getSelectedItem().toString() + tel_brut;
 
-        String url = "http://10.0.2.2/powerhome_server/signup.php?email=" + encodeURIComponent(email)
-                + "&password=" + encodeURIComponent(password)
-                + "&firstname=" + encodeURIComponent(firstname)
-                + "&lastname=" + encodeURIComponent(lastname)
-                + "&tel=" + encodeURIComponent(tel)
-                + "&username=" + encodeURIComponent(username)
-                + "&floor=" + encodeURIComponent(floor)
-                + "&area=" + encodeURIComponent(area);
+        String url = "http://10.0.2.2/powerhome_server/signup.php?email=" + email
+                + "&password=" + password
+                + "&firstname=" + firstname
+                + "&lastname=" + lastname
+                + "&tel=" + tel
+                + "&username=" + username
+                + "&floor=" + floor
+                + "&area=" + area;
 
         Log.d("DEBUG_URL", url);
 
@@ -133,13 +133,5 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean isValidPassword(String password) {
         String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$";
         return password != null && password.matches(regex);
-    }
-//Grace a la librairie importé, on peut directement throw une exception si sa fonctionne pas
-    private String encodeURIComponent(String s) {
-        try {
-            return URLEncoder.encode(s, "UTF-8").replace("+", "%20");
-        } catch (UnsupportedEncodingException e) {
-            return s;
-        }
     }
 }

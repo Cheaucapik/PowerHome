@@ -18,7 +18,7 @@
     <string name="sign_up" >Registro</string>
     <string name="power_home" >PowerHome</string>
     <string name="Accommodations" >Hábitats</string>
-    <string name="appliance">equipo</string>
+    <string name="appliance">aparato</string>
     <string name="floor">piso</string>
     <string name="Gallery">Galería</string>
     <string name="open">Abrir</string>
@@ -51,4 +51,11 @@
     <string name="enter_the_code">Introduce el código</string>
     <string name="verify">Verificar</string>
     <string name="send_again">Enviar de nuevo</string>
+    <string name="appliances">Aparatos</string>
+    <string name="please_enter_your_information">Por favor ingresa tu información</string>
+    <string name="add_an_appliance">+  Agregar un aparato</string>
+    <string name="Appliance">Aparato</string>
+    <string name="Add_an_appliance">Agregar un aparato</string>
+    <string name="you_don_t_have_any_appliance_yet">Aún no tienes ningún aparatos</string>
+    <string name="maybe_later">Tal vez más tarde</string>
 </resources>

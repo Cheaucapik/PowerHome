@@ -51,4 +51,11 @@
     <string name="enter_the_code">Enter the code</string>
     <string name="verify">Verify</string>
     <string name="send_again">Send again</string>
+    <string name="appliances">Appliances</string>
+    <string name="please_enter_your_information">Please enter your information</string>
+    <string name="add_an_appliance">+ Add an appliance</string>
+    <string name="Appliance">Appliance</string>
+    <string name="Add_an_appliance">Add an appliance</string>
+    <string name="you_don_t_have_any_appliance_yet">You don\'t have any appliance yet</string>
+    <string name="maybe_later">Maybe later</string>
 </resources>

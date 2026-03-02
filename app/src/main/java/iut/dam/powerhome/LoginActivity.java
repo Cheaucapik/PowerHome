@@ -81,9 +81,9 @@ public class LoginActivity extends AppCompatActivity {
         String password = editPassword.getText().toString().trim();
 
         String url = "http://10.0.2.2/powerhome_server/login.php?id="
-                + encodeURIComponent(id)
+                + id
                 + "&password="
-                + encodeURIComponent(password);
+                + password;
 
         Ion.with(this)
                 .load(url)
@@ -97,16 +97,29 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         Log.d("DEBUG_SERVER", "Réponse du PHP : " + result);
+                        SharedPreferences sp = LoginActivity.this.getSharedPreferences("UserSession", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("user_json", result);
+                        editor.apply();
 
                         if (result != null && result.contains("token")) {
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            SharedPreferences sp = LoginActivity.this.getSharedPreferences("UserSession", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sp.edit();
-                            editor.putString("user_json", result);
-                            editor.apply();
-
-                            startActivity(intent);
-                            finish();
+                            try {
+                                JSONObject jo = new JSONObject(result);
+                                boolean token_null = jo.getBoolean("token_null");
+                                if(token_null){
+                                    Intent intent = new Intent(LoginActivity.this, AddApplianceActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else{
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                            catch (JSONException ex) {
+                                Log.e("JSON_PARSE", "Erreur lors de la lecture du JSON : " + result);
+                            }
                         }
 
                         else {
@@ -122,12 +135,5 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
-    private String encodeURIComponent(String s) {
-        try {
-            return URLEncoder.encode(s, "UTF-8").replace("+", "%20");
-        } catch (UnsupportedEncodingException e) {
-            return s;
-        }
     }
 }
