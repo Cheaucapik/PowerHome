@@ -65,14 +65,14 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void login(View v){
+    public void login(View v) {
         EditText editEmail = findViewById(R.id.et_email);
         EditText editPassword = findViewById(R.id.et_password);
 
         String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
-        String url = "http://10.0.2.2/powerhome_server/login.php?email=" + email + "&password=" + password;
+        String url = "http://10.0.2.2/powerhome_server/login.php?id=" + email + "&password=" + password;
 
         Ion.with(this)
                 .load(url)
@@ -81,38 +81,34 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, String result) {
                         if (e != null) {
-                            Log.e("Erreur", "Problème réseau");
+                            Log.e("Erreur", "Problème réseau : " + e.getMessage());
+                            Toast.makeText(LoginActivity.this, "Serveur injoignable", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        Log.d("DEBUG_SERVER", "Réponse du PHP : " + result);
+                        try {
+                            JSONObject json = new JSONObject(result);
 
-                        if (result != null && result.contains("token")) {
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sp.edit();
-                            try {
-                                JSONObject json = new JSONObject(result);
-                                String token = json.getString("token");
-                                String firstname = json.getString("firstname");
-                                String lastname = json.getString("lastname");
-                                String email = json.getString("email");
-                                editor.putString("token", token);
-                                editor.putString("firstname", firstname);
-                                editor.putString("lastname", lastname);
-                                editor.putString("email", email);
+                            if (json.has("token")) {
+                                SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+
+                                editor.putString("token", json.getString("token"));
+                                editor.putString("firstname", json.getString("firstname"));
+                                editor.putString("lastname", json.getString("lastname"));
+                                editor.putString("email", json.getString("email"));
                                 editor.apply();
+
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
-                            } catch (JSONException ex) {
-                                throw new RuntimeException(ex);
+                                finish();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                        else{
-                            Toast.makeText(LoginActivity.this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();
-                            Log.d("PB_ID", "Serveur : " + result);
+                        } catch (JSONException ex) {
+                            Log.e("JSON_ERROR", "Erreur de lecture : " + result);
                         }
                     }
                 });
-
     }
 }
