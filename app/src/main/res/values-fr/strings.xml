@@ -66,4 +66,5 @@
     <string name="appliance_vacuum_cleaner">Aspirateur</string>
     <string name="reference">Référence</string>
     <string name="edit_my_appliances">Modifier mes appareils</string>
+    <string name="my_devices">Mes appareils</string>
 </resources>

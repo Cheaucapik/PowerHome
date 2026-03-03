@@ -3,34 +3,36 @@ package iut.dam.powerhome;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import org.json.JSONArray;
+
 
 public class MonHabitatFragment extends Fragment {
 
-    private List<Appliance> appliances = new ArrayList<>();
+    private ArrayList<Appliance> myAppliances = new ArrayList<>();
+    private ApplianceAdapter adapter;
 
-    public MonHabitatFragment(){
-
-    }
+    public MonHabitatFragment() {}
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -60,6 +62,49 @@ public class MonHabitatFragment extends Fragment {
                 sum += a.wattage;
             }
             conso_tv.setText(sum + " W");
+        }
+        else{
+            Toast.makeText(getContext(), "Aucun utilisateur connecté", Toast.LENGTH_SHORT).show();
+        }
+
+
+        if(json!=null){
+            User currentUser = User.getFromJson(json);
+            String myEmail = currentUser.email;
+
+            ListView lv = layout.findViewById(R.id.lv_appliances);
+
+            String url = "http://10.0.2.2/powerhome_server/getHabitatByUser.php?email=" + myEmail;
+
+            Ion.with(this)
+                    .load(url)
+                    .asString()
+                    .setCallback(new FutureCallback<String>() {
+                        @Override
+                        public void onCompleted(Exception e, String result) {
+                            if (e != null) {
+                                Log.e("MonHabitat", "Problème réseau", e);
+                                Toast.makeText(getContext(), "Problème réseau", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            if (result == null) {
+                                Toast.makeText(getContext(), "Réponse serveur vide", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            Habitat habitatUser = Habitat.getFromJson(result);
+
+                            if (habitatUser == null) {
+                                Toast.makeText(getContext(), "Habitat introuvable pour " + myEmail, Toast.LENGTH_LONG).show();
+                                return;
+                            }
+
+                            myAppliances = (ArrayList<Appliance>) habitatUser.getAppliances();
+                            adapter = new ApplianceAdapter(requireContext(), R.layout.item_info, myAppliances);
+                            lv.setAdapter(adapter);
+
+                        }
+                    });
         }
 
         return layout;

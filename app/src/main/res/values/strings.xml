@@ -66,4 +66,6 @@
     <string name="appliance_vacuum_cleaner">Vacuum cleaner</string>
     <string name="reference">Reference</string>
     <string name="edit_my_appliances">Edit my appliances</string>
+    <string name="my_devices">My devices</string>
+
 </resources>
