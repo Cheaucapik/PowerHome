@@ -58,4 +58,12 @@
     <string name="Add_an_appliance">Agregar un aparato</string>
     <string name="you_don_t_have_any_appliance_yet">Aún no tienes ningún aparatos</string>
     <string name="maybe_later">Tal vez más tarde</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="consumption">Consumo</string>
+    <string name="appliance_washing_machine">Lavadora</string>
+    <string name="appliance_air_conditionner">Acondicionador de aire</string>
+    <string name="appliance_steam_ironer">Planchadora de vapor</string>
+    <string name="appliance_vacuum_cleaner">Aspiradora</string>
+    <string name="reference">Referencia</string>
+    <string name="edit_my_appliances">Modificar mis aparatos</string>
 </resources>

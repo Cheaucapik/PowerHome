@@ -37,29 +37,23 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:background="@drawable/edittext_rounded"
-        android:backgroundTint="@color/editText">
+        android:backgroundTint="@color/editText"
+        android:padding="8dp">
 
         <ImageView
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="15dp"
             android:src="@drawable/prise" />
 
-        <EditText
-            android:digits="1234567890"
-            android:layout_width="match_parent"
+        <Spinner
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:hint="@string/Appliance"
-            android:padding="20dp"
-            android:background="@null"
-            android:textColorHint="@color/white"
-            tools:ignore="TextFields"
-            android:id="@+id/floor_et"
-            android:textColor="@color/black" />
+            android:paddingBottom="0dp"
+            android:spinnerMode="dropdown"
+            android:id="@+id/appliance_sp" />
 
     </LinearLayout>
 
@@ -88,12 +82,46 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:minHeight="48dp"
-            android:hint="@string/Area"
+            android:hint="@string/consumption"
             android:padding="20dp"
             android:background="@null"
             android:textColorHint="@color/white"
             tools:ignore="TextFields"
-            android:id="@+id/area_et"
+            android:id="@+id/consumption_et"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/edittext_rounded"
+        android:backgroundTint="@color/editText"
+        >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/tag"
+            app:tint="@color/white" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:hint="@string/reference"
+            android:padding="20dp"
+            android:background="@null"
+            android:textColorHint="@color/white"
+            tools:ignore="TextFields"
+            android:id="@+id/ref_et"
             android:textColor="@color/black"/>
 
     </LinearLayout>

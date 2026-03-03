@@ -12,7 +12,7 @@
         android:id="@+id/name_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome Cedric Boudet"
+        android:text="@string/welcome"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="40sp"
@@ -51,10 +51,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:orientation="horizontal"
             android:background="@drawable/edittext_rounded"
             android:text="@string/add_an_appliance"
             android:padding="20dp"
+            android:onClick="add"
             android:textColor="@color/white"/>
 
 
@@ -67,7 +67,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:backgroundTint="@color/white"
-        android:onClick="login"
+        android:onClick="later"
         android:padding="20dp"
         android:text="@string/maybe_later"
         android:textAllCaps="false"
