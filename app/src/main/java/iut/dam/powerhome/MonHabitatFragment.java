@@ -3,32 +3,32 @@ package iut.dam.powerhome;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import org.json.JSONObject;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
 
 
 public class MonHabitatFragment extends Fragment {
 
+    private View layout;
     private ArrayList<Appliance> myAppliances = new ArrayList<>();
     private ApplianceAdapter adapter;
 
@@ -37,7 +37,7 @@ public class MonHabitatFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.monhabitat_fragment, container, false);
+        layout = inflater.inflate(R.layout.monhabitat_fragment, container, false);
         SharedPreferences sp = getContext().getSharedPreferences("UserSession", MODE_PRIVATE);
 
         TextView name_tv = layout.findViewById(R.id.name_tv);
@@ -100,6 +100,11 @@ public class MonHabitatFragment extends Fragment {
                             }
 
                             myAppliances = (ArrayList<Appliance>) habitatUser.getAppliances();
+                            if(myAppliances.size() == 0){
+                                TextView nodevice_tv = layout.findViewById(R.id.nodevice_tv);
+                                nodevice_tv.setText(getContext().getString(R.string.you_don_t_have_any_appliance_yet));
+                            }
+
                             adapter = new ApplianceAdapter(requireContext(), R.layout.item_info, myAppliances);
                             lv.setAdapter(adapter);
 
@@ -107,6 +112,34 @@ public class MonHabitatFragment extends Fragment {
                     });
         }
 
+        ImageView edit_iv = layout.findViewById(R.id.iv_edit);
+        edit_iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomDialogEditAppliance cs = new CustomDialogEditAppliance(getContext(), myAppliances, adapter);
+                cs.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        update();
+                    }
+                });
+                cs.show();
+            }
+        });
+
         return layout;
+    }
+
+    public void update(){
+        TextView conso_tv = layout.findViewById(R.id.conso_tv);
+        TextView nb_appareil_tv = layout.findViewById(R.id.nb_appareil_tv);
+
+        int sum = 0;
+        for(Appliance a : myAppliances){
+            sum += a.wattage;
+        }
+        conso_tv.setText(sum + " W");
+        nb_appareil_tv.setText(myAppliances.size() + " " + getContext().getString(R.string.appliance));
+        adapter.notifyDataSetChanged();
     }
 }

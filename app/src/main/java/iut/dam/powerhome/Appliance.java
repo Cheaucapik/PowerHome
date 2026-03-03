@@ -3,10 +3,11 @@ package iut.dam.powerhome;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class Appliance {
+public class Appliance implements Serializable {
     int id;
     String name;
     String reference;

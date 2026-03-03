@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="match_parent"
     android:background="@color/white">
 
@@ -19,6 +19,12 @@
             android:textStyle="bold"
             android:padding="15dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nodevice_tv"
+        android:padding="10dp"/>
+
     <ListView
         android:id="@+id/lv_appliances"
         android:listSelector="@android:color/transparent"
@@ -29,5 +35,14 @@
         android:clipToPadding="false"
         android:dividerHeight="10dp"
         android:divider="@android:color/transparent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textAllCaps="false"
+        android:id="@+id/add_tv"
+        android:text="@string/add_an_appliance"
+        android:padding="20dp"/>
 
 </LinearLayout>
