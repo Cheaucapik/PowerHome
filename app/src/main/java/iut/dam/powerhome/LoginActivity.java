@@ -2,113 +2,140 @@ package iut.dam.powerhome;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.splashscreen.SplashScreen;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class LoginActivity extends AppCompatActivity {
-    private boolean isReady = false;
+
+    private EditText etEmail, etPassword;
+    private Button btnLogin;
+
+    // URL pour l'émulateur Android Studio (10.0.2.2 = localhost du PC)
+    private static final String LOGIN_URL = "http://10.0.2.2/powerhome_server/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
 
-        final View content = findViewById(android.R.id.content);
-        content.getViewTreeObserver().addOnPreDrawListener(
-                new ViewTreeObserver.OnPreDrawListener() {
-                    @Override
-                    public boolean onPreDraw() {
-                        if (isReady) {
-                            content.getViewTreeObserver().removeOnPreDrawListener(this);
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                }
-        );
-
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            isReady = true;
-        }, 1000);
-
-        EdgeToEdge.enable(this);
+        // 1. Chargement du layout
         setContentView(R.layout.loginactivity);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.loginactivity), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        // 2. Liaison avec le XML
+        etEmail = findViewById(R.id.et_email);
+        etPassword = findViewById(R.id.et_password);
+        btnLogin = findViewById(R.id.btn_login);
+
+        // 3. Action du clic sur Sign In
+        if (btnLogin != null) {
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    performLogin();
+                }
+            });
+        }
     }
 
-    public void signup(View v){
+    // Fonction déclenchée au clic
+    private void performLogin() {
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Lancement de la requête réseau en tâche de fond
+        new LoginTask().execute(email, password);
+    }
+
+    // Ces méthodes sont appelées si tu as android:onClick dans ton XML
+    public void login(View view) {
+        performLogin();
+    }
+
+    public void signup(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
-    public void login(View v) {
-        EditText editEmail = findViewById(R.id.et_email);
-        EditText editPassword = findViewById(R.id.et_password);
+    // Classe pour gérer la connexion HTTP
+    private class LoginTask extends AsyncTask<String, Void, String> {
 
-        String email = editEmail.getText().toString().trim();
-        String password = editPassword.getText().toString().trim();
+        @Override
+        protected String doInBackground(String... params) {
+            String email = params[0];
+            String password = params[1];
+            String fullUrl = LOGIN_URL + "?email=" + email + "&password=" + password;
 
-        String url = "http://10.0.2.2/powerhome_server/login.php?id=" + email + "&password=" + password;
+            try {
+                URL url = new URL(fullUrl);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setConnectTimeout(5000);
 
-        Ion.with(this)
-                .load(url)
-                .asString()
-                .setCallback(new FutureCallback<String>() {
-                    @Override
-                    public void onCompleted(Exception e, String result) {
-                        if (e != null) {
-                            Log.e("Erreur", "Problème réseau : " + e.getMessage());
-                            Toast.makeText(LoginActivity.this, "Serveur injoignable", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+                return response.toString();
 
-                        try {
-                            JSONObject json = new JSONObject(result);
+            } catch (Exception e) {
+                Log.e("POWERHOME", "Erreur réseau : " + e.getMessage());
+                return null;
+            }
+        }
 
-                            if (json.has("token")) {
-                                SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
+        @Override
+        protected void onPostExecute(String result) {
+            if (result == null) {
+                Toast.makeText(LoginActivity.this, "Serveur XAMPP injoignable", Toast.LENGTH_LONG).show();
+                return;
+            }
 
-                                editor.putString("token", json.getString("token"));
-                                editor.putString("firstname", json.getString("firstname"));
-                                editor.putString("lastname", json.getString("lastname"));
-                                editor.putString("email", json.getString("email"));
-                                editor.apply();
+            try {
+                JSONObject json = new JSONObject(result);
 
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(LoginActivity.this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException ex) {
-                            Log.e("JSON_ERROR", "Erreur de lecture : " + result);
-                        }
-                    }
-                });
+                if (json.has("token")) {
+                    // Succès : On sauvegarde le token pour les prochaines activités
+                    SharedPreferences pref = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                    pref.edit()
+                            .putString("token", json.getString("token"))
+                            .putInt("userId", json.getInt("id"))
+                            .apply();
+
+                    Toast.makeText(LoginActivity.this, "Bienvenue " + json.getString("firstname"), Toast.LENGTH_SHORT).show();
+
+                    // Direction l'écran principal
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    // Erreur renvoyée par ton PHP (401)
+                    String error = json.optString("error", "Identifiants incorrects");
+                    Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                Log.e("POWERHOME", "Erreur JSON : " + e.getMessage());
+                Toast.makeText(LoginActivity.this, "Erreur de réponse serveur", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

@@ -44,5 +44,5 @@ dependencies {
     implementation(libs.core.splashscreen)
     implementation libs.ion
     implementation libs.gson
-    implementation("com.android.volley:volley:1.2.1")
+    implementation 'com.squareup.okhttp3:okhttp:5.3.2'
 }
