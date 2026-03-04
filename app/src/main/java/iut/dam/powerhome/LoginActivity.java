@@ -114,21 +114,31 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject json = new JSONObject(result);
 
                 if (json.has("token")) {
-                    // Succès : On sauvegarde le token pour les prochaines activités
+                    // 1. Accès aux préférences partagées
                     SharedPreferences pref = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-                    pref.edit()
-                            .putString("token", json.getString("token"))
-                            .putInt("userId", json.getInt("id"))
-                            .apply();
+                    SharedPreferences.Editor editor = pref.edit();
+
+                    // 2. Sauvegarde de TOUTES les données reçues du PHP
+                    editor.putString("token", json.getString("token"));
+                    editor.putInt("userId", json.getInt("id"));
+
+                    // INDISPENSABLE pour le pré-remplissage du ParamFragment :
+                    editor.putString("firstname", json.getString("firstname"));
+                    editor.putString("lastname", json.getString("lastname"));
+                    editor.putString("email", json.getString("email"));
+
+                    // 3. Validation de l'enregistrement
+                    editor.apply();
 
                     Toast.makeText(LoginActivity.this, "Bienvenue " + json.getString("firstname"), Toast.LENGTH_SHORT).show();
 
-                    // Direction l'écran principal
+                    // 4. Redirection
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
+
                 } else {
-                    // Erreur renvoyée par ton PHP (401)
+                    // Erreur renvoyée par ton PHP (ex: identifiants incorrects)
                     String error = json.optString("error", "Identifiants incorrects");
                     Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
                 }

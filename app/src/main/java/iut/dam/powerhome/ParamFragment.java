@@ -1,5 +1,6 @@
 package iut.dam.powerhome;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -25,7 +26,6 @@ public class ParamFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Vérifie que le nom du layout est bien parametres_fragment.xml
         View layout = inflater.inflate(R.layout.parametres_fragment, container, false);
 
         etFname = layout.findViewById(R.id.et_firstname);
@@ -33,16 +33,31 @@ public class ParamFragment extends Fragment {
         etEmail = layout.findViewById(R.id.et_email);
         etPass = layout.findViewById(R.id.et_password);
 
-        // Correction : On utilise "UserPrefs" (le nom utilisé dans ton LoginActivity)
+        // 1. RÉCUPÉRATION DES INFOS DÉJÀ PRÉSENTES
+        // On utilise "UserPrefs" pour être cohérent avec ton LoginActivity
         SharedPreferences sp = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         userToken = sp.getString("token", "");
 
-        // Remplissage auto des champs avec les infos actuelles
+        // 2. PRÉ-REMPLISSAGE DES CHAMPS
+        // On récupère les valeurs stockées lors du login pour les afficher par défaut
         etFname.setText(sp.getString("firstname", ""));
         etLname.setText(sp.getString("lastname", ""));
         etEmail.setText(sp.getString("email", ""));
+        // Note: On ne pré-remplit pas le mot de passe par sécurité
 
-        layout.findViewById(R.id.btn_save).setOnClickListener(v -> {
+        layout.findViewById(R.id.btn_save).setOnClickListener(v -> showConfirmationDialog());
+
+        return layout;
+    }
+
+    // 3. CRÉATION DE LA BOÎTE DE DIALOGUE DE CONFIRMATION
+    private void showConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Confirmation");
+        builder.setMessage("Voulez-vous vraiment modifier vos informations de profil ?");
+
+        // Si l'utilisateur clique sur "Oui"
+        builder.setPositiveButton("Oui, enregistrer", (dialog, which) -> {
             String fname = etFname.getText().toString().trim();
             String lname = etLname.getText().toString().trim();
             String email = etEmail.getText().toString().trim();
@@ -51,7 +66,11 @@ public class ParamFragment extends Fragment {
             new UpdateUserTask().execute(userToken, fname, lname, email, pass);
         });
 
-        return layout;
+        // Si l'utilisateur clique sur "Annuler"
+        builder.setNegativeButton("Annuler", (dialog, which) -> dialog.dismiss());
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private class UpdateUserTask extends AsyncTask<String, Void, String> {
@@ -64,13 +83,11 @@ public class ParamFragment extends Fragment {
             String pass  = params[4];
 
             try {
-                // On utilise POST pour envoyer des données sensibles comme le mot de passe
                 URL url = new URL("http://10.0.2.2/powerhome_server/update_user.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
 
-                // Construction des données à envoyer
                 String postData = "token=" + URLEncoder.encode(token, "UTF-8") +
                         "&firstname=" + URLEncoder.encode(fname, "UTF-8") +
                         "&lastname=" + URLEncoder.encode(lname, "UTF-8") +
@@ -103,7 +120,7 @@ public class ParamFragment extends Fragment {
             try {
                 JSONObject json = new JSONObject(result);
                 if (json.optString("status").equals("success")) {
-                    // Mise à jour locale des SharedPreferences
+                    // 4. MISE À JOUR LOCALE APRÈS SUCCÈS
                     SharedPreferences sp = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
                     sp.edit()
                             .putString("firstname", etFname.getText().toString())
@@ -111,12 +128,12 @@ public class ParamFragment extends Fragment {
                             .putString("email", etEmail.getText().toString())
                             .apply();
 
-                    Toast.makeText(getContext(), "Profil mis à jour !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Profil mis à jour avec succès !", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "Erreur : " + json.optString("message"), Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
-                Toast.makeText(getContext(), "Erreur de réponse", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Erreur de traitement des données", Toast.LENGTH_SHORT).show();
             }
         }
     }
