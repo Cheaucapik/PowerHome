@@ -33,30 +33,25 @@ public class ParamFragment extends Fragment {
         etEmail = layout.findViewById(R.id.et_email);
         etPass = layout.findViewById(R.id.et_password);
 
-        // 1. RÉCUPÉRATION DES INFOS DÉJÀ PRÉSENTES
-        // On utilise "UserPrefs" pour être cohérent avec ton LoginActivity
+
         SharedPreferences sp = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         userToken = sp.getString("token", "");
 
-        // 2. PRÉ-REMPLISSAGE DES CHAMPS
-        // On récupère les valeurs stockées lors du login pour les afficher par défaut
+
         etFname.setText(sp.getString("firstname", ""));
         etLname.setText(sp.getString("lastname", ""));
         etEmail.setText(sp.getString("email", ""));
-        // Note: On ne pré-remplit pas le mot de passe par sécurité
 
         layout.findViewById(R.id.btn_save).setOnClickListener(v -> showConfirmationDialog());
 
         return layout;
     }
 
-    // 3. CRÉATION DE LA BOÎTE DE DIALOGUE DE CONFIRMATION
     private void showConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Confirmation");
         builder.setMessage("Voulez-vous vraiment modifier vos informations de profil ?");
 
-        // Si l'utilisateur clique sur "Oui"
         builder.setPositiveButton("Oui, enregistrer", (dialog, which) -> {
             String fname = etFname.getText().toString().trim();
             String lname = etLname.getText().toString().trim();
@@ -66,7 +61,6 @@ public class ParamFragment extends Fragment {
             new UpdateUserTask().execute(userToken, fname, lname, email, pass);
         });
 
-        // Si l'utilisateur clique sur "Annuler"
         builder.setNegativeButton("Annuler", (dialog, which) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();

@@ -23,22 +23,19 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private Button btnLogin;
 
-    // URL pour l'émulateur Android Studio (10.0.2.2 = localhost du PC)
     private static final String LOGIN_URL = "http://10.0.2.2/powerhome_server/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 1. Chargement du layout
         setContentView(R.layout.loginactivity);
 
-        // 2. Liaison avec le XML
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
 
-        // 3. Action du clic sur Sign In
+
         if (btnLogin != null) {
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -49,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    // Fonction déclenchée au clic
     private void performLogin() {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
@@ -59,11 +55,8 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Lancement de la requête réseau en tâche de fond
         new LoginTask().execute(email, password);
     }
-
-    // Ces méthodes sont appelées si tu as android:onClick dans ton XML
     public void login(View view) {
         performLogin();
     }
@@ -73,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // Classe pour gérer la connexion HTTP
     private class LoginTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -114,32 +106,26 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject json = new JSONObject(result);
 
                 if (json.has("token")) {
-                    // 1. Accès aux préférences partagées
                     SharedPreferences pref = getSharedPreferences("UserPrefs", MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
 
-                    // 2. Sauvegarde de TOUTES les données reçues du PHP
                     editor.putString("token", json.getString("token"));
                     editor.putInt("userId", json.getInt("id"));
 
-                    // INDISPENSABLE pour le pré-remplissage du ParamFragment :
                     editor.putString("firstname", json.getString("firstname"));
                     editor.putString("lastname", json.getString("lastname"));
                     editor.putString("email", json.getString("email"));
 
-                    // 3. Validation de l'enregistrement
                     editor.apply();
 
                     Toast.makeText(LoginActivity.this, "Bienvenue " + json.getString("firstname"), Toast.LENGTH_SHORT).show();
 
-                    // 4. Redirection
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
 
                 } else {
-                    // Erreur renvoyée par ton PHP (ex: identifiants incorrects)
-                    String error = json.optString("error", "Identifiants incorrects");
+                   String error = json.optString("error", "Identifiants incorrects");
                     Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
