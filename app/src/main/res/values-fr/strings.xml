@@ -60,11 +60,12 @@
     <string name="maybe_later">Peut-être plus tard</string>
     <string name="welcome">"Bienvenue "</string>
     <string name="consumption">Consommation</string>
-    <string name="appliance_washing_machine">Machine à laver</string>
     <string name="appliance_air_conditionner">Climatiseur</string>
     <string name="appliance_steam_ironer">Repasseur vapeur</string>
     <string name="appliance_vacuum_cleaner">Aspirateur</string>
     <string name="reference">Référence</string>
     <string name="edit_my_appliances">Modifier mes appareils</string>
     <string name="my_devices">Mes appareils</string>
+    <string name="appliance_washing_machine">Machine à laver</string>
+    <string name="appliance_fridge">Réfrigérateur</string>
 </resources>

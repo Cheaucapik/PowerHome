@@ -60,12 +60,13 @@
     <string name="maybe_later">Maybe later</string>
     <string name="welcome">"Welcome "</string>
     <string name="consumption">Consumption</string>
-    <string name="appliance_washing_machine">Washing machine</string>
     <string name="appliance_air_conditionner">Air conditionner</string>
     <string name="appliance_steam_ironer">Steam ironer</string>
     <string name="appliance_vacuum_cleaner">Vacuum cleaner</string>
     <string name="reference">Reference</string>
     <string name="edit_my_appliances">Edit my appliances</string>
     <string name="my_devices">My devices</string>
+    <string name="appliance_washing_machine">Washing Machine</string>
+    <string name="appliance_fridge">Refrigerator</string>
 
 </resources>
