@@ -1,5 +1,6 @@
 package iut.dam.powerhome;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentManager fm;
     private NavigationView navNV;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +59,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView mail_tv = headerView.findViewById(R.id.mail_tv);
 
         SharedPreferences sp = this.getSharedPreferences("UserSession", MODE_PRIVATE);
-        String nom = sp.getString("firstname", "") + " " + sp.getString("lastname", "");
-        name_tv.setText(nom);
+        String json = sp.getString("user_json", null);
 
-        mail_tv.setText(sp.getString("email", ""));
+        if (json != null) {
+            User currentUser = User.getFromJson(json);
+
+            String nom = currentUser.firstname;
+            String prenom = currentUser.lastname;
+
+            name_tv.setText(nom + " " + prenom);
+            mail_tv.setText(currentUser.email);
+        }
+
     }
 
     @Override

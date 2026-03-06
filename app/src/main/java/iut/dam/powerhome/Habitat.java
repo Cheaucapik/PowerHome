@@ -1,5 +1,4 @@
 package iut.dam.powerhome;
-import android.widget.ArrayAdapter;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -9,27 +8,24 @@ import java.util.List;
 
 public class Habitat {
     int id;
-    User resident;
     int floor;
     double area;
     List<Appliance> appliances;
-    public Habitat(int id, User resident, int floor, double area, ArrayList<Appliance> appliances){
+    String residentName;
+    public Habitat(int id, int floor, double area, ArrayList<Appliance> appliances, String residentName){
         this.id = id;
-        this.resident = resident;
         this.floor = floor;
         this.area = area;
         this.appliances = appliances;
+        this.residentName = residentName;
+    }
+
+    public String getResidentName(){
+        return residentName;
     }
 
     public int getId() {
         return id;
-    }
-
-    public String getResidentName() {
-        if (this.resident != null) {
-            return this.resident.firstname + " " + this.resident.lastname;
-        }
-        return "Unknown";
     }
 
     public int getFloor() {

@@ -30,5 +30,13 @@
             android:name=".RegisterActivity"
             android:exported="false" />
 
+        <activity android:name=".ForgotPasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PowerHome" />
+
+        <activity android:name=".AddApplianceActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PowerHome" />
+
     </application>
 </manifest>

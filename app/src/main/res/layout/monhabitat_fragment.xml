@@ -7,15 +7,13 @@
     android:layout_height="match_parent"
     android:background="@color/off_white"
     android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:padding="20dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="Bienvenue dans Mon Habitat"
+        android:text="@string/welcome_in_my_accommodation"
         android:textColor="@color/dark_green"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -38,15 +36,26 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mon profil"
+                    android:text="@string/my_profile"
                     android:textStyle="bold"
                     android:layout_gravity="center"
+                    android:textSize="20sp"
                     android:textColor="@color/black"/>
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/pp" />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/pp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:id="@+id/pseudo_tv"/>
             </LinearLayout>
 
             <LinearLayout
@@ -69,22 +78,24 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Etage"
+                        android:text="@string/Floor"
                         android:textColor="@color/white"
                         android:textAllCaps="true"
                         android:textStyle="bold"
                         android:paddingStart="5dp"
                         android:id="@+id/floor_tv"
-                        android:textSize="10sp"
+                        android:textSize="15sp"
                         tools:ignore="RtlSymmetry,SmallSp" />
 
                     <TextView
                         android:id="@+id/etage_tv"
-                        android:layout_width="14dp"
-                        android:layout_height="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="1"
-                        android:textSize="10sp"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
                         tools:ignore="SmallSp" />
@@ -93,7 +104,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:orientation="horizontal"
                     android:layout_gravity="end"
                     android:layout_weight="1">
@@ -101,9 +112,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Solde : "
+                        android:text="@string/solde"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -112,26 +123,29 @@
                         android:id="@+id/tv_solde"
                         android:text="-3"
                         android:textStyle="bold"
+                        android:textSize="20sp"
                         android:textColor="@color/red"
                         android:layout_marginRight="5dp"
                         tools:ignore="RtlHardcoded" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="27dp"
+                        android:layout_height="27dp"
                         android:src="@drawable/coin"/>
 
                 </LinearLayout>
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="2dp"
-                    android:text="Cedric Boudet"
+                    android:text="jc"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:id="@+id/name_tv"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,7 +154,8 @@
                     android:alpha="0.6"
                     android:text="1 appareil"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:id="@+id/nb_appareil_tv"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -188,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="10dp"
-                    android:text="Surface totale :"
+                    android:text="@string/surface_totale"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -196,7 +211,8 @@
                     android:layout_height="wrap_content"
                     android:text="54.0 m²"
                     android:textStyle="bold"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:id="@+id/surface_tv"/>
             </LinearLayout>
 
             <LinearLayout
@@ -216,7 +232,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="10dp"
-                    android:text="Consommation :"
+                    android:text="@string/consommation"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -224,83 +240,55 @@
                     android:layout_height="wrap_content"
                     android:text="3000 W"
                     android:textStyle="bold"
-                    android:textColor="#E30000" />
+                    android:textColor="#E30000"
+                    android:id="@+id/conso_tv"/>
             </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:background="@drawable/card"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginTop="2dp"
+            android:text="@string/my_devices"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Mes Appareils"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+        <ImageView
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edit_3_svgrepo_com"
+            android:layout_gravity="center"
+            android:id="@+id/iv_edit"/>
+    </LinearLayout>
 
-            <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nodevice_tv"/>
+
+        <ListView
+                android:id="@+id/lv_appliances"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/washing_machine" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Machine à laver"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RML2"
-                    android:textColor="@color/gray"
-                    android:textStyle="italic"
-                    android:textSize="15dp"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/appliance_wattage_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/edittext_rounded"
-                    android:backgroundTint="@color/red"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="3000 W"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+                android:divider="@android:color/transparent" />
+    </LinearLayout>
 
 
-            </LinearLayout>
+    </LinearLayout>
 
-        </LinearLayout>
 
-</LinearLayout>
