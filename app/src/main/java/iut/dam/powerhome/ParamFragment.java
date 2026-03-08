@@ -21,7 +21,8 @@ import java.net.URLEncoder;
 
 public class ParamFragment extends Fragment {
 
-    private EditText etFname, etLname, etEmail, etPass;
+    // 1. AJOUT DES VARIABLES
+    private EditText etFname, etLname, etEmail, etPass, etTel, etUsername;
     private String userToken;
 
     @Override
@@ -33,14 +34,18 @@ public class ParamFragment extends Fragment {
         etEmail = layout.findViewById(R.id.et_email);
         etPass = layout.findViewById(R.id.et_password);
 
+        etTel = layout.findViewById(R.id.et_tel);
+        etUsername = layout.findViewById(R.id.et_username);
 
         SharedPreferences sp = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         userToken = sp.getString("token", "");
 
-
         etFname.setText(sp.getString("firstname", ""));
         etLname.setText(sp.getString("lastname", ""));
         etEmail.setText(sp.getString("email", ""));
+
+        etTel.setText(sp.getString("tel", ""));
+        etUsername.setText(sp.getString("username", ""));
 
         layout.findViewById(R.id.btn_save).setOnClickListener(v -> showConfirmationDialog());
 
@@ -58,7 +63,10 @@ public class ParamFragment extends Fragment {
             String email = etEmail.getText().toString().trim();
             String pass  = etPass.getText().toString().trim();
 
-            new UpdateUserTask().execute(userToken, fname, lname, email, pass);
+            String tel = etTel.getText().toString().trim();
+            String username = etUsername.getText().toString().trim();
+
+            new UpdateUserTask().execute(userToken, fname, lname, email, pass, tel, username);
         });
 
         builder.setNegativeButton("Annuler", (dialog, which) -> dialog.dismiss());
@@ -76,6 +84,9 @@ public class ParamFragment extends Fragment {
             String email = params[3];
             String pass  = params[4];
 
+            String tel   = params[5];
+            String username = params[6];
+
             try {
                 URL url = new URL("http://10.0.2.2/powerhome_server/update_user.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -86,7 +97,9 @@ public class ParamFragment extends Fragment {
                         "&firstname=" + URLEncoder.encode(fname, "UTF-8") +
                         "&lastname=" + URLEncoder.encode(lname, "UTF-8") +
                         "&email=" + URLEncoder.encode(email, "UTF-8") +
-                        "&password=" + URLEncoder.encode(pass, "UTF-8");
+                        "&password=" + URLEncoder.encode(pass, "UTF-8") +
+                        "&tel=" + URLEncoder.encode(tel, "UTF-8") +
+                        "&username=" + URLEncoder.encode(username, "UTF-8");
 
                 OutputStream os = conn.getOutputStream();
                 os.write(postData.getBytes());
@@ -114,12 +127,14 @@ public class ParamFragment extends Fragment {
             try {
                 JSONObject json = new JSONObject(result);
                 if (json.optString("status").equals("success")) {
-                    // 4. MISE À JOUR LOCALE APRÈS SUCCÈS
+
                     SharedPreferences sp = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
                     sp.edit()
                             .putString("firstname", etFname.getText().toString())
                             .putString("lastname", etLname.getText().toString())
                             .putString("email", etEmail.getText().toString())
+                            .putString("tel", etTel.getText().toString())
+                            .putString("username", etUsername.getText().toString())
                             .apply();
 
                     Toast.makeText(getContext(), "Profil mis à jour avec succès !", Toast.LENGTH_SHORT).show();

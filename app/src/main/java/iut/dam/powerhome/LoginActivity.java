@@ -42,6 +42,14 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    public void login(View v) {
+        performLogin();
+    }
+
+    public void forgot(View v) {
+        Toast.makeText(this, "Bientôt disponible !", Toast.LENGTH_SHORT).show();
+    }
     private void performLogin() {
         String idInput = etId.getText().toString().trim();
         String passwordInput = etPassword.getText().toString().trim();
@@ -106,6 +114,8 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("firstname", json.getString("firstname"));
                     editor.putString("lastname", json.getString("lastname"));
                     editor.putString("email", json.getString("email"));
+                    editor.putString("username", json.optString("username", ""));
+                    editor.putString("tel", json.optString("tel", ""));
                     editor.apply();
 
                     Toast.makeText(LoginActivity.this, "Succès !", Toast.LENGTH_SHORT).show();
