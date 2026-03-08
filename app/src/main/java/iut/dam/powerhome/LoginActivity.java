@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etId, etPassword;
     private Button btnLogin;
-    // Utilise bien 10.0.2.2 pour l'émulateur standard
     private static final String LOGIN_URL = "http://10.0.2.2/powerhome_server/login.php";
 
     @Override
@@ -36,6 +35,11 @@ public class LoginActivity extends AppCompatActivity {
         if (btnLogin != null) {
             btnLogin.setOnClickListener(v -> performLogin());
         }
+    }
+
+    public void signup(View v) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 
     private void performLogin() {
@@ -60,9 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                 URL url = new URL(fullUrl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
-                conn.setConnectTimeout(7000); // 7 secondes pour laisser le temps au réseau
+                conn.setConnectTimeout(7000);
 
-                // On récupère le code de réponse (200, 401, 400, etc.)
                 int responseCode = conn.getResponseCode();
 
                 BufferedReader reader;
