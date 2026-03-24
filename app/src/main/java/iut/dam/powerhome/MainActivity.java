@@ -1,6 +1,7 @@
 package iut.dam.powerhome;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -104,6 +105,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_fifth) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+            SharedPreferences sp = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            sp.edit().clear().apply();
+
+            SharedPreferences sp2 = getSharedPreferences("UserSession", MODE_PRIVATE);
+            sp2.edit().clear().apply();
 
             startActivity(intent);
             finish();
