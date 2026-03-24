@@ -38,7 +38,22 @@ public class ApplianceAdapter extends ArrayAdapter<Appliance> {
         TextView watts = convertView.findViewById(R.id.appliance_wattage_tv);
 
         icon.setImageResource(item.getD());
-        name.setText(item.getName());
+
+        // --- DEBUT DE LA LOGIQUE DE TRADUCTION ---
+        String rawName = item.getName(); // ex: "appliance_washing_machine"
+
+        // On cherche l'identifiant de la ressource string correspondant au nom
+        int resId = getContext().getResources().getIdentifier(rawName, "string", getContext().getPackageName());
+
+        if (resId != 0) {
+            // Si la clé existe dans strings.xml, Android prend automatiquement la bonne langue
+            name.setText(getContext().getString(resId));
+        } else {
+            // Si la clé n'est pas trouvée (vieux noms ou erreur), on affiche le texte brut
+            name.setText(rawName);
+        }
+        // --- FIN DE LA LOGIQUE DE TRADUCTION ---
+
         ref.setText(item.getReference());
         watts.setText(item.getWattage() + "W");
 
@@ -62,5 +77,4 @@ public class ApplianceAdapter extends ArrayAdapter<Appliance> {
             tv.setBackgroundTintList(ColorStateList.valueOf(color));
         }
     }
-
 }
