@@ -2,7 +2,11 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
+<<<<<<< HEAD
       <SelectionState runConfigName="LoginActivity">
+=======
+      <SelectionState runConfigName="app">
+>>>>>>> sie
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

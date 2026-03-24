@@ -1,7 +1,5 @@
 package iut.dam.powerhome;
 
-import static java.security.AccessController.getContext;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,12 +11,8 @@ import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.splashscreen.SplashScreen;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -26,16 +20,18 @@ import com.koushikdutta.ion.Ion;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 public class LoginActivity extends AppCompatActivity {
+
     private boolean isReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
+        setContentView(R.layout.loginactivity);
 
         final View content = findViewById(android.R.id.content);
         content.getViewTreeObserver().addOnPreDrawListener(
@@ -52,15 +48,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
         );
 
-        new Handler(Looper.getMainLooper()).postDelayed(() -> isReady = true, 1000);
-
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.loginactivity);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.loginactivity), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            isReady = true;
+        }, 1000);
     }
 
     public void signup(View v) {
@@ -80,10 +70,12 @@ public class LoginActivity extends AppCompatActivity {
         String id = editId.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
-        String url = "http://10.0.2.2/powerhome_server/login.php?id="
-                + id
-                + "&password="
-                + password;
+        if (id.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Champs vides", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String url = "http://10.0.2.2/powerhome_server/login.php?id=" + id + "&password=" + password;
 
         Ion.with(this)
                 .load(url)
@@ -93,44 +85,49 @@ public class LoginActivity extends AppCompatActivity {
                     public void onCompleted(Exception e, String result) {
                         if (e != null) {
                             Log.e("Erreur", "Problème réseau", e);
+                            Toast.makeText(LoginActivity.this, "Erreur réseau", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
                         Log.d("DEBUG_SERVER", "Réponse du PHP : " + result);
-                        SharedPreferences sp = LoginActivity.this.getSharedPreferences("UserSession", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putString("user_json", result);
-                        editor.apply();
 
                         if (result != null && result.contains("token")) {
                             try {
                                 JSONObject jo = new JSONObject(result);
-                                boolean token_null = jo.getBoolean("token_null");
-                                if(token_null){
-                                    Intent intent = new Intent(LoginActivity.this, AddApplianceActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                                else{
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }
-                            catch (JSONException ex) {
-                                Log.e("JSON_PARSE", "Erreur lors de la lecture du JSON : " + result);
-                            }
-                        }
 
-                        else {
+                                SharedPreferences spFragment = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                                SharedPreferences.Editor edFrag = spFragment.edit();
+                                edFrag.putString("token", jo.getString("token"));
+                                edFrag.putString("firstname", jo.optString("firstname", ""));
+                                edFrag.putString("lastname", jo.optString("lastname", ""));
+                                edFrag.putString("email", jo.optString("email", ""));
+                                edFrag.apply();
+
+                                SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putString("user_json", result);
+                                editor.apply();
+
+                                boolean token_null = jo.optBoolean("token_null", false);
+                                Intent intent;
+                                if(token_null){
+                                    intent = new Intent(LoginActivity.this, AddApplianceActivity.class);
+                                } else {
+                                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                                }
+                                startActivity(intent);
+                                finish();
+
+                            } catch (JSONException ex) {
+                                Log.e("JSON_PARSE", "Erreur : " + result);
+                            }
+                        } else {
                             try {
                                 JSONObject jo = new JSONObject(result);
-                                String error = jo.getString("error");
+                                String error = jo.optString("error", "Identifiants incorrects");
                                 Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
-                                Log.d("PB_ID", "Serveur : " + error);
-                            }
-                            catch (JSONException ex) {
-                                Log.e("JSON_PARSE", "Erreur lors de la lecture du JSON : " + result);
+                            } catch (Exception ex) {
+                                Toast.makeText(LoginActivity.this, "Erreur serveur", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
