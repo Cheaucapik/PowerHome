@@ -98,12 +98,12 @@
             android:src="@drawable/account"/>
 
         <EditText
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+            android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:minHeight="48dp"
-            android:hint="@string/Username"
+            android:hint="@string/username"
             android:padding="20dp"
             android:background="@null"
             android:textColorHint="@color/white"
@@ -132,40 +132,9 @@
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:hint="@string/e_mail"
-            android:padding="20dp"
-            android:background="@null"
-            android:textColorHint="@color/white"
-            tools:ignore="TextFields"
-            android:textColor="@color/black"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:background="@drawable/edittext_rounded"
-        android:backgroundTint="@color/editText">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="15dp"
-            android:src="@drawable/lock_open_svgrepo_com"/>
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:hint="@string/password"
             android:padding="20dp"
             android:background="@null"
             android:textColorHint="@color/white"
@@ -179,11 +148,11 @@
         android:orientation="horizontal"
         android:paddingBottom="25dp"
         android:gravity="bottom"
-        android:baselineAligned="true">
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_marginStart="15dp"
             android:padding="8dp"
@@ -199,10 +168,9 @@
 
             <Spinner
                 android:id="@+id/sp_prefixe"
-                android:spinnerMode="dropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="0dp"/>
+                android:spinnerMode="dialog"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <EditText
@@ -220,6 +188,24 @@
             android:background="@drawable/edittext_rounded"
             android:textColor="@color/black"/>
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_change_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/editText"
+        android:text="Changer le mot de passe"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        app:cornerRadius="30dp"
+        android:padding="16dp"
+        app:icon="@drawable/lock_open_svgrepo_com"
+        app:iconGravity="textStart"
+        app:iconPadding="10dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save"

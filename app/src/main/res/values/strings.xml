@@ -67,5 +67,6 @@
     <string name="reference">Reference</string>
     <string name="edit_my_appliances">Edit my appliances</string>
     <string name="my_devices">My devices</string>
+    <string name="username">Username</string>
 
 </resources>

@@ -28,23 +28,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
 
         setContentView(R.layout.loginactivity);
 
         final View content = findViewById(android.R.id.content);
         content.getViewTreeObserver().addOnPreDrawListener(
-                new ViewTreeObserver.OnPreDrawListener() {
-                    @Override
-                    public boolean onPreDraw() {
-                        if (isReady) {
-                            content.getViewTreeObserver().removeOnPreDrawListener(this);
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
+                () -> {
+                    if (isReady) return true;
+                    return false;
                 }
         );
 
@@ -54,13 +46,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void signup(View v) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, RegisterActivity.class));
     }
 
     public void forgot(View v){
-        Intent intent = new Intent(this, ForgotPasswordActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, ForgotPasswordActivity.class));
     }
 
     public void login(View v) {
@@ -80,56 +70,63 @@ public class LoginActivity extends AppCompatActivity {
         Ion.with(this)
                 .load(url)
                 .asString()
-                .setCallback(new FutureCallback<String>() {
-                    @Override
-                    public void onCompleted(Exception e, String result) {
-                        if (e != null) {
-                            Log.e("Erreur", "Problème réseau", e);
-                            Toast.makeText(LoginActivity.this, "Erreur réseau", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
+                .setCallback((e, result) -> {
 
-                        Log.d("DEBUG_SERVER", "Réponse du PHP : " + result);
+                    if (e != null) {
+                        Toast.makeText(LoginActivity.this, "Erreur réseau", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                        if (result != null && result.contains("token")) {
-                            try {
-                                JSONObject jo = new JSONObject(result);
+                    Log.d("DEBUG_SERVER", result);
 
-                                SharedPreferences spFragment = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-                                SharedPreferences.Editor edFrag = spFragment.edit();
-                                edFrag.putString("token", jo.getString("token"));
-                                edFrag.putString("firstname", jo.optString("firstname", ""));
-                                edFrag.putString("lastname", jo.optString("lastname", ""));
-                                edFrag.putString("email", jo.optString("email", ""));
-                                edFrag.apply();
+                    try {
+                        JSONObject jo = new JSONObject(result);
 
-                                SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putString("user_json", result);
-                                editor.apply();
+                        if (jo.has("token")) {
 
-                                boolean token_null = jo.optBoolean("token_null", false);
-                                Intent intent;
-                                if(token_null){
-                                    intent = new Intent(LoginActivity.this, AddApplianceActivity.class);
-                                } else {
-                                    intent = new Intent(LoginActivity.this, MainActivity.class);
-                                }
-                                startActivity(intent);
-                                finish();
+                            SharedPreferences sp = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor ed = sp.edit();
 
-                            } catch (JSONException ex) {
-                                Log.e("JSON_PARSE", "Erreur : " + result);
+                            // ✅ CORRECTION ICI
+                            String username = jo.optString("username", "");
+                            if ("null".equals(username)) username = "";
+
+                            String firstname = jo.optString("firstname", "");
+                            if ("null".equals(firstname)) firstname = "";
+
+                            String lastname = jo.optString("lastname", "");
+                            if ("null".equals(lastname)) lastname = "";
+
+                            String email = jo.optString("email", "");
+                            if ("null".equals(email)) email = "";
+
+                            ed.putString("token", jo.getString("token"));
+                            ed.putString("firstname", firstname);
+                            ed.putString("lastname", lastname);
+                            ed.putString("email", email);
+                            ed.putString("username", username);
+
+                            ed.apply();
+
+                            boolean token_null = jo.optBoolean("token_null", false);
+
+                            Intent intent;
+                            if (token_null) {
+                                intent = new Intent(this, AddApplianceActivity.class);
+                            } else {
+                                intent = new Intent(this, MainActivity.class);
                             }
+
+                            startActivity(intent);
+                            finish();
+
                         } else {
-                            try {
-                                JSONObject jo = new JSONObject(result);
-                                String error = jo.optString("error", "Identifiants incorrects");
-                                Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
-                            } catch (Exception ex) {
-                                Toast.makeText(LoginActivity.this, "Erreur serveur", Toast.LENGTH_SHORT).show();
-                            }
+                            String error = jo.optString("error", "Erreur");
+                            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
                         }
+
+                    } catch (JSONException ex) {
+                        Toast.makeText(this, "Erreur serveur", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
