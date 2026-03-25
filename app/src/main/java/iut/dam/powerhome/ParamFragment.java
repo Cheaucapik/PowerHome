@@ -76,9 +76,9 @@ public class ParamFragment extends Fragment {
 
     private void showConfirmationDialog() {
         new AlertDialog.Builder(getContext())
-                .setTitle("Confirmation")
-                .setMessage("Voulez-vous modifier votre profil ?")
-                .setPositiveButton("Oui", (d, w) -> {
+                .setTitle(getString(R.string.dialog_confirm_title))
+                .setMessage(getString(R.string.dialog_confirm_profile_msg))
+                .setPositiveButton(getString(R.string.btn_yes), (d, w) -> {
                     new UpdateUserTask().execute(
                             userToken,
                             etFname.getText().toString(),
@@ -101,9 +101,9 @@ public class ParamFragment extends Fragment {
         EditText newP = v.findViewById(R.id.et_new_password);
 
         new AlertDialog.Builder(getContext())
-                .setTitle("Changer mot de passe")
+                .setTitle(getString(R.string.dialog_change_password_title))
                 .setView(v)
-                .setPositiveButton("OK", (d, w) -> {
+                .setPositiveButton(getString(R.string.btn_ok), (d, w) -> {
                     new UpdateUserTask().execute(
                             userToken,
                             etFname.getText().toString(),
@@ -115,7 +115,7 @@ public class ParamFragment extends Fragment {
                             newP.getText().toString()
                     );
                 })
-                .setNegativeButton("Annuler", null)
+                .setNegativeButton(getString(R.string.btn_cancel), null)
                 .show();
     }
 
@@ -148,7 +148,6 @@ public class ParamFragment extends Fragment {
         }
 
         protected void onPostExecute(String r) {
-            Toast.makeText(getContext(), "Profil mis à jour", Toast.LENGTH_SHORT).show();
-        }
+            Toast.makeText(getContext(), getString(R.string.success_profile_updated), Toast.LENGTH_SHORT).show();        }
     }
 }

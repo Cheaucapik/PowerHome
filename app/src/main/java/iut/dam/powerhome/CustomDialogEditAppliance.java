@@ -61,13 +61,13 @@ public class CustomDialogEditAppliance extends Dialog {
                 Appliance a = appliances.get(position);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Supprimer")
-                        .setMessage("Voulez-vous supprimer " + a.name + " ?")
-                        .setPositiveButton("Supprimer", (dialog, which) -> {
+                builder.setTitle(getContext().getString(R.string.dialog_delete_title))
+                        .setMessage(getContext().getString(R.string.dialog_delete_confirm, a.getName()))
+                        .setPositiveButton(getContext().getString(R.string.dialog_delete_title), (dialog, which) -> {
                             int appliance_id = a.getId();
                             remove(appliance_id, position);
                         })
-                        .setNegativeButton("Annuler", (dialog, which) -> {
+                        .setNegativeButton(getContext().getString(R.string.btn_cancel), (dialog, which) -> {
                             dialog.dismiss();
                         });
 
@@ -96,8 +96,7 @@ public class CustomDialogEditAppliance extends Dialog {
                             adapter.notifyDataSetChanged();
                             fragmentAdapter.notifyDataSetChanged();
 
-                            Toast.makeText(getContext(), "Appareil supprimé !", Toast.LENGTH_SHORT).show();
-                        } else {
+                            Toast.makeText(getContext(), getContext().getString(R.string.success_appliance_deleted), Toast.LENGTH_SHORT).show();                        } else {
                             try {
                                 JSONObject jo = new JSONObject(result);
                                 String error = jo.getString("error");

@@ -64,8 +64,7 @@ public class MonHabitatFragment extends Fragment {
             conso_tv.setText(sum + " W");
         }
         else{
-            Toast.makeText(getContext(), "Aucun utilisateur connecté", Toast.LENGTH_SHORT).show();
-        }
+            Toast.makeText(getContext(), getString(R.string.error_no_user_connected), Toast.LENGTH_SHORT).show();        }
 
 
         if(json!=null){
@@ -84,19 +83,16 @@ public class MonHabitatFragment extends Fragment {
                         public void onCompleted(Exception e, String result) {
                             if (e != null) {
                                 Log.e("MonHabitat", "Problème réseau", e);
-                                Toast.makeText(getContext(), "Problème réseau", Toast.LENGTH_SHORT).show();
-                                return;
+                                Toast.makeText(getContext(), getString(R.string.error_network), Toast.LENGTH_SHORT).show();                                return;
                             }
                             if (result == null) {
-                                Toast.makeText(getContext(), "Réponse serveur vide", Toast.LENGTH_SHORT).show();
-                                return;
+                                Toast.makeText(getContext(), getString(R.string.error_server_empty), Toast.LENGTH_SHORT).show();                                return;
                             }
 
                             Habitat habitatUser = Habitat.getFromJson(result);
 
                             if (habitatUser == null) {
-                                Toast.makeText(getContext(), "Habitat introuvable pour " + myEmail, Toast.LENGTH_LONG).show();
-                                return;
+                                Toast.makeText(getContext(), getString(R.string.error_habitat_not_found, myEmail), Toast.LENGTH_LONG).show();                                return;
                             }
 
                             myAppliances = (ArrayList<Appliance>) habitatUser.getAppliances();

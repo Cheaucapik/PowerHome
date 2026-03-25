@@ -49,8 +49,7 @@ public class ForgotPasswordMailFragment extends Fragment {
         String email = email_et.getText().toString().trim();
 
         if (!isValidEmail(email)) {
-            email_et.setError("Email invalide (ex: email@domaine.com)");
-            email_et.requestFocus();
+            email_et.setError(getString(R.string.error_invalid_email));            email_et.requestFocus();
             return;
         }
 
@@ -81,8 +80,7 @@ public class ForgotPasswordMailFragment extends Fragment {
 
                                 if(renvoie){
                                     String code = jo.getString("code");
-                                    Toast.makeText(getContext(), "Code envoyé", Toast.LENGTH_SHORT).show();
-                                    Log.i("Code", code);
+                                    Toast.makeText(getContext(), getString(R.string.success_code_sent), Toast.LENGTH_SHORT).show();                                    Log.i("Code", code);
                                 }
                                 ForgotPasswordActivity.code();
                             } catch (JSONException ex) {

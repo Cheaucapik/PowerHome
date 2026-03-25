@@ -53,13 +53,11 @@ public class CustomDialogAddAppliance extends Dialog {
             String ref = ref_et.getText().toString().trim();
 
             if (wattage.isEmpty()) {
-                consumption_et.setError("Indiquez la consommation");
-                return;
+                consumption_et.setError(getContext().getString(R.string.error_missing_wattage));                return;
             }
 
             if (ref.isEmpty()) {
-                ref_et.setError("Indiquez une référence");
-                return;
+                ref_et.setError(getContext().getString(R.string.error_missing_ref));                return;
             }
 
             SharedPreferences sp = getContext().getSharedPreferences("UserSession", MODE_PRIVATE);
@@ -86,8 +84,7 @@ public class CustomDialogAddAppliance extends Dialog {
                                     return;
                                 }
                                 if (result != null && result.contains("success")) {
-                                    Toast.makeText(getContext(), "Appareil ajouté !", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent (getContext(), MainActivity.class);
+                                    Toast.makeText(getContext(), getContext().getString(R.string.success_appliance_added), Toast.LENGTH_SHORT).show();                                    Intent intent = new Intent (getContext(), MainActivity.class);
                                     getContext().startActivity(intent);
                                     ((AddApplianceActivity) getContext()).finish();
                                 } else {
@@ -105,8 +102,7 @@ public class CustomDialogAddAppliance extends Dialog {
                         });
             }
             else{
-                Toast.makeText(getContext(), "erreur", Toast.LENGTH_LONG).show();
-            }
+                Toast.makeText(getContext(), getContext().getString(R.string.error_generic), Toast.LENGTH_LONG).show();            }
         });
 
     }

@@ -75,8 +75,7 @@ public class ForgotPasswordCodeFragment extends Fragment {
                                 try {
                                     JSONObject jo = new JSONObject(result);
                                     String code = jo.getString("code");
-                                    Toast.makeText(getContext(), "Code renvoyé", Toast.LENGTH_SHORT).show();
-                                    Log.i("Code", code);
+                                    Toast.makeText(getContext(), getString(R.string.success_code_resent), Toast.LENGTH_SHORT).show();                                    Log.i("Code", code);
                                 } catch (JSONException ex) {
                                     Log.e("JSON_PARSE", "Erreur lors de la lecture du JSON : " + result);
                                 }

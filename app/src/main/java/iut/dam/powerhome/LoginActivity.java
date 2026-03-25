@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = editPassword.getText().toString().trim();
 
         if (id.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Champs vides", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_empty_fields), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -73,7 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                 .setCallback((e, result) -> {
 
                     if (e != null) {
-                        Toast.makeText(LoginActivity.this, "Erreur réseau", Toast.LENGTH_SHORT).show();
+                        Log.e("LoginError", "Erreur réseau", e);
+                        Toast.makeText(LoginActivity.this, getString(R.string.error_network), Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -83,11 +84,12 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject jo = new JSONObject(result);
 
                         if (jo.has("token")) {
+                            // MODIF ICI : Ajout du Toast de succès (utilise welcome_back de ton strings.xml)
+                            Toast.makeText(this, getString(R.string.welcome_back), Toast.LENGTH_SHORT).show();
 
                             SharedPreferences sp = getSharedPreferences("UserPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor ed = sp.edit();
 
-                            // ✅ CORRECTION ICI
                             String username = jo.optString("username", "");
                             if ("null".equals(username)) username = "";
 
@@ -126,7 +128,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                     } catch (JSONException ex) {
-                        Toast.makeText(this, "Erreur serveur", Toast.LENGTH_SHORT).show();
+                        // MODIF ICI : Utilisation de la clé error_server
+                        Toast.makeText(this, getString(R.string.error_server), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

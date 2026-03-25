@@ -64,8 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Validation email
         if (!isValidEmail(email)) {
             EditText emailEt = findViewById(R.id.email_et);
-            emailEt.setError("Email invalide (ex: email@domaine.com)");
-            emailEt.requestFocus();
+            emailEt.setError(getString(R.string.error_invalid_email));            emailEt.requestFocus();
             return;
         }
 
@@ -73,8 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
         //Donc msg erreur si non respecté
         if (!isValidPassword(password)) {
             EditText passwordEt = findViewById(R.id.password_et);
-            passwordEt.setError("Mot de passe: 1 minuscule, 1 majuscule, 1 spécial, min 8");
-            passwordEt.requestFocus();
+            passwordEt.setError(getString(R.string.error_password_regex));            passwordEt.requestFocus();
             return;
         }
 
