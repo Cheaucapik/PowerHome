@@ -152,7 +152,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginStart="15dp"
             android:padding="8dp"
@@ -168,9 +168,12 @@
 
             <Spinner
                 android:id="@+id/sp_prefixe"
-                android:spinnerMode="dialog"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="0dp"
+                android:spinnerMode="dropdown"
+
+                tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
         <EditText
@@ -197,7 +200,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/editText"
-        android:text="Changer le mot de passe"
+        android:text="@string/changer_le_mot_de_passe"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textAllCaps="false"

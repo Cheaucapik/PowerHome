@@ -68,6 +68,7 @@
     <string name="edit_my_appliances">Edit my appliances</string>
     <string name="my_devices">My devices</string>
     <string name="username">Username</string>
+    <string name="changer_le_mot_de_passe">Change password</string>
 
     <string name="error_password_regex">Password: 1 lowercase, 1 uppercase, 1 special, min 8</string>
     <string name="error_invalid_email">Invalid email (e.g. email@domain.com)</string>

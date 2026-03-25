@@ -102,13 +102,22 @@ public class LoginActivity extends AppCompatActivity {
                             String email = jo.optString("email", "");
                             if ("null".equals(email)) email = "";
 
+                            String tel = jo.optString("tel", "");
+                            if ("null".equals(tel)) tel = "";
+
                             ed.putString("token", jo.getString("token"));
                             ed.putString("firstname", firstname);
                             ed.putString("lastname", lastname);
                             ed.putString("email", email);
                             ed.putString("username", username);
+                            ed.putString("tel", tel);
 
                             ed.apply();
+
+                            SharedPreferences spSession = getSharedPreferences("UserSession", MODE_PRIVATE);
+                            SharedPreferences.Editor edSession = spSession.edit();
+                            edSession.putString("user_json", result);
+                            edSession.apply();
 
                             boolean token_null = jo.optBoolean("token_null", false);
 
