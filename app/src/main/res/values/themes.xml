@@ -10,4 +10,22 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
         <item name="postSplashScreenTheme">@style/Theme.PowerHome</item>
     </style>
+    <style name="dayLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="slotStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:background">@drawable/edittext_rounded</item>
+        <item name="android:layout_marginEnd">8dp</item>
+    </style>
+
 </resources>

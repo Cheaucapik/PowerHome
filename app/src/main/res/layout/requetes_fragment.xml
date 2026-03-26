@@ -1,14 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/off_white"
+    android:fillViewport="true">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:text="Bienvenue dans Mes requêtes"/>
+        android:orientation="vertical"
+        android:padding="20dp">
 
+        <!-- ================= CALENDAR ================= -->
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calendar of the week"
+            android:textColor="@color/dark_green"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="6dp"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <!-- Header mois + flèches -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="March"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:background="@drawable/edittext_rounded"
+                        android:backgroundTint="@color/dark_green"
+                        android:padding="8dp"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/btn_prev_2weeks"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/edittext_rounded"
+                        android:backgroundTint="@color/off_white"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/btn_next_2weeks"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/edittext_rounded"
+                        android:backgroundTint="@color/off_white"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+
+                <!-- Jours semaine -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp">
+
+                    <TextView style="@style/dayLabel" android:text="M"/>
+                    <TextView style="@style/dayLabel" android:text="T"/>
+                    <TextView style="@style/dayLabel" android:text="W"/>
+                    <TextView style="@style/dayLabel" android:text="T"/>
+                    <TextView style="@style/dayLabel" android:text="F"/>
+                    <TextView style="@style/dayLabel" android:text="S"/>
+                    <TextView style="@style/dayLabel" android:text="S"/>
+                </LinearLayout>
+
+                <!-- RecyclerView calendrier -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_calendar_days"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"/>
+                <!--probleme ici n'affiche pas correctement les dates, ne fait mm pas correctement un get sur le calendrier-->
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ================= CHOIX CRENEAU ================= -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choisir un créneau :"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/black"/>
+
+            <!-- Date -->
+            <TextView
+                android:id="@+id/tv_selected_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--/--"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+
+            <!-- Slots -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_slot_morning"
+                    style="@style/slotStyle"
+                    android:text="7-12"/>
+
+                <TextView
+                    android:id="@+id/tv_slot_afternoon"
+                    style="@style/slotStyle"
+                    android:text="12-17"/>
+
+                <TextView
+                    android:id="@+id/tv_slot_evening"
+                    style="@style/slotStyle"
+                    android:text="17-22"/>
+            </LinearLayout>
+
+            <!-- Bonus -->
+            <TextView
+                android:id="@+id/tv_bonus_ecocoin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+100"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+
+            <!-- Solde -->
+            <TextView
+                android:id="@+id/tv_total_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+100"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
+        <!-- ================= APPAREILS ================= -->
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/layout_appliance_icons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+</ScrollView>

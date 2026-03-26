@@ -10,6 +10,8 @@ public class User {
     public Habitat habitat;
     public String username;
     public int id;
+    public int solde;
+    public String token;
 
     public static User getFromJson(String json) {
         return new Gson().fromJson(json, User.class);
