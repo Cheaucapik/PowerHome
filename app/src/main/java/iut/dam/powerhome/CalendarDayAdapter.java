@@ -35,9 +35,7 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
 
     public void setDays(List<CalendarDay> newDays) {
         days.clear();
-        if (newDays != null) {
-            days.addAll(newDays);
-        }
+        if (newDays != null) days.addAll(newDays);
         notifyDataSetChanged();
     }
 
@@ -56,46 +54,75 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
     @Override
     public void onBindViewHolder(@NonNull DayViewHolder holder, int position) {
         CalendarDay day = days.get(position);
-
         LocalDate localDate = LocalDate.parse(day.getDate(), DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDate today = LocalDate.now();
+
+        boolean isPast    = localDate.isBefore(today);
+        boolean isToday   = localDate.equals(today);
+        boolean isSelected = day.getDate().equals(selectedDate);
+        boolean isBlocked  = day.isBlocked() || isPast; // past dates behave like blocked
+
         holder.tvDay.setText(String.valueOf(localDate.getDayOfMonth()));
-
-        int fillColor = getFillColor(day.getColor());
-        int textColor = ContextCompat.getColor(context, R.color.white);
-
-        if ("disabled".equals(day.getColor())) {
-            textColor = ContextCompat.getColor(context, R.color.gray);
-        }
 
         GradientDrawable bg = new GradientDrawable();
         bg.setShape(GradientDrawable.OVAL);
-        bg.setColor(fillColor);
 
-        boolean isToday = localDate.equals(LocalDate.now());
-        boolean isSelected = day.getDate().equals(selectedDate);
+        if (isPast) {
+            // Past dates: grey fill, no interaction
+            bg.setColor(ContextCompat.getColor(context, R.color.off_white));
+            holder.tvDay.setTextColor(ContextCompat.getColor(context, R.color.gray));
+            holder.tvDay.setAlpha(0.5f);
+            holder.itemView.setOnClickListener(null);
+            holder.itemView.setClickable(false);
 
-        if (isToday) {
-            bg.setStroke(5, ContextCompat.getColor(context, R.color.dark_green));
-        } else if (isSelected && !day.isBlocked()) {
+        } else if (isToday && isSelected) {
+            // Today AND selected: green fill + black outer ring
+            bg.setColor(ContextCompat.getColor(context, R.color.dark_green));
             bg.setStroke(4, ContextCompat.getColor(context, R.color.black));
+            holder.tvDay.setTextColor(ContextCompat.getColor(context, R.color.white));
+            holder.tvDay.setAlpha(1f);
+            setClickListener(holder, day);
+
+        } else if (isToday) {
+            // Today only: dark_green stroke, no fill (or light tint)
+            bg.setColor(ContextCompat.getColor(context, R.color.off_white));
+            bg.setStroke(4, ContextCompat.getColor(context, R.color.dark_green));
+            holder.tvDay.setTextColor(ContextCompat.getColor(context, R.color.dark_green));
+            holder.tvDay.setAlpha(1f);
+            setClickListener(holder, day);
+
+        } else if (isSelected) {
+            // Selected (not today): colored fill from affluence + highlighted surbrillance ring
+            int fillColor = getFillColor(day.getColor());
+            bg.setColor(fillColor);
+            // White inner ring to create a "surbrillance" effect
+            bg.setStroke(3, ContextCompat.getColor(context, R.color.white));
+            holder.tvDay.setTextColor(ContextCompat.getColor(context, R.color.white));
+            holder.tvDay.setAlpha(1f);
+            setClickListener(holder, day);
+
+        } else {
+            // Normal future date: colored fill based on affluence
+            int fillColor = getFillColor(day.getColor());
+            bg.setColor(fillColor);
+            int textColor = "disabled".equals(day.getColor())
+                    ? ContextCompat.getColor(context, R.color.gray)
+                    : ContextCompat.getColor(context, R.color.white);
+            holder.tvDay.setTextColor(textColor);
+            holder.tvDay.setAlpha(day.isBlocked() ? 0.5f : 1f);
+            setClickListener(holder, day);
         }
 
         holder.tvDay.setBackground(bg);
-        holder.tvDay.setTextColor(textColor);
+    }
 
-        if (day.isBlocked()) {
-            holder.itemView.setAlpha(0.75f);
-            holder.itemView.setOnClickListener(null);
-        } else {
-            holder.itemView.setAlpha(1f);
-            holder.itemView.setOnClickListener(v -> {
-                selectedDate = day.getDate();
-                notifyDataSetChanged();
-                if (listener != null) {
-                    listener.onDayClick(day);
-                }
-            });
-        }
+    private void setClickListener(DayViewHolder holder, CalendarDay day) {
+        holder.itemView.setClickable(true);
+        holder.itemView.setOnClickListener(v -> {
+            selectedDate = day.getDate();
+            notifyDataSetChanged();
+            if (listener != null) listener.onDayClick(day);
+        });
     }
 
     @Override
@@ -104,21 +131,15 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
     }
 
     private int getFillColor(String color) {
-        if ("green".equals(color)) {
-            return ContextCompat.getColor(context, R.color.green);
-        }
-        if ("yellow".equals(color)) {
-            return ContextCompat.getColor(context, R.color.orange);
-        }
-        if ("red".equals(color)) {
-            return ContextCompat.getColor(context, R.color.red);
-        }
+        if ("green".equals(color))  return ContextCompat.getColor(context, R.color.green);
+        if ("yellow".equals(color)) return ContextCompat.getColor(context, R.color.orange);
+        if ("red".equals(color))    return ContextCompat.getColor(context, R.color.red);
+        // null / unknown → neutral off_white circle
         return ContextCompat.getColor(context, R.color.off_white);
     }
 
     static class DayViewHolder extends RecyclerView.ViewHolder {
         TextView tvDay;
-
         public DayViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDay = itemView.findViewById(R.id.tv_day_number);

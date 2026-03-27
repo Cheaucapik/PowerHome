@@ -13,7 +13,6 @@
         android:padding="20dp">
 
         <!-- ================= CALENDAR ================= -->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +37,6 @@
                 android:orientation="vertical"
                 android:padding="18dp">
 
-                <!-- Header mois + flèches -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -56,10 +54,7 @@
                         android:backgroundTint="@color/dark_green"
                         android:padding="8dp"/>
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1"/>
+                    <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/btn_prev_2weeks"
@@ -87,13 +82,11 @@
                         android:textColor="@color/black"/>
                 </LinearLayout>
 
-                <!-- Jours semaine -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="12dp">
-
                     <TextView style="@style/dayLabel" android:text="M"/>
                     <TextView style="@style/dayLabel" android:text="T"/>
                     <TextView style="@style/dayLabel" android:text="W"/>
@@ -103,19 +96,17 @@
                     <TextView style="@style/dayLabel" android:text="S"/>
                 </LinearLayout>
 
-                    <!-- RecyclerView calendrier -->
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_calendar_days"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:nestedScrollingEnabled="false"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_calendar_days"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ================= CHOIX CRENEAU (caché jusqu'au clic sur une date) ================= -->
-
+        <!-- ================= CHOIX CRENEAU (hidden until date clicked) ================= -->
         <LinearLayout
             android:id="@+id/request_card"
             android:layout_width="match_parent"
@@ -126,7 +117,6 @@
             android:layout_marginBottom="20dp"
             android:visibility="gone">
 
-            <!-- Titre -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,7 +125,6 @@
                 android:textSize="20sp"
                 android:textColor="@color/black"/>
 
-            <!-- Sous-titre "Résumé des données" -->
             <TextView
                 android:id="@+id/tv_resume_donnees"
                 android:layout_width="wrap_content"
@@ -144,23 +133,20 @@
                 android:textSize="12sp"
                 android:textColor="@color/gray"
                 android:layout_marginTop="2dp"
-                android:layout_marginBottom="14dp"
-                android:visibility="gone"/>
+                android:layout_marginBottom="14dp"/>
 
-            <!-- Ligne Date choisie -->
+            <!-- Date choisie -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="10dp">
-
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@android:drawable/ic_menu_today"
-                    android:alpha="0.6"/>
-
+                    android:alpha="0.5"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -169,7 +155,6 @@
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:layout_marginStart="10dp"/>
-
                 <TextView
                     android:id="@+id/tv_selected_date"
                     android:layout_width="wrap_content"
@@ -180,20 +165,18 @@
                     android:textColor="@color/black"/>
             </LinearLayout>
 
-            <!-- Ligne Créneau choisi -->
+            <!-- Créneau choisi -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="14dp">
-
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@android:drawable/ic_menu_recent_history"
-                    android:alpha="0.6"/>
-
+                    android:alpha="0.5"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -201,25 +184,20 @@
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:layout_marginStart="10dp"/>
-
-                <!-- Slots alignés à droite -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:gravity="end">
-
                     <TextView
                         android:id="@+id/tv_slot_morning"
                         style="@style/slotStyle"
                         android:text="7h-12h"/>
-
                     <TextView
                         android:id="@+id/tv_slot_afternoon"
                         style="@style/slotStyle"
                         android:text="12h-17h"/>
-
                     <TextView
                         android:id="@+id/tv_slot_evening"
                         style="@style/slotStyle"
@@ -227,20 +205,18 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Ligne Bonus éco-coin -->
+            <!-- Bonus éco-coin -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="6dp">
-
+                android:layout_marginBottom="14dp">
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:src="@android:drawable/star_on"
-                    android:alpha="0.5"/>
-
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:drawable/btn_star_big_on"
+                    android:alpha="0.4"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -249,7 +225,6 @@
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:layout_marginStart="10dp"/>
-
                 <TextView
                     android:id="@+id/tv_bonus_ecocoin"
                     android:layout_width="wrap_content"
@@ -265,28 +240,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/off_white"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="12dp"/>
 
-            <!-- Sélectionner l'appareil utilisé -->
+            <!-- Appareils -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sélectionnez l'appareil utilisé :"
                 android:textSize="13sp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_marginBottom="10dp"/>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
-
+                android:scrollbars="none"
+                android:layout_marginBottom="12dp">
                 <LinearLayout
                     android:id="@+id/layout_appliance_icons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"/>
+                    android:orientation="horizontal"
+                    android:paddingBottom="4dp"/>
             </HorizontalScrollView>
 
             <!-- Divider -->
@@ -294,10 +270,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/off_white"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="12dp"/>
 
-            <!-- Solde Total -->
+            <!-- Confirm + Solde -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -305,24 +280,74 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Solde Total"
-                    android:textSize="14sp"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:id="@+id/tv_total_balance"
+                    android:id="@+id/btn_confirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="--"
-                    android:textSize="14sp"
+                    android:text="Confirmer"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:textColor="@color/gray"/>
+                    android:background="@drawable/edittext_rounded"
+                    android:backgroundTint="@color/dark_green"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"/>
+
+                <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Solde initial"
+                            android:textSize="11sp"
+                            android:textColor="@color/gray"/>
+                        <TextView
+                            android:id="@+id/tv_solde_initial"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="--"
+                            android:textSize="11sp"
+                            android:textColor="@color/gray"
+                            android:layout_marginStart="6dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Solde Total"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+                        <TextView
+                            android:id="@+id/tv_total_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="--"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/gray"
+                            android:layout_marginStart="6dp"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- Message d'avertissement créneau saturé -->
+            <!-- Warning -->
             <TextView
                 android:id="@+id/tv_warning_message"
                 android:layout_width="wrap_content"
@@ -331,10 +356,26 @@
                 android:text="⚠ Attention, ce créneau est saturé."
                 android:textColor="@color/red"
                 android:textStyle="bold"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:visibility="gone"/>
 
         </LinearLayout>
+
+        <!-- ================= MES CRÉNEAUX (always visible) ================= -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mes créneaux :"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:id="@+id/layout_reservations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
 
     </LinearLayout>
 </ScrollView>

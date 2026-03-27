@@ -3,7 +3,6 @@ package iut.dam.powerhome;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.koushikdutta.ion.Ion;
@@ -26,7 +26,10 @@ public class MonHabitatFragment extends Fragment {
     private View layout;
     private ArrayList<Appliance> myAppliances = new ArrayList<>();
     private ApplianceAdapter adapter;
-    private TextView name_tv, nb_appareil_tv, pseudo_tv, etage_tv, surface_tv, conso_tv, nodevice_tv;
+    private TextView name_tv, nb_appareil_tv, pseudo_tv, etage_tv,
+            surface_tv, conso_tv, nodevice_tv, tv_solde;
+
+    private User currentUser;
 
     public MonHabitatFragment() {}
 
@@ -35,14 +38,15 @@ public class MonHabitatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.monhabitat_fragment, container, false);
 
-        name_tv = layout.findViewById(R.id.name_tv);
+        name_tv        = layout.findViewById(R.id.name_tv);
         nb_appareil_tv = layout.findViewById(R.id.nb_appareil_tv);
-        pseudo_tv = layout.findViewById(R.id.pseudo_tv);
-        etage_tv = layout.findViewById(R.id.etage_tv);
-        surface_tv = layout.findViewById(R.id.surface_tv);
-        conso_tv = layout.findViewById(R.id.conso_tv);
-        nodevice_tv = layout.findViewById(R.id.nodevice_tv);
-        ListView lv = layout.findViewById(R.id.lv_appliances);
+        pseudo_tv      = layout.findViewById(R.id.pseudo_tv);
+        etage_tv       = layout.findViewById(R.id.etage_tv);
+        surface_tv     = layout.findViewById(R.id.surface_tv);
+        conso_tv       = layout.findViewById(R.id.conso_tv);
+        nodevice_tv    = layout.findViewById(R.id.nodevice_tv);
+        tv_solde       = layout.findViewById(R.id.tv_solde);
+        ListView lv    = layout.findViewById(R.id.lv_appliances);
 
         adapter = new ApplianceAdapter(requireContext(), R.layout.item_info, myAppliances);
         lv.setAdapter(adapter);
@@ -51,11 +55,14 @@ public class MonHabitatFragment extends Fragment {
         String json = sp.getString("user_json", null);
 
         if (json != null) {
-            User currentUser = User.getFromJson(json);
+            currentUser = User.getFromJson(json);
             name_tv.setText(currentUser.firstname + " " + currentUser.lastname);
             pseudo_tv.setText(currentUser.username);
             etage_tv.setText(String.valueOf(currentUser.habitat.floor));
             surface_tv.setText(currentUser.habitat.area + " m²");
+
+            // Display solde from session (already up-to-date after reservations)
+            displaySolde(currentUser.solde);
 
             loadDataFromServer(currentUser.email);
         } else {
@@ -70,6 +77,41 @@ public class MonHabitatFragment extends Fragment {
         });
 
         return layout;
+    }
+
+    /**
+     * Called every time the fragment becomes visible (e.g. after navigating back from
+     * My Requests where a reservation was confirmed and the solde was updated in session).
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshSoldeFromSession();
+    }
+
+    /** Re-read solde from SharedPreferences and refresh the view. */
+    @SuppressLint("SetTextI18n")
+    private void refreshSoldeFromSession() {
+        if (getContext() == null) return;
+        SharedPreferences sp = getContext().getSharedPreferences("UserSession", MODE_PRIVATE);
+        String json = sp.getString("user_json", null);
+        if (json == null) return;
+        currentUser = User.getFromJson(json);
+        displaySolde(currentUser.solde);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void displaySolde(int solde) {
+        if (tv_solde == null) return;
+        String prefix = solde >= 0 ? "" : "";   // sign is already in the number
+        tv_solde.setText(String.valueOf(solde));
+        if (solde > 0) {
+            tv_solde.setTextColor(ContextCompat.getColor(requireContext(), R.color.green));
+        } else if (solde < 0) {
+            tv_solde.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
+        } else {
+            tv_solde.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray));
+        }
     }
 
     private void loadDataFromServer(String email) {
@@ -98,9 +140,7 @@ public class MonHabitatFragment extends Fragment {
         if (getContext() == null || layout == null) return;
 
         int sum = 0;
-        for (Appliance a : myAppliances) {
-            sum += a.wattage;
-        }
+        for (Appliance a : myAppliances) sum += a.wattage;
 
         conso_tv.setText(sum + " W");
 
@@ -108,15 +148,11 @@ public class MonHabitatFragment extends Fragment {
         String label = getContext().getString(R.string.appliance) + (size > 1 ? "s" : "");
         nb_appareil_tv.setText(size + " " + label);
 
+        nodevice_tv.setVisibility(size == 0 ? View.VISIBLE : View.GONE);
         if (size == 0) {
-            nodevice_tv.setVisibility(View.VISIBLE);
             nodevice_tv.setText(getContext().getString(R.string.you_don_t_have_any_appliance_yet));
-        } else {
-            nodevice_tv.setVisibility(View.GONE);
         }
 
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-        }
+        if (adapter != null) adapter.notifyDataSetChanged();
     }
 }
