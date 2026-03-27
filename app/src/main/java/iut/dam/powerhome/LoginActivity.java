@@ -65,10 +65,12 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String url = "http://10.0.2.2/powerhome_server/login.php?id=" + id + "&password=" + password;
+        String url = "http://10.0.2.2/powerhome_server/login.php";
 
         Ion.with(this)
-                .load(url)
+                .load("POST", url)
+                .setBodyParameter("id", id)
+                .setBodyParameter("password", password)
                 .asString()
                 .setCallback((e, result) -> {
 
@@ -84,34 +86,16 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject jo = new JSONObject(result);
 
                         if (jo.has("token")) {
-                            // MODIF ICI : Ajout du Toast de succès (utilise welcome_back de ton strings.xml)
                             Toast.makeText(this, getString(R.string.welcome_back), Toast.LENGTH_SHORT).show();
 
                             SharedPreferences sp = getSharedPreferences("UserPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor ed = sp.edit();
 
-                            String username = jo.optString("username", "");
-                            if ("null".equals(username)) username = "";
-
-                            String firstname = jo.optString("firstname", "");
-                            if ("null".equals(firstname)) firstname = "";
-
-                            String lastname = jo.optString("lastname", "");
-                            if ("null".equals(lastname)) lastname = "";
-
-                            String email = jo.optString("email", "");
-                            if ("null".equals(email)) email = "";
-
-                            String tel = jo.optString("tel", "");
-                            if ("null".equals(tel)) tel = "";
-
                             ed.putString("token", jo.getString("token"));
-                            ed.putString("firstname", firstname);
-                            ed.putString("lastname", lastname);
-                            ed.putString("email", email);
-                            ed.putString("username", username);
-                            ed.putString("tel", tel);
-
+                            ed.putString("firstname", jo.optString("firstname", ""));
+                            ed.putString("lastname", jo.optString("lastname", ""));
+                            ed.putString("email", jo.optString("email", ""));
+                            ed.putString("username", jo.optString("username", ""));
                             ed.apply();
 
                             SharedPreferences spSession = getSharedPreferences("UserSession", MODE_PRIVATE);
@@ -121,13 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             boolean token_null = jo.optBoolean("token_null", false);
 
-                            Intent intent;
-                            if (token_null) {
-                                intent = new Intent(this, AddApplianceActivity.class);
-                            } else {
-                                intent = new Intent(this, MainActivity.class);
-                            }
-
+                            Intent intent = token_null ? new Intent(this, AddApplianceActivity.class) : new Intent(this, MainActivity.class);
                             startActivity(intent);
                             finish();
 
@@ -137,7 +115,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                     } catch (JSONException ex) {
-                        // MODIF ICI : Utilisation de la clé error_server
                         Toast.makeText(this, getString(R.string.error_server), Toast.LENGTH_SHORT).show();
                     }
                 });

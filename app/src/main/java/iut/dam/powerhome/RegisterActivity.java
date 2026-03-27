@@ -57,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         customDialogSignUp.show();
     }
 
+
     public void sendDataToServer(String floor, String area) {
         String email = ((EditText) findViewById(R.id.email_et)).getText().toString().trim();
         String password = ((EditText) findViewById(R.id.password_et)).getText().toString().trim();
@@ -64,15 +65,17 @@ public class RegisterActivity extends AppCompatActivity {
         // Validation email
         if (!isValidEmail(email)) {
             EditText emailEt = findViewById(R.id.email_et);
-            emailEt.setError(getString(R.string.error_invalid_email));            emailEt.requestFocus();
+            emailEt.setError(getString(R.string.error_invalid_email));
+            emailEt.requestFocus();
             return;
         }
 
         // ça c'est pour valider le password UNIQUEMENT si il respecte les contraintes
-        //Donc msg erreur si non respecté
+        // Donc msg erreur si non respecté
         if (!isValidPassword(password)) {
             EditText passwordEt = findViewById(R.id.password_et);
-            passwordEt.setError(getString(R.string.error_password_regex));            passwordEt.requestFocus();
+            passwordEt.setError(getString(R.string.error_password_regex));
+            passwordEt.requestFocus();
             return;
         }
 
@@ -84,19 +87,20 @@ public class RegisterActivity extends AppCompatActivity {
         String tel_brut = ((EditText) findViewById(R.id.tel_et)).getText().toString().trim();
         String tel = prefixe_sp.getSelectedItem().toString() + "-" + tel_brut;
 
-        String url = "http://10.0.2.2/powerhome_server/signup.php?email=" + email
-                + "&password=" + password
-                + "&firstname=" + firstname
-                + "&lastname=" + lastname
-                + "&tel=" + tel
-                + "&username=" + username
-                + "&floor=" + floor
-                + "&area=" + area;
+        // L'url ne contient plus les param
+        String url = "http://10.0.2.2/powerhome_server/signup.php";
 
-        Log.d("DEBUG_URL", url);
 
         Ion.with(this)
-                .load(url)
+                .load("POST", url)
+                .setBodyParameter("email", email)
+                .setBodyParameter("password", password)
+                .setBodyParameter("firstname", firstname)
+                .setBodyParameter("lastname", lastname)
+                .setBodyParameter("tel", tel)
+                .setBodyParameter("username", username)
+                .setBodyParameter("floor", floor)
+                .setBodyParameter("area", area)
                 .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override
@@ -105,6 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.e("Erreur", "Problème réseau", e);
                             return;
                         }
+
                         if (result != null && result.contains("success")) {
                             Toast.makeText(RegisterActivity.this, "Compte créé !", Toast.LENGTH_SHORT).show();
                             finish();
