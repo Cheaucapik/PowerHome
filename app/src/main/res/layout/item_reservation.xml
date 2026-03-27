@@ -70,7 +70,7 @@
                 android:id="@+id/tv_res_wattage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_gravity="start"
                 android:background="@drawable/edittext_rounded"
                 android:backgroundTint="@color/red"
                 android:paddingStart="10dp"
@@ -94,13 +94,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edittext_rounded"
-                    android:backgroundTint="@color/off_white"
+                    android:backgroundTint="@color/grey"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
                     android:text="7h-12h"
-                    android:textColor="@color/gray"
+                    android:textColor="@color/dark_grey"
+                    android:textStyle="bold"
                     android:textSize="11sp"/>
 
                 <ImageView
