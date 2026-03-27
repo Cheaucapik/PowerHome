@@ -32,6 +32,9 @@ import java.util.List;
 
 public class RequetesFragment extends Fragment {
 
+    private LinearLayout requestCard;
+    private TextView tvWarningMessage;
+
     private View layout;
     private User currentUser;
 
@@ -48,11 +51,16 @@ public class RequetesFragment extends Fragment {
     private TextView tvSlotEvening;
     private LinearLayout layoutApplianceIcons;
 
+    // "Résumé des données" subtitle
+    private TextView tvResumeDonnees;
+
     private LocalDate currentWindowStartDate;
     private CalendarDay selectedDay;
     private CalendarDayAdapter calendarDayAdapter;
 
-    private String selectedSlotColor = "green";
+    // selectedSlotColor reflects the actual color of the chosen timeslot
+    private String selectedSlotColor = null; // null = no slot selected yet
+    private Timeslot selectedTimeslot = null;
     private final ArrayList<Appliance> selectedAppliances = new ArrayList<>();
 
     public RequetesFragment() {
@@ -65,11 +73,11 @@ public class RequetesFragment extends Fragment {
 
         initViews();
         loadSessionUser();
-        initSlots();
         initCalendar();
         renderAppliances(currentUser != null && currentUser.habitat != null ? currentUser.habitat.getAppliances() : null);
-        updateEcoCoinPreview();
-        updateTotalBalance();
+
+        // Initially hide the créneau section — only shown after a date is clicked
+        hideCreneauSection();
 
         return layout;
     }
@@ -83,12 +91,16 @@ public class RequetesFragment extends Fragment {
         tvSelectedDate = layout.findViewById(R.id.tv_selected_date);
         tvBonusEcoCoin = layout.findViewById(R.id.tv_bonus_ecocoin);
         tvTotalBalance = layout.findViewById(R.id.tv_total_balance);
+        tvWarningMessage = layout.findViewById(R.id.tv_warning_message);
+        tvResumeDonnees = layout.findViewById(R.id.tv_resume_donnees);
 
         tvSlotMorning = layout.findViewById(R.id.tv_slot_morning);
         tvSlotAfternoon = layout.findViewById(R.id.tv_slot_afternoon);
         tvSlotEvening = layout.findViewById(R.id.tv_slot_evening);
 
         layoutApplianceIcons = layout.findViewById(R.id.layout_appliance_icons);
+
+        requestCard = layout.findViewById(R.id.request_card);
     }
 
     private void loadSessionUser() {
@@ -110,8 +122,16 @@ public class RequetesFragment extends Fragment {
         currentWindowStartDate = LocalDate.now();
 
         calendarDayAdapter = new CalendarDayAdapter(requireContext(), day -> {
+            // A day was clicked
             selectedDay = day;
+            selectedTimeslot = null;
+            selectedSlotColor = null;
+
+            showCreneauSection();
             tvSelectedDate.setText(formatDateForUi(day.getDate()));
+            updateSlotsFromDay(day);
+            updateEcoCoinPreview();
+            updateTotalBalance();
         });
 
         rvCalendarDays.setLayoutManager(new GridLayoutManager(getContext(), 7));
@@ -130,45 +150,117 @@ public class RequetesFragment extends Fragment {
         loadCalendarStatus();
     }
 
-    private void initSlots() {
-        tvSlotMorning.setOnClickListener(v -> selectSlot("green"));
-        tvSlotAfternoon.setOnClickListener(v -> selectSlot("yellow"));
-        tvSlotEvening.setOnClickListener(v -> selectSlot("red"));
+    /**
+     * Update the three slot buttons with colors reflecting the actual affluence
+     * for the selected day. If a day has no slot data, all slots appear neutral.
+     */
+    private void updateSlotsFromDay(CalendarDay day) {
+        List<Timeslot> slots = day != null ? day.getSlots() : null;
 
-        selectSlot("green");
+        Timeslot morning = null, afternoon = null, evening = null;
+
+        if (slots != null) {
+            for (Timeslot t : slots) {
+                if (t.getSlot_order() == 1) morning = t;
+                else if (t.getSlot_order() == 2) afternoon = t;
+                else if (t.getSlot_order() == 3) evening = t;
+            }
+        }
+
+        applySlotAppearance(tvSlotMorning, morning, false);
+        applySlotAppearance(tvSlotAfternoon, afternoon, false);
+        applySlotAppearance(tvSlotEvening, evening, false);
+
+        // Store references for click handlers
+        final Timeslot finalMorning = morning;
+        final Timeslot finalAfternoon = afternoon;
+        final Timeslot finalEvening = evening;
+
+        tvSlotMorning.setOnClickListener(v -> selectSlot(finalMorning, tvSlotMorning));
+        tvSlotAfternoon.setOnClickListener(v -> selectSlot(finalAfternoon, tvSlotAfternoon));
+        tvSlotEvening.setOnClickListener(v -> selectSlot(finalEvening, tvSlotEvening));
     }
 
-    private void selectSlot(String color) {
-        selectedSlotColor = color;
+    /**
+     * Apply the visual appearance of a slot button based on its color/affluence.
+     * isSelected: if true, adds a selected ring/highlight.
+     */
+    private void applySlotAppearance(TextView tv, Timeslot timeslot, boolean isSelected) {
+        String color = timeslot != null ? timeslot.getColor() : null;
 
-        resetSlotStyle(tvSlotMorning);
-        resetSlotStyle(tvSlotAfternoon);
-        resetSlotStyle(tvSlotEvening);
+        int bgColorRes;
+        int textColorRes;
 
-        if ("green".equals(color)) {
-            applySelectedSlotStyle(tvSlotMorning, R.color.green);
-        } else if ("yellow".equals(color)) {
-            applySelectedSlotStyle(tvSlotAfternoon, R.color.orange);
+        if (color == null || color.isEmpty()) {
+            // No data → neutral grey appearance
+            bgColorRes = R.color.off_white;
+            textColorRes = R.color.gray;
         } else {
-            applySelectedSlotStyle(tvSlotEvening, R.color.red);
+            switch (color) {
+                case "green":
+                    bgColorRes = isSelected ? R.color.green : R.color.green;
+                    textColorRes = R.color.white;
+                    break;
+                case "yellow":
+                    bgColorRes = isSelected ? R.color.orange : R.color.orange;
+                    textColorRes = R.color.white;
+                    break;
+                case "red":
+                    bgColorRes = isSelected ? R.color.red : R.color.red;
+                    textColorRes = R.color.white;
+                    break;
+                default:
+                    bgColorRes = R.color.off_white;
+                    textColorRes = R.color.gray;
+            }
         }
+
+        if (isSelected) {
+            // Selected: full solid color, white text
+            tv.setTextColor(ContextCompat.getColor(requireContext(), textColorRes));
+            tv.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(requireContext(), bgColorRes)));
+            tv.setAlpha(1f);
+        } else if (color == null || color.isEmpty()) {
+            // Neutral unselected
+            tv.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray));
+            tv.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(requireContext(), R.color.off_white)));
+            tv.setAlpha(1f);
+        } else {
+            // Colored but not selected → show color with reduced opacity (ghost style)
+            tv.setTextColor(ContextCompat.getColor(requireContext(), bgColorRes));
+            tv.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(requireContext(), R.color.off_white)));
+            tv.setAlpha(0.85f);
+        }
+    }
+
+    /**
+     * Called when user taps a slot button.
+     */
+    private void selectSlot(Timeslot timeslot, TextView tappedView) {
+        selectedTimeslot = timeslot;
+        selectedSlotColor = (timeslot != null && timeslot.getColor() != null)
+                ? timeslot.getColor() : "green";
+
+        // Re-render all three slots, highlight only the tapped one
+        List<Timeslot> slots = selectedDay != null ? selectedDay.getSlots() : null;
+        Timeslot morning = null, afternoon = null, evening = null;
+        if (slots != null) {
+            for (Timeslot t : slots) {
+                if (t.getSlot_order() == 1) morning = t;
+                else if (t.getSlot_order() == 2) afternoon = t;
+                else if (t.getSlot_order() == 3) evening = t;
+            }
+        }
+
+        applySlotAppearance(tvSlotMorning, morning, tappedView == tvSlotMorning);
+        applySlotAppearance(tvSlotAfternoon, afternoon, tappedView == tvSlotAfternoon);
+        applySlotAppearance(tvSlotEvening, evening, tappedView == tvSlotEvening);
 
         updateEcoCoinPreview();
         updateTotalBalance();
-    }
-
-    private void resetSlotStyle(TextView textView) {
-        textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray));
-        textView.setBackgroundTintList(
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.off_white))
-        );
-    }
-
-    private void applySelectedSlotStyle(TextView textView, int colorRes) {
-        textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-        textView.setBackgroundTintList(
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), colorRes))
-        );
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -186,12 +278,6 @@ public class RequetesFragment extends Fragment {
 
                     tvMonth.setText(calendarResponse.getMonth_label());
                     calendarDayAdapter.setDays(calendarResponse.getDays());
-
-                    if (selectedDay == null && !calendarResponse.getDays().isEmpty()) {
-                        selectedDay = calendarResponse.getDays().get(0);
-                        calendarDayAdapter.setSelectedDate(selectedDay.getDate());
-                        tvSelectedDate.setText(formatDateForUi(selectedDay.getDate()));
-                    }
                 },
                 error -> Toast.makeText(getContext(), "Erreur chargement calendrier", Toast.LENGTH_SHORT).show()
         );
@@ -201,6 +287,13 @@ public class RequetesFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void updateEcoCoinPreview() {
+        if (selectedSlotColor == null) {
+            tvBonusEcoCoin.setText("--");
+            tvBonusEcoCoin.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray));
+            tvWarningMessage.setVisibility(View.GONE);
+            return;
+        }
+
         int delta;
         int colorRes;
 
@@ -208,14 +301,17 @@ public class RequetesFragment extends Fragment {
             case "red":
                 delta = -100;
                 colorRes = R.color.red;
+                tvWarningMessage.setVisibility(View.VISIBLE);
                 break;
             case "yellow":
                 delta = 0;
                 colorRes = R.color.gray;
+                tvWarningMessage.setVisibility(View.GONE);
                 break;
-            default:
+            default: // green
                 delta = 100;
                 colorRes = R.color.green;
+                tvWarningMessage.setVisibility(View.GONE);
                 break;
         }
 
@@ -226,7 +322,11 @@ public class RequetesFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void updateTotalBalance() {
-        if (currentUser == null) return;
+        if (currentUser == null || selectedSlotColor == null) {
+            tvTotalBalance.setText("--");
+            tvTotalBalance.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray));
+            return;
+        }
 
         int delta;
         switch (selectedSlotColor) {
@@ -253,6 +353,15 @@ public class RequetesFragment extends Fragment {
             tvTotalBalance.setText("0");
             tvTotalBalance.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray));
         }
+    }
+
+    private void hideCreneauSection() {
+        if (requestCard != null) requestCard.setVisibility(View.GONE);
+    }
+
+    private void showCreneauSection() {
+        if (requestCard != null) requestCard.setVisibility(View.VISIBLE);
+        if (tvResumeDonnees != null) tvResumeDonnees.setVisibility(View.VISIBLE);
     }
 
     private void renderAppliances(List<Appliance> appliances) {

@@ -76,20 +76,26 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
 
         if (isToday) {
             bg.setStroke(5, ContextCompat.getColor(context, R.color.dark_green));
-        } else if (isSelected) {
+        } else if (isSelected && !day.isBlocked()) {
             bg.setStroke(4, ContextCompat.getColor(context, R.color.black));
         }
 
         holder.tvDay.setBackground(bg);
         holder.tvDay.setTextColor(textColor);
 
-        holder.itemView.setOnClickListener(v -> {
-            selectedDate = day.getDate();
-            notifyDataSetChanged();
-            if (listener != null) {
-                listener.onDayClick(day);
-            }
-        });
+        if (day.isBlocked()) {
+            holder.itemView.setAlpha(0.75f);
+            holder.itemView.setOnClickListener(null);
+        } else {
+            holder.itemView.setAlpha(1f);
+            holder.itemView.setOnClickListener(v -> {
+                selectedDate = day.getDate();
+                notifyDataSetChanged();
+                if (listener != null) {
+                    listener.onDayClick(day);
+                }
+            });
+        }
     }
 
     @Override
