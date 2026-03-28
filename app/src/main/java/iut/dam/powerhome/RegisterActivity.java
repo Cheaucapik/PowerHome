@@ -62,7 +62,6 @@ public class RegisterActivity extends AppCompatActivity {
         String email = ((EditText) findViewById(R.id.email_et)).getText().toString().trim();
         String password = ((EditText) findViewById(R.id.password_et)).getText().toString().trim();
 
-        // Validation email
         if (!isValidEmail(email)) {
             EditText emailEt = findViewById(R.id.email_et);
             emailEt.setError(getString(R.string.error_invalid_email));
@@ -70,8 +69,6 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        // ça c'est pour valider le password UNIQUEMENT si il respecte les contraintes
-        // Donc msg erreur si non respecté
         if (!isValidPassword(password)) {
             EditText passwordEt = findViewById(R.id.password_et);
             passwordEt.setError(getString(R.string.error_password_regex));
@@ -87,7 +84,6 @@ public class RegisterActivity extends AppCompatActivity {
         String tel_brut = ((EditText) findViewById(R.id.tel_et)).getText().toString().trim();
         String tel = prefixe_sp.getSelectedItem().toString() + "-" + tel_brut;
 
-        // L'url ne contient plus les param
         String url = "http://10.0.2.2/powerhome_server/signup.php";
 
 
@@ -128,7 +124,6 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-    //Method isValidEmail pour check si le pattern de lemail est bon
     private boolean isValidEmail(String email) {
         return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }

@@ -3,8 +3,8 @@ package iut.dam.powerhome;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,23 +12,19 @@ import android.widget.*;
 
 import androidx.fragment.app.Fragment;
 
-import org.json.JSONObject;
+import com.koushikdutta.ion.Ion;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import org.json.JSONObject;
 
 public class ParamFragment extends Fragment {
 
     private EditText etFname, etLname, etEmail, etMobile, etUsername;
     private Spinner spPrefixe;
     private String userToken;
+    private final String[] items = {"+1", "+33", "+34"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
         View layout = inflater.inflate(R.layout.parametres_fragment, container, false);
 
         etFname    = layout.findViewById(R.id.et_firstname);
@@ -38,34 +34,41 @@ public class ParamFragment extends Fragment {
         etUsername = layout.findViewById(R.id.et_username);
         spPrefixe  = layout.findViewById(R.id.sp_prefixe);
 
-        String[] items = {"+1", "+33", "+34"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, items);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_list_item_1, items);
         spPrefixe.setAdapter(adapter);
 
         SharedPreferences sp = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         userToken = sp.getString("token", "");
 
-        String firstname = sp.getString("firstname", "");
-        if ("null".equals(firstname)) firstname = "";
+        etFname.setText(sp.getString("firstname", "").replace("null", ""));
+        etLname.setText(sp.getString("lastname", "").replace("null", ""));
+        etEmail.setText(sp.getString("email", "").replace("null", ""));
+        etUsername.setText(sp.getString("username", "").replace("null", ""));
 
-        String lastname = sp.getString("lastname", "");
-        if ("null".equals(lastname)) lastname = "";
+        String fullTel = sp.getString("tel", "").replace("null", "").trim();
 
-        String email = sp.getString("email", "");
-        if ("null".equals(email)) email = "";
+        if (fullTel.contains("-")) {
+            String[] parts = fullTel.split("-");
+            String prefix = parts[0].trim();
+            String number = (parts.length > 1) ? parts[1].trim() : "";
 
-        String username = sp.getString("username", "");
-        if ("null".equals(username)) username = "";
+            etMobile.setText(number);
 
-        String tel = sp.getString("tel", "");
-        if ("null".equals(tel)) tel = "";
+            spPrefixe.post(() -> {
+                for (int i = 0; i < items.length; i++) {
+                    String cleanItem = items[i].replace("+", "").trim();
+                    String cleanPrefix = prefix.replace("+", "").trim();
 
-        etFname.setText(firstname);
-        etLname.setText(lastname);
-        etEmail.setText(email);
-        etUsername.setText(username);
-        etMobile.setText(tel);
+                    if (cleanItem.equals(cleanPrefix)) {
+                        spPrefixe.setSelection(i);
+                        break;
+                    }
+                }
+            });
+        } else {
+            etMobile.setText(fullTel);
+        }
 
         layout.findViewById(R.id.btn_save).setOnClickListener(v -> showConfirmationDialog());
         layout.findViewById(R.id.btn_change_password).setOnClickListener(v -> showPasswordDialog());
@@ -73,81 +76,119 @@ public class ParamFragment extends Fragment {
         return layout;
     }
 
-
     private void showConfirmationDialog() {
-        new AlertDialog.Builder(getContext())
-                .setTitle(getString(R.string.dialog_confirm_title))
-                .setMessage(getString(R.string.dialog_confirm_profile_msg))
-                .setPositiveButton(getString(R.string.btn_yes), (d, w) -> {
-                    new UpdateUserTask().execute(
-                            userToken,
-                            etFname.getText().toString(),
-                            etLname.getText().toString(),
-                            etEmail.getText().toString(),
-                            spPrefixe.getSelectedItem().toString() + etMobile.getText().toString(),
-                            etUsername.getText().toString(),
-                            "",
-                            ""
-                    );
-                })
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setTitle("Confirmation")
+                .setMessage("Voulez-vous modifier votre profil ?")
+                .setPositiveButton("Oui", null)
                 .setNegativeButton("Annuler", null)
-                .show();
+                .create();
+
+        dialog.show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            String email = etEmail.getText().toString().trim();
+            String telComplet = spPrefixe.getSelectedItem().toString() + "-" + etMobile.getText().toString();
+
+            if (!isValidEmail(email)) {
+                etEmail.setError("Email invalide (ex: email@domaine.com)");
+                etEmail.requestFocus();
+                dialog.dismiss();
+            } else {
+                updateUser(
+                        etFname.getText().toString().trim(),
+                        etLname.getText().toString().trim(),
+                        email,
+                        telComplet,
+                        etUsername.getText().toString().trim(),
+                        "",
+                        ""
+                );
+                dialog.dismiss();
+            }
+        });
     }
 
     private void showPasswordDialog() {
         View v = LayoutInflater.from(getContext()).inflate(R.layout.change_password, null);
-
         EditText oldP = v.findViewById(R.id.et_old_password);
         EditText newP = v.findViewById(R.id.et_new_password);
 
-        new AlertDialog.Builder(getContext())
-                .setTitle(getString(R.string.dialog_change_password_title))
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setTitle("Changer mot de passe")
                 .setView(v)
-                .setPositiveButton(getString(R.string.btn_ok), (d, w) -> {
-                    new UpdateUserTask().execute(
-                            userToken,
-                            etFname.getText().toString(),
-                            etLname.getText().toString(),
-                            etEmail.getText().toString(),
-                            spPrefixe.getSelectedItem().toString() + etMobile.getText().toString(),
-                            etUsername.getText().toString(),
-                            oldP.getText().toString(),
-                            newP.getText().toString()
-                    );
-                })
-                .setNegativeButton(getString(R.string.btn_cancel), null)
-                .show();
+                .setPositiveButton("OK", null)
+                .setNegativeButton("Annuler", null)
+                .create();
+
+        dialog.show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
+            String password = newP.getText().toString().trim();
+
+            if (!isValidPassword(password)) {
+                newP.setError("Mot de passe: 1 minuscule, 1 majuscule, 1 spécial, min 8");
+                newP.requestFocus();
+            } else {
+                String telComplet = spPrefixe.getSelectedItem().toString() + "-" + etMobile.getText().toString();
+                updateUser(
+                        etFname.getText().toString().trim(),
+                        etLname.getText().toString().trim(),
+                        etEmail.getText().toString().trim(),
+                        telComplet,
+                        etUsername.getText().toString().trim(),
+                        oldP.getText().toString(),
+                        password
+                );
+                dialog.dismiss();
+            }
+        });
     }
 
-    private class UpdateUserTask extends AsyncTask<String, Void, String> {
-        protected String doInBackground(String... p) {
-            try {
-                URL url = new URL("http://10.0.2.2/powerhome_server/update_user.php");
-                HttpURLConnection c = (HttpURLConnection) url.openConnection();
-                c.setRequestMethod("POST");
-                c.setDoOutput(true);
+    private void updateUser(String fname, String lname, String email, String tel, String user, String oldP, String newP) {
+        Ion.with(this)
+                .load("http://10.0.2.2/powerhome_server/update_user.php")
+                .setBodyParameter("token", userToken)
+                .setBodyParameter("firstname", fname)
+                .setBodyParameter("lastname", lname)
+                .setBodyParameter("email", email)
+                .setBodyParameter("tel", tel)
+                .setBodyParameter("username", user)
+                .setBodyParameter("old_password", oldP)
+                .setBodyParameter("new_password", newP)
+                .asString()
+                .setCallback((e, result) -> {
+                    if (e != null) {
+                        Log.e("Erreur", "Update echoué", e);
+                        return;
+                    }
+                    try {
+                        JSONObject jo = new JSONObject(result);
+                        if (jo.optString("status").equals("success")) {
+                            SharedPreferences sp = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                            sp.edit()
+                                    .putString("firstname", fname)
+                                    .putString("lastname", lname)
+                                    .putString("email", email)
+                                    .putString("tel", tel)
+                                    .putString("username", user)
+                                    .apply();
+                            Toast.makeText(getContext(), getString(R.string.success_profile_updated), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), jo.optString("message", "Erreur"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception ex) {
+                        Toast.makeText(getContext(), "Erreur serveur", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
-                String data =
-                        "token=" + URLEncoder.encode(p[0], "UTF-8") +
-                                "&firstname=" + URLEncoder.encode(p[1], "UTF-8") +
-                                "&lastname=" + URLEncoder.encode(p[2], "UTF-8") +
-                                "&email=" + URLEncoder.encode(p[3], "UTF-8") +
-                                "&tel=" + URLEncoder.encode(p[4], "UTF-8") +
-                                "&username=" + URLEncoder.encode(p[5], "UTF-8");
+    private boolean isValidEmail(String email) {
+        return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
 
-                OutputStream os = c.getOutputStream();
-                os.write(data.getBytes());
-                os.close();
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
-                return br.readLine();
-
-            } catch (Exception e) {
-                return null;
-            }
-        }
-
-        protected void onPostExecute(String r) {
-            Toast.makeText(getContext(), getString(R.string.success_profile_updated), Toast.LENGTH_SHORT).show();        }
+    private boolean isValidPassword(String password) {
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$";
+        return password != null && password.matches(regex);
     }
 }

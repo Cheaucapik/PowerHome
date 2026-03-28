@@ -69,6 +69,7 @@
     <string name="my_devices">Mes appareils</string>
     <string name="username">Nom d\'utilisateur</string>
 
+    <string name="changer_le_mot_de_passe">Modifier le mot de passe</string>
     <string name="error_password_regex">Mot de passe: 1 minuscule, 1 majuscule, 1 spécial, min 8</string>
     <string name="error_invalid_email">Email invalide (ex: email@domaine.com)</string>
     <string name="error_empty_fields">Champs vides</string>
