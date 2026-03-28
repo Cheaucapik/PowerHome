@@ -103,7 +103,6 @@ public class MonHabitatFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     private void displaySolde(int solde) {
         if (tv_solde == null) return;
-        String prefix = solde >= 0 ? "" : "";   // sign is already in the number
         tv_solde.setText(String.valueOf(solde));
         if (solde > 0) {
             tv_solde.setTextColor(ContextCompat.getColor(requireContext(), R.color.green));

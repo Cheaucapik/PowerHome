@@ -1,7 +1,6 @@
 package iut.dam.powerhome;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +59,6 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
         boolean isPast    = localDate.isBefore(today);
         boolean isToday   = localDate.equals(today);
         boolean isSelected = day.getDate().equals(selectedDate);
-        boolean isBlocked  = day.isBlocked() || isPast; // past dates behave like blocked
 
         holder.tvDay.setText(String.valueOf(localDate.getDayOfMonth()));
 
