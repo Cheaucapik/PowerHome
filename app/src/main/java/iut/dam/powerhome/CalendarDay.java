@@ -20,6 +20,10 @@ public class CalendarDay {
     String color;
     boolean blocked;
     List<Timeslot> slots;
+    //Liste avec les 3 créneaux du jour enft
+
+    // on a utilisé tout les nv import de Gson, json aussi
+    //json array (pour le tableau de creneaux (slot)
 
     public String getDate() { return date; }
     public double getScore() { return score; }
@@ -27,10 +31,16 @@ public class CalendarDay {
     public boolean isBlocked() { return blocked; }
     public List<Timeslot> getSlots() { return slots; }
 
+    //des getter standards quoi depuis le frag->acceder aux donnees
+
     // -------------------------------------------------------
     // Custom deserializer: maps "timeslot_id" → Timeslot.id
-    // because PHP returns "timeslot_id" but the model uses "id"
     // -------------------------------------------------------
+    /**En gros c une sorte de convertisseurs ->puisque le php renvoie un .id
+     * Désérialiseur Gson custom — nécessaire car le PHP renvoie timeslot_id mais le modèle java il va attendre un id.
+     * paske sans, l'ID du timeslot serait toujours 0 et la réservation enverrait un mauvais timeslot_id au serveur
+      sah a mieux comprendre stp
+     **/
     public static class CalendarDayDeserializer implements JsonDeserializer<CalendarDay> {
         @Override
         public CalendarDay deserialize(JsonElement json, Type typeOfT,
@@ -77,13 +87,14 @@ public class CalendarDay {
 
     // -------------------------------------------------------
     // Gson instance with the custom deserializer registered
+    // ducoup il va construire une instance Gson AVEC le deserialiseur saved
     // -------------------------------------------------------
     private static Gson buildGson() {
         return new GsonBuilder()
                 .registerTypeAdapter(CalendarDay.class, new CalendarDayDeserializer())
                 .create();
     }
-
+//La cest juste les points d'entree pour truquer les jason recus
     public static CalendarDay getFromJson(String json) {
         return buildGson().fromJson(json, CalendarDay.class);
     }

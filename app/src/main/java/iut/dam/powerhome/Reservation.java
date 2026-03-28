@@ -5,7 +5,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
+// Represente reservation retournee par getReservationByUser
+//possede timeslot et la liste des appliances reserve
 public class Reservation {
     int id;
     String reservation_date;

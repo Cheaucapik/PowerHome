@@ -1,7 +1,7 @@
 package iut.dam.powerhome;
 
 import com.google.gson.Gson;
-
+//maj du solde et du token apres chaque reservation ou annulation de reservation
 public class User {
     public String firstname;
     public String lastname;
