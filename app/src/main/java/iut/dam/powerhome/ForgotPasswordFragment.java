@@ -38,19 +38,19 @@ public class ForgotPasswordFragment extends Fragment {
         return layout;
     }
 
-    public void done(View v){
+    public void done(View v) {
         SharedPreferences sp = getContext().getSharedPreferences("CodeSession", MODE_PRIVATE);
         String json = sp.getString("code_json", null);
 
-        if(json != null) {
+        if (json != null) {
             User currentUser = User.getFromJson(json);
-            String id = (String) String.valueOf(currentUser.id);
+            String id = String.valueOf(currentUser.id);
 
             EditText password_et = layout.findViewById(R.id.password_et);
             String password = password_et.getText().toString().trim();
 
-            if(!isValidPassword(password)){
-                password_et.setError("Mot de passe: 1 minuscule, 1 majuscule, 1 spécial, min 8");
+            if (!isValidPassword(password)) {
+                password_et.setError(getString(R.string.error_password_regex));
                 password_et.requestFocus();
                 return;
             }
@@ -75,7 +75,7 @@ public class ForgotPasswordFragment extends Fragment {
                                     ((ForgotPasswordActivity) getActivity()).done();
                                 }
                             } else {
-                                Toast.makeText(getContext(), "Erreur : " + result, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), getString(R.string.error_generic) + result, Toast.LENGTH_LONG).show();
                             }
                         }
                     });

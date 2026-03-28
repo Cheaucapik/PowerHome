@@ -173,7 +173,7 @@ public class ParamFragment extends Fragment {
                                     .putString("tel", tel)
                                     .putString("username", user)
                                     .apply();
-                            Toast.makeText(getContext(), "Profil mis à jour", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.success_profile_updated), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(), jo.optString("message", "Erreur"), Toast.LENGTH_SHORT).show();
                         }

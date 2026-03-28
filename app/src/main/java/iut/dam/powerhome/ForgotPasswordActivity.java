@@ -43,7 +43,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     public void done(){
-        Toast.makeText(this, "Mot de passe réinitialisé", Toast.LENGTH_SHORT).show();
-        finish();
+        Toast.makeText(this, getString(R.string.success_password_reset), Toast.LENGTH_SHORT).show();        finish();
     }
 }

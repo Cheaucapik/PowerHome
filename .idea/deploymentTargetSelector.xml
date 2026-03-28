@@ -3,6 +3,12 @@
   <component name="deploymentTargetSelector">
     <selectionStates>
       <SelectionState runConfigName="app">
+<<<<<<< HEAD
+=======
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="LoginActivity">
+>>>>>>> sie
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
