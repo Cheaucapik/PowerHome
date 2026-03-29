@@ -97,4 +97,17 @@
     <string name="btn_yes">Sí</string>
     <string name="btn_ok">OK</string>
     <string name="btn_cancel">Cancelar</string>
+    <string name="Confirmation">Confirmación</string>
+    <string name="edit_profile">¿Quieres editar tu perfil?</string>
+    <string name="ancien_mot_de_passe">Contraseña anterior</string>
+    <string name="nouveau_mot_de_passe">Nouveau mot de passe</string>
+    <string name="error_json">Error al leer JSON:</string>
+    <string name="error_calendar">Error al cargar el calendario</string>
+    <string name="choose_date">Elige una fecha</string>
+    <string name="choose_timeslot">Elige un nicho</string>
+    <string name="choose_appliance">Elige un dispositivo</string>
+    <string name="reservation_confirmed">Reserva confirmada</string>
+    <string name="error_response">Error de respuesta</string>
+    <string name="error_reserv">Error al cargar la reserva</string>
+    <string name="no_upcoming_res">No hay reservas próximas</string>
 </resources>

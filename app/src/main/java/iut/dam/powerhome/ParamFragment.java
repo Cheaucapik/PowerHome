@@ -78,10 +78,10 @@ public class ParamFragment extends Fragment {
 
     private void showConfirmationDialog() {
         AlertDialog dialog = new AlertDialog.Builder(getContext())
-                .setTitle("Confirmation")
-                .setMessage("Voulez-vous modifier votre profil ?")
-                .setPositiveButton("Oui", null)
-                .setNegativeButton("Annuler", null)
+                .setTitle(R.string.Confirmation)
+                .setMessage(R.string.edit_profile)
+                .setPositiveButton(R.string.btn_yes, null)
+                .setNegativeButton(R.string.btn_cancel, null)
                 .create();
 
         dialog.show();
@@ -91,7 +91,7 @@ public class ParamFragment extends Fragment {
             String telComplet = spPrefixe.getSelectedItem().toString() + "-" + etMobile.getText().toString();
 
             if (!isValidEmail(email)) {
-                etEmail.setError("Email invalide (ex: email@domaine.com)");
+                etEmail.setError(R.string.error_invalid_email + "");
                 etEmail.requestFocus();
                 dialog.dismiss();
             } else {
@@ -115,10 +115,10 @@ public class ParamFragment extends Fragment {
         EditText newP = v.findViewById(R.id.et_new_password);
 
         AlertDialog dialog = new AlertDialog.Builder(getContext())
-                .setTitle("Changer mot de passe")
+                .setTitle(R.string.dialog_change_password_title)
                 .setView(v)
-                .setPositiveButton("OK", null)
-                .setNegativeButton("Annuler", null)
+                .setPositiveButton(R.string.btn_ok, null)
+                .setNegativeButton(R.string.btn_cancel, null)
                 .create();
 
         dialog.show();
@@ -127,7 +127,7 @@ public class ParamFragment extends Fragment {
             String password = newP.getText().toString().trim();
 
             if (!isValidPassword(password)) {
-                newP.setError("Mot de passe: 1 minuscule, 1 majuscule, 1 spécial, min 8");
+                newP.setError(R.string.error_password_regex + "");
                 newP.requestFocus();
             } else {
                 String telComplet = spPrefixe.getSelectedItem().toString() + "-" + etMobile.getText().toString();

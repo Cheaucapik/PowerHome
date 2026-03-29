@@ -40,7 +40,7 @@ public class HabitatsFragment extends Fragment {
                     @Override
                     public void onCompleted(Exception e, String result) {
                         if (e != null) {
-                            Log.e("Erreur", "Problème réseau");
+                            Log.e(R.string.error_generic + "", R.string.error_network + "");
                             return;
                         }
                         if (result != null) {
@@ -48,7 +48,7 @@ public class HabitatsFragment extends Fragment {
                             habitats.addAll(Habitat.getListFromJson(result));
                             adapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getContext(), "Erreur : " + result, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), R.string.error_generic + result, Toast.LENGTH_LONG).show();
                         }
                     }
                 });

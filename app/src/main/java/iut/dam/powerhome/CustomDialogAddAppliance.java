@@ -53,11 +53,13 @@ public class CustomDialogAddAppliance extends Dialog {
             String ref = ref_et.getText().toString().trim();
 
             if (wattage.isEmpty()) {
-                consumption_et.setError(getContext().getString(R.string.error_missing_wattage));                return;
+                consumption_et.setError(getContext().getString(R.string.error_missing_wattage));
+                return;
             }
 
             if (ref.isEmpty()) {
-                ref_et.setError(getContext().getString(R.string.error_missing_ref));                return;
+                ref_et.setError(getContext().getString(R.string.error_missing_ref));
+                return;
             }
 
             SharedPreferences sp = getContext().getSharedPreferences("UserSession", MODE_PRIVATE);
@@ -80,7 +82,7 @@ public class CustomDialogAddAppliance extends Dialog {
                             @Override
                             public void onCompleted(Exception e, String result) {
                                 if (e != null) {
-                                    Log.e("Erreur", "Problème réseau", e);
+                                    Log.e(R.string.error_generic + "", R.string.error_network + "", e);
                                     return;
                                 }
                                 if (result != null && result.contains("success")) {
@@ -92,10 +94,10 @@ public class CustomDialogAddAppliance extends Dialog {
                                         JSONObject jo = new JSONObject(result);
                                         String error = jo.getString("error");
                                         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-                                        Log.d("PB_ID", "Serveur : " + error);
+                                        Log.d("PB_ID", R.string.error_server + error);
                                     }
                                     catch (JSONException ex) {
-                                        Log.e("JSON_PARSE", "Erreur lors de la lecture du JSON : " + result);
+                                        Log.e("JSON_PARSE", R.string.error_json + result);
                                     }
                                 }
                             }

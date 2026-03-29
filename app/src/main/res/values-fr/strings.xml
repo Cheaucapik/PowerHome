@@ -97,4 +97,17 @@
     <string name="btn_yes">Oui</string>
     <string name="btn_ok">OK</string>
     <string name="btn_cancel">Annuler</string>
+    <string name="Confirmation">Confirmation</string>
+    <string name="edit_profile">Voulez vous modifier votre profil ?</string>
+    <string name="ancien_mot_de_passe">Ancien mot de passe</string>
+    <string name="nouveau_mot_de_passe">Nouveau mot de passe</string>
+    <string name="error_json">"Erreur lors de la lecture du JSON : "</string>
+    <string name="error_calendar">Erreur chargement calendrier</string>
+    <string name="choose_date">Choisissez une date</string>
+    <string name="choose_timeslot">Choisissez un créneau</string>
+    <string name="choose_appliance">Choisissez un appareil</string>
+    <string name="reservation_confirmed">Réservation confirmée</string>
+    <string name="error_response">Erreur de réponse</string>
+    <string name="error_reserv">Erreur de chargement de réservation</string>
+    <string name="no_upcoming_res">Aucune réservation à venir</string>
 </resources>

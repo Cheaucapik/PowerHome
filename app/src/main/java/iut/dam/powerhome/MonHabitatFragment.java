@@ -66,7 +66,7 @@ public class MonHabitatFragment extends Fragment {
 
             loadDataFromServer(currentUser.email);
         } else {
-            Toast.makeText(getContext(), "Aucun utilisateur connecté", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.error_no_user_connected, Toast.LENGTH_SHORT).show();
         }
 
         ImageView edit_iv = layout.findViewById(R.id.iv_edit);
@@ -121,7 +121,7 @@ public class MonHabitatFragment extends Fragment {
                 .asString()
                 .setCallback((e, result) -> {
                     if (e != null) {
-                        Log.e("MonHabitat", "Erreur réseau", e);
+                        Log.e(R.string.myAccomodation + "", R.string.error_network + "", e);
                         return;
                     }
                     if (result != null) {

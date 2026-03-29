@@ -64,7 +64,7 @@ public class ForgotPasswordFragment extends Fragment {
                         @Override
                         public void onCompleted(Exception e, String result) {
                             if (e != null) {
-                                Log.e("Erreur", "Problème réseau", e);
+                                Log.e(R.string.error_generic + "", R.string.error_network + "", e);
                                 return;
                             }
 

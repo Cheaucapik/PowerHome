@@ -62,7 +62,7 @@ public class ForgotPasswordMailFragment extends Fragment {
                     @Override
                     public void onCompleted(Exception e, String result) {
                         if (e != null) {
-                            Log.e("Erreur", "Problème réseau", e);
+                            Log.e(R.string.error_generic + "", R.string.error_network + "", e);
                             return;
                         }
 
@@ -84,7 +84,7 @@ public class ForgotPasswordMailFragment extends Fragment {
                                 }
                                 ForgotPasswordActivity.code();
                             } catch (JSONException ex) {
-                                Log.e("JSON_PARSE", "Erreur lors de la lecture du JSON : " + result);
+                                Log.e("JSON_PARSE", R.string.error_json + result);
                             }
                         }
 
@@ -93,10 +93,10 @@ public class ForgotPasswordMailFragment extends Fragment {
                                 JSONObject jo = new JSONObject(result);
                                 String error = jo.getString("error");
                                 Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-                                Log.d("PB_ID", "Serveur : " + error);
+                                Log.d("PB_ID", R.string.error_server + error);
                             }
                             catch (JSONException ex) {
-                                Log.e("JSON_PARSE", "Erreur lors de la lecture du JSON : " + result);
+                                Log.e("JSON_PARSE", R.string.error_json + result);
                             }
                         }
                     }

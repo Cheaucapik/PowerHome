@@ -102,22 +102,22 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, String result) {
                         if (e != null) {
-                            Log.e("Erreur", "Problème réseau", e);
+                            Log.e(R.string.error_generic + "", R.string.error_network + "", e);
                             return;
                         }
 
                         if (result != null && result.contains("success")) {
-                            Toast.makeText(RegisterActivity.this, "Compte créé !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, R.string.success_account_created, Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             try {
                                 JSONObject jo = new JSONObject(result);
                                 String error = jo.getString("error");
                                 Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_SHORT).show();
-                                Log.d("PB_ID", "Serveur : " + error);
+                                Log.d("PB_ID", R.string.error_server + error);
                             }
                             catch (JSONException ex) {
-                                Log.e("JSON_PARSE", "Erreur lors de la lecture du JSON : " + result);
+                                Log.e("JSON_PARSE", R.string.error_json + result);
                             }
                         }
                     }
