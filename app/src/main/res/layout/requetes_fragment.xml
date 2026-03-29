@@ -87,12 +87,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="12dp">
+                    <TextView style="@style/dayLabel" android:text="S"/>
                     <TextView style="@style/dayLabel" android:text="M"/>
                     <TextView style="@style/dayLabel" android:text="T"/>
                     <TextView style="@style/dayLabel" android:text="W"/>
                     <TextView style="@style/dayLabel" android:text="T"/>
                     <TextView style="@style/dayLabel" android:text="F"/>
-                    <TextView style="@style/dayLabel" android:text="S"/>
                     <TextView style="@style/dayLabel" android:text="S"/>
                 </LinearLayout>
 
