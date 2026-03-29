@@ -55,27 +55,35 @@ public class ForgotPasswordFragment extends Fragment {
                 return;
             }
 
-            String url = "http://10.0.2.2/powerhome_server/done.php?id=" + id + "&password=" + password;
+            String url = "http://10.0.2.2/powerhome_server/done.php";
 
             Ion.with(this)
-                    .load(url)
+                    .load("POST", url)
+                    .setBodyParameter("id", id)
+                    .setBodyParameter("password", password)
                     .asString()
                     .setCallback(new FutureCallback<String>() {
                         @Override
                         public void onCompleted(Exception e, String result) {
                             if (e != null) {
-                                Log.e(R.string.error_generic + "", R.string.error_network + "", e);
+                                Log.e("DEBUG_SERVER", "Problème réseau", e);
                                 return;
                             }
 
                             Log.d("DEBUG_SERVER", "Réponse du PHP : " + result);
 
-                            if (result != null && result.contains("success")) {
-                                if (getActivity() instanceof ForgotPasswordActivity) {
-                                    ((ForgotPasswordActivity) getActivity()).done();
+                            try {
+                                JSONObject jo = new JSONObject(result);
+                                if (jo.optString("status").equals("success")) {
+                                    if (getActivity() instanceof ForgotPasswordActivity) {
+                                        ((ForgotPasswordActivity) getActivity()).done();
+                                    }
+                                } else {
+                                    String error = jo.optString("message", "Erreur inconnue");
+                                    Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
                                 }
-                            } else {
-                                Toast.makeText(getContext(), getString(R.string.error_generic) + result, Toast.LENGTH_LONG).show();
+                            } catch (JSONException ex) {
+                                Toast.makeText(getContext(), R.string.error_json, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

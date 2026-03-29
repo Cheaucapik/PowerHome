@@ -96,7 +96,7 @@ public class RequetesFragment extends Fragment {
         if (getContext() == null) return;
         String json = getContext().getSharedPreferences("UserSession", MODE_PRIVATE)
                 .getString("user_json", null);
-        if (json == null) { toast("Aucun utilisateur connecté"); return; }
+        if (json == null) { toast(R.string.error_no_user_connected + ""); return; }
         currentUser = User.getFromJson(json);
     }
 
@@ -134,7 +134,7 @@ public class RequetesFragment extends Fragment {
         String url = BASE_URL + "getCalendarStatus.php?token=" + currentUser.token
                 + "&start_date=" + currentWindowStartDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
         Ion.with(getContext()).load(url).asString().setCallback((e, r) -> {
-            if (e != null) { toast("Erreur chargement calendrier"); return; }
+            if (e != null) { toast(R.string.error_calendar + ""); return; }
             CalendarStatusResponse cr = CalendarStatusResponse.getFromJson(r);
             if (cr == null || cr.getDays() == null) return;
             tvMonth.setText(cr.getMonth_label());
@@ -280,9 +280,9 @@ public class RequetesFragment extends Fragment {
     //verify que les 3 elements sont bien selected pour appeler le postReservation
     private void setupConfirmButton() {
         btnConfirm.setOnClickListener(v -> {
-            if (selectedDay == null)       { toast("Choisissez une date");    return; }
-            if (selectedTimeslot == null)  { toast("Choisissez un créneau");  return; }
-            if (selectedAppliance == null) { toast("Choisissez un appareil"); return; }
+            if (selectedDay == null)       { toast(R.string.choose_date + "");    return; }
+            if (selectedTimeslot == null)  { toast(R.string.choose_timeslot + "");  return; }
+            if (selectedAppliance == null) { toast(R.string.choose_appliance + ""); return; }
             postReservation();
         });
     }
@@ -298,14 +298,14 @@ public class RequetesFragment extends Fragment {
                 .setBodyParameter("timeslot_id",      String.valueOf(selectedTimeslot.getId()))
                 .setBodyParameter("appliance_ids",    String.valueOf(selectedAppliance.getId()))
                 .asString().setCallback((e, r) -> {
-                    if (e != null) { toast("Erreur réseau"); return; }
+                    if (e != null) { toast(R.string.error_network + ""); return; }
                     handleJson(r, "eco_coin_delta", delta -> {
                         currentUser.solde += delta;
                         saveUserToSession();
                         hideCreneauSection();
                         loadReservations();
                         loadCalendarStatus();
-                        toast("Réservation confirmée !");
+                        toast(R.string.reservation_confirmed + "");
                     });
                 });
     }

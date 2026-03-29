@@ -22,6 +22,13 @@ import org.json.JSONObject;
 
 public class CustomDialogAddAppliance extends Dialog {
 
+    private final String[] rawItems = {
+            "appliance_steam_ironer",
+            "appliance_air_conditionner",
+            "appliance_washing_machine",
+            "appliance_vacuum_cleaner"
+    };
+
     public CustomDialogAddAppliance(Context context) {
         super(context);
     }
@@ -32,19 +39,22 @@ public class CustomDialogAddAppliance extends Dialog {
         setContentView(R.layout.dialog_info_add_appliance);
 
         Spinner applianceSP = findViewById(R.id.appliance_sp);
-        String[] items = {getContext().getString(R.string.appliance_steam_ironer),
+
+        String[] displayItems = {
+                getContext().getString(R.string.appliance_steam_ironer),
                 getContext().getString(R.string.appliance_air_conditionner),
                 getContext().getString(R.string.appliance_washing_machine),
-                getContext().getString(R.string.appliance_vacuum_cleaner)};
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(getContext(),
-                        android.R.layout.simple_list_item_1,
-                        items);
+                getContext().getString(R.string.appliance_vacuum_cleaner)
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_list_item_1,
+                displayItems);
         applianceSP.setAdapter(adapter);
 
-
         findViewById(R.id.btn_signup).setOnClickListener(view -> {
-            String appliance = applianceSP.getSelectedItem().toString();
+            int selectedPosition = applianceSP.getSelectedItemPosition();
+            String applianceRawName = rawItems[selectedPosition];
 
             EditText consumption_et = findViewById(R.id.consumption_et);
             String wattage = consumption_et.getText().toString().trim();
@@ -67,45 +77,47 @@ public class CustomDialogAddAppliance extends Dialog {
 
             if(json != null){
                 User currentUser = User.getFromJson(json);
-                String idHab = currentUser.habitat.id + "";
+                String idHab = String.valueOf(currentUser.habitat.id);
 
                 String url = "http://10.0.2.2/powerhome_server/addAppliance.php";
 
                 Ion.with(getContext())
-                        .load("POST", url) // On force la méthode POST
+                        .load("POST", url)
                         .setBodyParameter("idHab", idHab)
                         .setBodyParameter("ref", ref)
                         .setBodyParameter("wattage", wattage)
-                        .setBodyParameter("appliance", appliance)
+                        .setBodyParameter("appliance", applianceRawName)
                         .asString()
                         .setCallback(new FutureCallback<String>() {
                             @Override
                             public void onCompleted(Exception e, String result) {
                                 if (e != null) {
-                                    Log.e(R.string.error_generic + "", R.string.error_network + "", e);
+                                    Log.e("AddAppliance", "Erreur réseau", e);
                                     return;
                                 }
                                 if (result != null && result.contains("success")) {
-                                    Toast.makeText(getContext(), getContext().getString(R.string.success_appliance_added), Toast.LENGTH_SHORT).show();                                    Intent intent = new Intent (getContext(), MainActivity.class);
-                                    getContext().startActivity(intent);
-                                    ((AddApplianceActivity) getContext()).finish();
+                                    Toast.makeText(getContext(), getContext().getString(R.string.success_appliance_added), Toast.LENGTH_SHORT).show();
+
+                                    if (getContext() instanceof AddApplianceActivity) {
+                                        Intent intent = new Intent(getContext(), MainActivity.class);
+                                        getContext().startActivity(intent);
+                                        ((AddApplianceActivity) getContext()).finish();
+                                    }
+                                    dismiss();
                                 } else {
                                     try {
                                         JSONObject jo = new JSONObject(result);
-                                        String error = jo.getString("error");
+                                        String error = jo.optString("error", "Erreur inconnue");
                                         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-                                        Log.d("PB_ID", R.string.error_server + error);
-                                    }
-                                    catch (JSONException ex) {
-                                        Log.e("JSON_PARSE", R.string.error_json + result);
+                                    } catch (JSONException ex) {
+                                        Log.e("JSON_PARSE", "Erreur JSON: " + result);
                                     }
                                 }
                             }
                         });
+            } else {
+                Toast.makeText(getContext(), getContext().getString(R.string.error_generic), Toast.LENGTH_LONG).show();
             }
-            else{
-                Toast.makeText(getContext(), getContext().getString(R.string.error_generic), Toast.LENGTH_LONG).show();            }
         });
-
     }
 }

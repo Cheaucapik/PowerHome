@@ -110,4 +110,11 @@
     <string name="error_response">Response error</string>
     <string name="error_reserv">Booking loading error</string>
     <string name="no_upcoming_res">No upcoming reservations</string>
+    <string name="calendar_of_the_week">Calendar of the week</string>
+    <string name="mes_cr_neaux">My slots :</string>
+    <string name="welcome_to_the_residence">Welcome to the residence</string>
+    <string name="appliance_tv">Television</string>
+    <string name="appliance_over">Oven</string>
+    <string name="appliance_fridge">Fridge</string>
+    <string name="appliance_pc">Computer</string>
 </resources>

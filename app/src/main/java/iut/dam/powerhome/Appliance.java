@@ -42,13 +42,13 @@ public class Appliance implements Serializable {
         if (this.name == null) return R.drawable.default_icon;
 
         switch (this.name) {
-            case "Machine à laver":
+            case "appliance_washing_machine":
                 return R.drawable.washing_machine;
-            case "Aspirateur":
+            case "appliance_vacuum_cleaner":
                 return R.drawable.vacuum;
-            case "Climatiseur":
+            case "appliance_air_conditionner":
                 return R.drawable.air_conditioning;
-            case "Repasseur vapeur":
+            case "appliance_steam_ironer":
                 return R.drawable.steam_iron;
             default:
                 return R.drawable.default_icon;

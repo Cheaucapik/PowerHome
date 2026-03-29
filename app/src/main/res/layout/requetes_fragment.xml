@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Calendar of the week"
+            android:text="@string/calendar_of_the_week"
             android:textColor="@color/dark_green"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -365,7 +365,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mes créneaux :"
+            android:text="@string/mes_cr_neaux"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"

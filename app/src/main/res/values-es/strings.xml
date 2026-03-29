@@ -110,4 +110,11 @@
     <string name="error_response">Error de respuesta</string>
     <string name="error_reserv">Error al cargar la reserva</string>
     <string name="no_upcoming_res">No hay reservas próximas</string>
+    <string name="calendar_of_the_week">Calendario de la semana</string>
+    <string name="mes_cr_neaux">Mis tragamonedas :</string>
+    <string name="welcome_to_the_residence">Bienvenido a la residencia</string>
+    <string name="appliance_tv">Televisión</string>
+    <string name="appliance_over">Horno</string>
+    <string name="appliance_fridge">Refrigerador</string>
+    <string name="appliance_pc">Computadora</string>
 </resources>

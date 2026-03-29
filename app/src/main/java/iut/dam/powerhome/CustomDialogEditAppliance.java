@@ -59,10 +59,11 @@ public class CustomDialogEditAppliance extends Dialog {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Appliance a = appliances.get(position);
+                String translatedName = getTranslatedName(a.getName());
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle(getContext().getString(R.string.dialog_delete_title))
-                        .setMessage(getContext().getString(R.string.dialog_delete_confirm, a.getName()))
+                        .setMessage(getContext().getString(R.string.dialog_delete_confirm, translatedName))
                         .setPositiveButton(getContext().getString(R.string.dialog_delete_title), (dialog, which) -> {
                             int appliance_id = a.getId();
                             remove(appliance_id, position);
@@ -108,5 +109,17 @@ public class CustomDialogEditAppliance extends Dialog {
                         }
                     }
                 });
+    }
+
+    private String getTranslatedName(String rawName) {
+        if (rawName == null) return "";
+        int resId = getContext().getResources().getIdentifier(rawName.trim().toLowerCase(), "string", getContext().getPackageName());
+
+        if (resId != 0) {
+            return getContext().getString(resId);
+        } else {
+            String fallback = rawName.replace("appliance_", "").replace("_", " ");
+            return fallback.substring(0, 1).toUpperCase() + fallback.substring(1);
+        }
     }
 }
