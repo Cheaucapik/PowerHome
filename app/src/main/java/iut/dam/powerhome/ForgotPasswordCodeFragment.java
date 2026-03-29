@@ -4,14 +4,12 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -44,7 +42,6 @@ public class ForgotPasswordCodeFragment extends Fragment {
             }
         });
 
-
         return layout;
     }
 
@@ -54,7 +51,7 @@ public class ForgotPasswordCodeFragment extends Fragment {
 
         if(json != null) {
             User currentUser = User.getFromJson(json);
-            String id = (String) String.valueOf(currentUser.id);
+            String id = String.valueOf(currentUser.id);
 
             String url = "http://10.0.2.2/powerhome_server/send.php?id=" + id;
 
@@ -65,7 +62,8 @@ public class ForgotPasswordCodeFragment extends Fragment {
                         @Override
                         public void onCompleted(Exception e, String result) {
                             if (e != null) {
-                                Log.e(R.string.error_generic + "", R.string.error_network + "", e);
+                                // Correction : Texte en dur pour le Log
+                                Log.e("API_SEND", "Erreur réseau", e);
                                 return;
                             }
 
@@ -75,19 +73,21 @@ public class ForgotPasswordCodeFragment extends Fragment {
                                 try {
                                     JSONObject jo = new JSONObject(result);
                                     String code = jo.getString("code");
-                                    Toast.makeText(getContext(), getString(R.string.success_code_resent), Toast.LENGTH_SHORT).show();                                    Log.i("Code", code);
+                                    // Correction : Utilisation de getString() pour le Toast
+                                    Toast.makeText(getContext(), getString(R.string.success_code_resent), Toast.LENGTH_SHORT).show();
+                                    Log.i("Code", code);
                                 } catch (JSONException ex) {
-                                    Log.e("JSON_PARSE", R.string.error_json + result);
+                                    Log.e("JSON_PARSE", "Erreur JSON : " + result);
                                 }
                             } else {
                                 try {
                                     JSONObject jo = new JSONObject(result);
                                     String error = jo.getString("error");
                                     Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-                                    Log.d("PB_ID", R.string.error_server + error);
+                                    Log.d("PB_ID", "Erreur serveur : " + error);
                                 }
                                 catch (JSONException ex) {
-                                    Log.e("JSON_PARSE", R.string.error_json + result);
+                                    Log.e("JSON_PARSE", "Erreur JSON : " + result);
                                 }
                             }
                         }
@@ -101,7 +101,7 @@ public class ForgotPasswordCodeFragment extends Fragment {
 
         if(json != null){
             User currentUser = User.getFromJson(json);
-            String id = (String) String.valueOf(currentUser.id);
+            String id = String.valueOf(currentUser.id);
 
             EditText code_et = layout.findViewById(R.id.code_et);
             String code = code_et.getText().toString().trim();
@@ -115,7 +115,7 @@ public class ForgotPasswordCodeFragment extends Fragment {
                         @Override
                         public void onCompleted(Exception e, String result) {
                             if (e != null) {
-                                Log.e("Erreur", "Problème réseau", e);
+                                Log.e("API_VERIFY", "Problème réseau", e);
                                 return;
                             }
 
@@ -123,9 +123,7 @@ public class ForgotPasswordCodeFragment extends Fragment {
 
                             if (result != null && result.contains("success")) {
                                 ForgotPasswordActivity.verify();
-                            }
-
-                            else {
+                            } else {
                                 try {
                                     JSONObject jo = new JSONObject(result);
                                     String error = jo.getString("error");
@@ -133,7 +131,7 @@ public class ForgotPasswordCodeFragment extends Fragment {
                                     Log.d("PB_ID", "Serveur : " + error);
                                 }
                                 catch (JSONException ex) {
-                                    Log.e("JSON_PARSE", "Erreur lors de la lecture du JSON : " + result);
+                                    Log.e("JSON_PARSE", "Erreur JSON : " + result);
                                 }
                             }
                         }

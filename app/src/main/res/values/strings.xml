@@ -119,4 +119,6 @@
     <string name="appliance_pc">Computer</string>
     <string name="statistiques_de_l_habitat">Accommodation statistics</string>
     <string name="r_sum_des_donn_es">Summary of data</string>
+    <string name="delete_confirm_booking">Do you really want to cancel this reservation?</string>
+    <string name="delete_reserv">Reservation canceled.</string>
 </resources>

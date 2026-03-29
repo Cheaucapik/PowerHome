@@ -2,7 +2,6 @@ package iut.dam.powerhome;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -49,7 +47,8 @@ public class ForgotPasswordMailFragment extends Fragment {
         String email = email_et.getText().toString().trim();
 
         if (!isValidEmail(email)) {
-            email_et.setError(getString(R.string.error_invalid_email));            email_et.requestFocus();
+            email_et.setError(getString(R.string.error_invalid_email));
+            email_et.requestFocus();
             return;
         }
 
@@ -62,7 +61,7 @@ public class ForgotPasswordMailFragment extends Fragment {
                     @Override
                     public void onCompleted(Exception e, String result) {
                         if (e != null) {
-                            Log.e(R.string.error_generic + "", R.string.error_network + "", e);
+                            Log.e("API_RECOVER", "Erreur réseau", e);
                             return;
                         }
 
@@ -80,23 +79,23 @@ public class ForgotPasswordMailFragment extends Fragment {
 
                                 if(renvoie){
                                     String code = jo.getString("code");
-                                    Toast.makeText(getContext(), getString(R.string.success_code_sent), Toast.LENGTH_SHORT).show();                                    Log.i("Code", code);
+                                    Toast.makeText(getContext(), getString(R.string.success_code_sent), Toast.LENGTH_SHORT).show();
+                                    Log.i("Code", code);
                                 }
                                 ForgotPasswordActivity.code();
                             } catch (JSONException ex) {
-                                Log.e("JSON_PARSE", R.string.error_json + result);
+                                Log.e("JSON_PARSE", "Erreur JSON : " + result);
                             }
                         }
-
                         else {
                             try {
                                 JSONObject jo = new JSONObject(result);
                                 String error = jo.getString("error");
                                 Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-                                Log.d("PB_ID", R.string.error_server + error);
+                                Log.d("PB_ID", "Erreur serveur : " + error);
                             }
                             catch (JSONException ex) {
-                                Log.e("JSON_PARSE", R.string.error_json + result);
+                                Log.e("JSON_PARSE", "Erreur JSON : " + result);
                             }
                         }
                     }

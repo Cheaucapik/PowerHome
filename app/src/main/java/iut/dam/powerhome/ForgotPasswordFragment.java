@@ -39,6 +39,7 @@ public class ForgotPasswordFragment extends Fragment {
     }
 
     public void done(View v) {
+        if (getContext() == null) return;
         SharedPreferences sp = getContext().getSharedPreferences("CodeSession", MODE_PRIVATE);
         String json = sp.getString("code_json", null);
 
@@ -66,7 +67,7 @@ public class ForgotPasswordFragment extends Fragment {
                         @Override
                         public void onCompleted(Exception e, String result) {
                             if (e != null) {
-                                Log.e("DEBUG_SERVER", "Problème réseau", e);
+                                Log.e("API_DONE", "Problème réseau lors de la validation du mot de passe", e);
                                 return;
                             }
 
@@ -83,7 +84,10 @@ public class ForgotPasswordFragment extends Fragment {
                                     Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException ex) {
-                                Toast.makeText(getContext(), R.string.error_json, Toast.LENGTH_SHORT).show();
+                                if (getContext() != null) {
+                                    Toast.makeText(getContext(), getString(R.string.error_json), Toast.LENGTH_SHORT).show();
+                                }
+                                Log.e("JSON_PARSE", "Erreur JSON : " + result);
                             }
                         }
                     });

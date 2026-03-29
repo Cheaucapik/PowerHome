@@ -88,7 +88,7 @@ public class CustomDialogEditAppliance extends Dialog {
                     @Override
                     public void onCompleted(Exception e, String result) {
                         if (e != null) {
-                            Log.e(R.string.error_generic + "", R.string.error_network + "", e);
+                            Log.e(getContext().getString(R.string.error_generic), getContext().getString(R.string.error_network), e);
                             return;
                         }
 

@@ -16,10 +16,9 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HabitatsFragment extends Fragment {
-    private ArrayList<Habitat> habitats =new ArrayList<>();
+    private ArrayList<Habitat> habitats = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class HabitatsFragment extends Fragment {
                     @Override
                     public void onCompleted(Exception e, String result) {
                         if (e != null) {
-                            Log.e(R.string.error_generic + "", R.string.error_network + "");
+                            Log.e("API_HABITATS", "Erreur réseau lors de la récupération des habitats", e);
                             return;
                         }
                         if (result != null) {
@@ -48,7 +47,9 @@ public class HabitatsFragment extends Fragment {
                             habitats.addAll(Habitat.getListFromJson(result));
                             adapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getContext(), R.string.error_generic + result, Toast.LENGTH_LONG).show();
+                            if (getContext() != null) {
+                                Toast.makeText(getContext(), getString(R.string.error_generic), Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 });

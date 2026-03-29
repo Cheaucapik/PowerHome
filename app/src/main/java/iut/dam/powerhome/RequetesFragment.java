@@ -96,7 +96,7 @@ public class RequetesFragment extends Fragment {
         if (getContext() == null) return;
         String json = getContext().getSharedPreferences("UserSession", MODE_PRIVATE)
                 .getString("user_json", null);
-        if (json == null) { toast(R.string.error_no_user_connected + ""); return; }
+        if (json == null) { toast(getString(R.string.error_no_user_connected)); return; }
         currentUser = User.getFromJson(json);
     }
 
@@ -134,7 +134,7 @@ public class RequetesFragment extends Fragment {
         String url = BASE_URL + "getCalendarStatus.php?token=" + currentUser.token
                 + "&start_date=" + currentWindowStartDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
         Ion.with(getContext()).load(url).asString().setCallback((e, r) -> {
-            if (e != null) { toast(R.string.error_calendar + ""); return; }
+            if (e != null) { toast(getString(R.string.error_calendar)); return; }
             CalendarStatusResponse cr = CalendarStatusResponse.getFromJson(r);
             if (cr == null || cr.getDays() == null) return;
             tvMonth.setText(cr.getMonth_label());
@@ -280,9 +280,9 @@ public class RequetesFragment extends Fragment {
     //verify que les 3 elements sont bien selected pour appeler le postReservation
     private void setupConfirmButton() {
         btnConfirm.setOnClickListener(v -> {
-            if (selectedDay == null)       { toast(R.string.choose_date + "");    return; }
-            if (selectedTimeslot == null)  { toast(R.string.choose_timeslot + "");  return; }
-            if (selectedAppliance == null) { toast(R.string.choose_appliance + ""); return; }
+            if (selectedDay == null)       { toast(getString(R.string.choose_date));    return; }
+            if (selectedTimeslot == null)  { toast(getString(R.string.choose_timeslot));  return; }
+            if (selectedAppliance == null) { toast(getString(R.string.choose_appliance)); return; }
             postReservation();
         });
     }
@@ -298,14 +298,14 @@ public class RequetesFragment extends Fragment {
                 .setBodyParameter("timeslot_id",      String.valueOf(selectedTimeslot.getId()))
                 .setBodyParameter("appliance_ids",    String.valueOf(selectedAppliance.getId()))
                 .asString().setCallback((e, r) -> {
-                    if (e != null) { toast(R.string.error_network + ""); return; }
+                    if (e != null) { toast(getString(R.string.error_network)); return; }
                     handleJson(r, "eco_coin_delta", delta -> {
                         currentUser.solde += delta;
                         saveUserToSession();
                         hideCreneauSection();
                         loadReservations();
                         loadCalendarStatus();
-                        toast(R.string.reservation_confirmed + "");
+                        toast(getString(R.string.reservation_confirmed));
                     });
                 });
     }
@@ -320,7 +320,7 @@ public class RequetesFragment extends Fragment {
         Ion.with(getContext())
                 .load(BASE_URL + "getReservationByUser.php?token=" + currentUser.token)
                 .asString().setCallback((e, r) -> {
-                    if (e != null) { toast("Erreur chargement réservations"); return; }
+                    if (e != null) { toast(getString(R.string.error_reserv)); return; }
                     renderReservations(Reservation.getListFromJson(r));
                 });
     }
@@ -335,7 +335,7 @@ public class RequetesFragment extends Fragment {
         LocalDate today = LocalDate.now();
         if (list == null || list.isEmpty()) {
             TextView tv = new TextView(getContext());
-            tv.setText("Aucune réservation à venir.");
+            tv.setText(R.string.no_upcoming_res);
             tv.setTextColor(color(R.color.gray));
             tv.setTextSize(13f);
             layoutReservations.addView(tv);
@@ -346,7 +346,7 @@ public class RequetesFragment extends Fragment {
             LocalDate d = LocalDate.parse(res.getReservation_date(), DateTimeFormatter.ISO_LOCAL_DATE);
             //pas de reservation passee
             if (d.isBefore(today)) continue;
-            String label = "Le " + formatDate(res.getReservation_date()) + " :";
+            String label = formatDate(res.getReservation_date()) + " :";
             if (!label.equals(lastLabel)) {
                 //ne pas afficher deux fois le mm header
                 lastLabel = label;
@@ -391,10 +391,10 @@ public class RequetesFragment extends Fragment {
     private void confirmDelete(Reservation res) {
         if (getContext() == null) return;
         new AlertDialog.Builder(getContext())
-                .setTitle("Supprimer")
-                .setMessage("Voulez-vous vraiment supprimer cette réservation ?")
-                .setNegativeButton("ANNULER", null)
-                .setPositiveButton("SUPPRIMER", (d, w) -> deleteReservation(res))
+                .setTitle(R.string.dialog_delete_title)
+                .setMessage(R.string.delete_confirm_booking)
+                .setNegativeButton(R.string.btn_cancel, null)
+                .setPositiveButton(R.string.dialog_delete_title, (d, w) -> deleteReservation(res))
                 .show();
     }
 
@@ -406,13 +406,13 @@ public class RequetesFragment extends Fragment {
                 .setBodyParameter("token",          currentUser.token)
                 .setBodyParameter("reservation_id", String.valueOf(res.getId()))
                 .asString().setCallback((e, r) -> {
-                    if (e != null) { toast("Erreur réseau"); return; }
+                    if (e != null) { toast(getString(R.string.error_network)); return; }
                     handleJson(r, "eco_coin_reverted", delta -> {
                         currentUser.solde += delta;
                         saveUserToSession();
                         loadReservations();
                         loadCalendarStatus();
-                        toast("Réservation supprimée.");
+                        toast(getString(R.string.delete_reserv));
                     });
                 });
     }
@@ -497,7 +497,7 @@ public class RequetesFragment extends Fragment {
         try {
             JSONObject obj = new JSONObject(r);
             if (obj.optBoolean("success")) onSuccess.run(obj.optInt(key, 0));
-            else toast(obj.optString("error", "Erreur"));
-        } catch (Exception ex) { toast("Erreur de réponse"); }
+            else toast(obj.optString("error", getString(R.string.error_generic)));
+        } catch (Exception ex) { toast(getString(R.string.error_json)); }
     }
 }
