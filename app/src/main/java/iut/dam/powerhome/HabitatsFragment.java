@@ -30,7 +30,7 @@ public class HabitatsFragment extends Fragment {
         HabitatAdapter adapter = new HabitatAdapter(getContext(), R.layout.item_habitat, habitats);
         habitantsLV.setAdapter(adapter);
 
-        String url = "http://10.0.2.2/powerhome_server/getHabitats.php";
+        String url = "http://10.0.2.2/www/getHabitats.php";
 
         Ion.with(this)
                 .load(url)

@@ -114,7 +114,7 @@ public class MonHabitatFragment extends Fragment {
     }
 
     private void loadDataFromServer(String email) {
-        String url = "http://10.0.2.2/powerhome_server/getHabitatByUser.php?email=" + email;
+        String url = "http://10.0.2.2/www/getHabitatByUser.php?email=" + email;
 
         Ion.with(this)
                 .load(url)

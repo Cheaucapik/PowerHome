@@ -86,7 +86,7 @@ public class CustomDialogAddAppliance extends Dialog {
                 User currentUser = User.getFromJson(json);
                 String idHab = String.valueOf(currentUser.habitat.id);
 
-                String url = "http://10.0.2.2/powerhome_server/addAppliance.php";
+                String url = "http://10.0.2.2/www/addAppliance.php";
 
                 Ion.with(getContext())
                         .load("POST", url)

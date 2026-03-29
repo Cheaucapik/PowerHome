@@ -79,7 +79,7 @@ public class CustomDialogEditAppliance extends Dialog {
     }
 
     public void remove(int id, int position) {
-        String url = "http://10.0.2.2/powerhome_server/removeAppliance.php?id=" + id;
+        String url = "http://10.0.2.2/www/removeAppliance.php?id=" + id;
 
         Ion.with(getContext())
                 .load(url)

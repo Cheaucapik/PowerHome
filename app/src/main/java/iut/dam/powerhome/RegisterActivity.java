@@ -84,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
         String tel_brut = ((EditText) findViewById(R.id.tel_et)).getText().toString().trim();
         String tel = prefixe_sp.getSelectedItem().toString() + "-" + tel_brut;
 
-        String url = "http://10.0.2.2/powerhome_server/signup.php";
+        String url = "http://10.0.2.2/www/signup.php";
 
 
         Ion.with(this)

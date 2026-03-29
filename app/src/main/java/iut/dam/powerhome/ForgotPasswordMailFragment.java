@@ -52,7 +52,7 @@ public class ForgotPasswordMailFragment extends Fragment {
             return;
         }
 
-        String url = "http://10.0.2.2/powerhome_server/recover.php?email=" + email;
+        String url = "http://10.0.2.2/www/recover.php?email=" + email;
 
         Ion.with(this)
                 .load(url)

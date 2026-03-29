@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String url = "http://10.0.2.2/powerhome_server/login.php";
+        String url = "http://10.0.2.2/www/login.php";
 
         Ion.with(this)
                 .load("POST", url)

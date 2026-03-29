@@ -50,7 +50,7 @@ public class RequetesFragment extends Fragment {
     private Timeslot selectedTimeslot = null;
     private Appliance selectedAppliance = null;
 
-    private static final String BASE_URL = "http://10.0.2.2/powerhome_server/";
+    private static final String BASE_URL = "http://10.0.2.2/www/";
 
     public RequetesFragment() {}
 

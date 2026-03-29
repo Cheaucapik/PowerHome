@@ -53,7 +53,7 @@ public class ForgotPasswordCodeFragment extends Fragment {
             User currentUser = User.getFromJson(json);
             String id = String.valueOf(currentUser.id);
 
-            String url = "http://10.0.2.2/powerhome_server/send.php?id=" + id;
+            String url = "http://10.0.2.2/www/send.php?id=" + id;
 
             Ion.with(this)
                     .load(url)
@@ -106,7 +106,7 @@ public class ForgotPasswordCodeFragment extends Fragment {
             EditText code_et = layout.findViewById(R.id.code_et);
             String code = code_et.getText().toString().trim();
 
-            String url = "http://10.0.2.2/powerhome_server/verify.php?id=" + id +"&code=" + code;
+            String url = "http://10.0.2.2/www/verify.php?id=" + id +"&code=" + code;
 
             Ion.with(this)
                     .load(url)

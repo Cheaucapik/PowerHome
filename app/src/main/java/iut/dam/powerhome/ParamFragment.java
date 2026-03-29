@@ -147,7 +147,7 @@ public class ParamFragment extends Fragment {
 
     private void updateUser(String fname, String lname, String email, String tel, String user, String oldP, String newP) {
         Ion.with(this)
-                .load("http://10.0.2.2/powerhome_server/update_user.php")
+                .load("http://10.0.2.2/www/update_user.php")
                 .setBodyParameter("token", userToken)
                 .setBodyParameter("firstname", fname)
                 .setBodyParameter("lastname", lname)

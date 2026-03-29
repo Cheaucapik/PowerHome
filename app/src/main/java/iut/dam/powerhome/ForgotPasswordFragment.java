@@ -56,7 +56,7 @@ public class ForgotPasswordFragment extends Fragment {
                 return;
             }
 
-            String url = "http://10.0.2.2/powerhome_server/done.php";
+            String url = "http://10.0.2.2/www/done.php";
 
             Ion.with(this)
                     .load("POST", url)
