@@ -114,7 +114,9 @@
     <string name="mes_cr_neaux">Mes créneaux :</string>
     <string name="welcome_to_the_residence">Bienvenue dans la résidence</string>
     <string name="appliance_tv">Télévision</string>
-    <string name="appliance_over">Four</string>
+    <string name="appliance_oven">Four</string>
     <string name="appliance_fridge">Réfrégirateur</string>
     <string name="appliance_pc">Ordinateur</string>
+    <string name="statistiques_de_l_habitat">Statistiques de l\'Habitat</string>
+    <string name="r_sum_des_donn_es">Résumé des données</string>
 </resources>

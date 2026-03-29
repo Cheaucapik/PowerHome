@@ -114,7 +114,9 @@
     <string name="mes_cr_neaux">My slots :</string>
     <string name="welcome_to_the_residence">Welcome to the residence</string>
     <string name="appliance_tv">Television</string>
-    <string name="appliance_over">Oven</string>
+    <string name="appliance_oven">Oven</string>
     <string name="appliance_fridge">Fridge</string>
     <string name="appliance_pc">Computer</string>
+    <string name="statistiques_de_l_habitat">Accommodation statistics</string>
+    <string name="r_sum_des_donn_es">Summary of data</string>
 </resources>

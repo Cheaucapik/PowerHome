@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,7 +25,11 @@ public class CustomDialogAddAppliance extends Dialog {
             "appliance_steam_ironer",
             "appliance_air_conditionner",
             "appliance_washing_machine",
-            "appliance_vacuum_cleaner"
+            "appliance_vacuum_cleaner",
+            "appliance_pc",
+            "appliance_oven",
+            "appliance_fridge",
+            "appliance_tv"
     };
 
     public CustomDialogAddAppliance(Context context) {
@@ -44,7 +47,11 @@ public class CustomDialogAddAppliance extends Dialog {
                 getContext().getString(R.string.appliance_steam_ironer),
                 getContext().getString(R.string.appliance_air_conditionner),
                 getContext().getString(R.string.appliance_washing_machine),
-                getContext().getString(R.string.appliance_vacuum_cleaner)
+                getContext().getString(R.string.appliance_vacuum_cleaner),
+                getContext().getString(R.string.appliance_pc),
+                getContext().getString(R.string.appliance_oven),
+                getContext().getString(R.string.appliance_fridge),
+                getContext().getString(R.string.appliance_tv),
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),

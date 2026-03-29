@@ -50,6 +50,14 @@ public class Appliance implements Serializable {
                 return R.drawable.air_conditioning;
             case "appliance_steam_ironer":
                 return R.drawable.steam_iron;
+            case "appliance_fridge":
+                return R.drawable.fridge_svgrepo_com;
+            case "appliance_pc":
+                return R.drawable.computer_svgrepo_com;
+            case "appliance_oven":
+                return R.drawable.oven;
+            case "appliance_tv":
+                return R.drawable.tv;
             default:
                 return R.drawable.default_icon;
         }
