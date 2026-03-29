@@ -121,4 +121,13 @@
     <string name="r_sum_des_donn_es">Summary of data</string>
     <string name="delete_confirm_booking">Do you really want to cancel this reservation?</string>
     <string name="delete_reserv">Reservation canceled.</string>
+    <string name="attention_ce_cr_neau_est_satur">⚠ Warning, this time slot is saturated.</string>
+    <string name="solde_total">Total Balance</string>
+    <string name="solde_initial">Initial balance</string>
+    <string name="confirmer">Confirm</string>
+    <string name="s_lectionnez_l_appareil_utilis">Select the device used:</string>
+    <string name="bonus_co_coin">Eco-corner bonus</string>
+    <string name="cr_neau_choisi">Selected time slot:</string>
+    <string name="date_choisie">Selected date</string>
+    <string name="choisir_un_cr_neau">Choose a timeslot :</string>
 </resources>

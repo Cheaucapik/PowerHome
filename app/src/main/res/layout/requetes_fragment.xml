@@ -120,7 +120,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choisir un créneau :"
+                android:text="@string/choisir_un_cr_neau"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="@color/black"/>
@@ -129,7 +129,7 @@
                 android:id="@+id/tv_resume_donnees"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Résumé des données"
+                android:text="@string/r_sum_des_donn_es"
                 android:textSize="12sp"
                 android:textColor="@color/gray"
                 android:layout_marginTop="2dp"
@@ -151,7 +151,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Date choisie"
+                    android:text="@string/date_choisie"
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:layout_marginStart="10dp"/>
@@ -180,7 +180,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Créneau choisi :"
+                    android:text="@string/cr_neau_choisi"
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:layout_marginStart="10dp"/>
@@ -221,7 +221,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Bonus éco-coin"
+                    android:text="@string/bonus_co_coin"
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:layout_marginStart="10dp"/>
@@ -246,7 +246,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sélectionnez l'appareil utilisé :"
+                android:text="@string/s_lectionnez_l_appareil_utilis"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -283,7 +283,7 @@
                     android:id="@+id/btn_confirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Confirmer"
+                    android:text="@string/confirmer"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:background="@drawable/edittext_rounded"
@@ -309,7 +309,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Solde initial"
+                            android:text="@string/solde_initial"
                             android:textSize="11sp"
                             android:textColor="@color/gray"/>
                         <TextView
@@ -330,7 +330,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Solde Total"
+                            android:text="@string/solde_total"
                             android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"/>
@@ -353,7 +353,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="⚠ Attention, ce créneau est saturé."
+                android:text="@string/attention_ce_cr_neau_est_satur"
                 android:textColor="@color/red"
                 android:textStyle="bold"
                 android:textSize="12sp"

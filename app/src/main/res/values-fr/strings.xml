@@ -121,4 +121,13 @@
     <string name="r_sum_des_donn_es">Résumé des données</string>
     <string name="delete_confirm_booking">Voulez-vous vraiment supprimer cette réservation ?</string>
     <string name="delete_reserv">Réservation supprimée.</string>
+    <string name="attention_ce_cr_neau_est_satur">⚠ Attention, ce créneau est saturé.</string>
+    <string name="solde_total">Solde Total</string>
+    <string name="solde_initial">Solde initial</string>
+    <string name="confirmer">Confirmer</string>
+    <string name="s_lectionnez_l_appareil_utilis">Sélectionnez l\'appareil utilisé :</string>
+    <string name="bonus_co_coin">Bonus éco-coin</string>
+    <string name="cr_neau_choisi">Créneau choisi :</string>
+    <string name="date_choisie">Date choisie</string>
+    <string name="choisir_un_cr_neau">Choisir un créneau :</string>
 </resources>
